@@ -67,7 +67,7 @@ def add_source_monitors(fdtd, x_src, x_T):
         "z": 0.0, "z span": 1e-6,
         "x": x_src,
         "center wavelength": lambda_B,
-        "wavelength span": (wl_hi - wl_lo) * 0.55,
+        "wavelength span": (wl_hi - wl_lo),
         "set wavelength": 1,
     })
     for obj, typ in (("addpower", "2D X-normal"), ("addprofile", "2D X-normal")):
@@ -81,6 +81,19 @@ def add_source_monitors(fdtd, x_src, x_T):
             "frequency points": n_freq,
             "name": "Tpow" if obj == "addpower" else "Tfield",
         })
+    # reflection field monitor BEHIND the source: only backward light there,
+    # so its phase gives the reflection group delay (the correct geometry for
+    # a reflective/chirped grating — the through phase is meaningless when T~0)
+    fdtd.addprofile()
+    S(fdtd, {
+        "monitor type": "2D X-normal",
+        "y": 0.0, "y span": 4.0e-6,
+        "z": 0.0, "z span": 1e-6,
+        "x": x_src - 1.5e-6,
+        "override global monitor settings": 1,
+        "frequency points": n_freq,
+        "name": "Rfield",
+    })
 
 
 def build(fname, dn, L, chirp_dLambda=0.0):
@@ -148,10 +161,26 @@ def extract(fsp, tag):
     Eline = E[idx, :, comp]
     phi = np.unwrap(np.angle(Eline))
     tau = np.gradient(phi, f) / (2 * np.pi)
-    np.savez(os.path.join(OUT, "%s_raw.npz" % tag), f=f, T=T, tau=tau)
+    # reflection group delay (if the fsp has an Rfield monitor)
+    tau_r = None
+    try:
+        Rres = fdtd.getresult("Rfield", "E")
+        Er = np.squeeze(Rres["E"])
+        yr = np.array(Rres["y"]).flatten()
+        idr = np.abs(yr).argmin()
+        compr = np.abs(Er[idr, :, :]).sum(axis=0).argmax()
+        Erline = Er[idr, :, compr]
+        phi_r = np.unwrap(np.angle(Erline))
+        tau_r = np.gradient(phi_r, f) / (2 * np.pi)
+    except Exception:
+        pass
+    np.savez(os.path.join(OUT, "%s_raw.npz" % tag), f=f, T=T, tau=tau,
+             tau_r=tau_r if tau_r is not None else np.zeros_like(tau) * np.nan)
     fdtd.close()
-    print("  %s done. tau mean = %.4f ps" % (tag, np.mean(tau) * 1e12), flush=True)
-    return f, T, tau
+    print("  %s done. tau mean = %.4f ps%s" % (
+        tag, np.mean(tau) * 1e12,
+        ", tau_r mean = %.4f ps" % (np.mean(tau_r) * 1e12) if tau_r is not None else ""), flush=True)
+    return f, T, tau, tau_r
 
 
 def kappa_from_gap(wl, T, n_g, lam_B):
@@ -188,12 +217,18 @@ def main():
             k = kappa_from_gap(d["wl"], d["T"], n_g, lambda_B)
             print("dn=0.02: reuse existing run, kappa_fit = %.0f /cm" % (k / 100), flush=True)
         else:
+            raw = os.path.join(OUT, "%s_raw.npz" % tag)
             fsp = os.path.join(OUT, "%s.fsp" % tag)
-            if not os.path.exists(fsp):
-                print("building %s ..." % tag, flush=True)
-                build(fsp, dn, L_uni)
-            print("running %s ..." % tag, flush=True)
-            f, T, tau = extract(fsp, tag)
+            if os.path.exists(raw):
+                d = np.load(raw)
+                f, T = d["f"], d["T"]
+                print("reusing saved %s run" % tag, flush=True)
+            else:
+                if not os.path.exists(fsp):
+                    print("building %s ..." % tag, flush=True)
+                    build(fsp, dn, L_uni)
+                print("running %s ..." % tag, flush=True)
+                f, T, tau, _ = extract(fsp, tag)
             k = kappa_from_gap(C0 / f, T, n_g, lambda_B)
             print("dn=%.2f: kappa_fit = %.0f /cm" % (dn, k / 100), flush=True)
         kappas.append(k)
@@ -211,10 +246,9 @@ def main():
         print("building chirp ...", flush=True)
         build(fsp, 0.02, L_ch, chirp_dL)
     print("running chirp ... (this is the long one)", flush=True)
-    f, T, tau = extract(fsp, "chirp")
-    tau_base = n_g * (L_ch + 4e-6) / C0          # analytic baseline (n_g dispersion neglected)
+    f, T, tau, tau_r = extract(fsp, "chirp")
     np.savez(os.path.join(OUT, "chirp2d.npz"),
-             f=f, wl=C0 / f, T=T, tau_g=tau - tau_base,
+             f=f, wl=C0 / f, T=T, tau_g=tau, tau_r=tau_r,
              n_g=n_g, L=L_ch, chirp_dLambda=chirp_dL,
              Lambda0=Lambda0, lambda_B=lambda_B)
     print("chirp done. saved chirp2d.npz", flush=True)
