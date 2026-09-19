@@ -19,7 +19,7 @@ C0 = 299792458.0
 
 
 def extract(fsp, tag):
-    fdtd = lumapi.FDTD(hide=True)
+    fdtd = lumapi.FDTD(hide=False)
     fdtd.load(fsp)
 
     Tres = fdtd.getresult("Tpow", "T")

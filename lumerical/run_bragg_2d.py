@@ -61,7 +61,7 @@ def S(fdtd, d):
 
 
 def build(fname, with_grating):
-    fdtd = lumapi.FDTD(hide=True)
+    fdtd = lumapi.FDTD(hide=False)
     fdtd.save(fname)
 
     fdtd.addfdtd()
@@ -157,7 +157,7 @@ def build(fname, with_grating):
 
 
 def run_and_extract(fsp, tag):
-    fdtd = lumapi.FDTD(hide=True)
+    fdtd = lumapi.FDTD(hide=False)
     # limit MPI processes: 12-rank runs on this laptop repeatedly lost engine
     # processes mid-run; 6 ranks leaves CPU for interactive use and is stable.
     fdtd.setresource("FDTD", 1, "processes", 6)
