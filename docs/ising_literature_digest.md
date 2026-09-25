@@ -154,6 +154,18 @@ PIM 的光域线性耦合层"，或"我们的 EO 激活 + 他们的 QD comb 源�
 2. **MZM sin² 作 RC 节点**（03/04/05 已在仿真）：输入掩码刚需是 04 的新发现。
 3. **色散元件作光学线性层**（我们的独特资产）：把啁啾光栅的 GD 用于"模拟矩阵/
    延迟嵌入"——连接 Ising（耦合层）与 RC（掩码/记忆层）两个世界。
+   **已有直接先例**（交叉检验过）：
+   - [Zhang et al., "Reconfigurable Cascaded Chirped-Grating Delay Lines for Silicon
+     Photonic Convolutional Computing", Photonics 12, 974 (2025)](https://www.mdpi.com/2304-6732/12/10/974)
+     ——SOI 上级联 CBG 做可调真延迟（0–100 ps，GD 斜率 ~25 ps/nm，10 mm/段，
+     GDR 2–3 ps），波长选择粗调 + 微加热器精调，直接喂给光子 CNN 的卷积移位。
+     **与他们对比**：他们要的是大延迟粗粒度（ps 级 bit 移位），我们的 TFLN 啁啾光栅
+     是色散整形细粒度（D≈0.051 ps/nm、带宽数十 nm）——同一物理（GD 工程）
+     不同生态位，恰好互补而非竞争。
+   - Huang et al., Opt. Express 27, 20456 (2019)：时-波长平面操控 + 色散延迟做
+     可编程矩阵运算（复旦/暨南路线）；Jiang et al., JLT 39, 4592 (2021)：
+     交错时-波长调制 PCNN。**结论：色散延迟做矩阵运算是已被验证的方向，
+     我们的切入点应在"TFLN 平台上的高精度 GD 整形"而非做大延迟。**
 4. **TFLN χ² OPO 路线**（NTT/Marandi）：物理上最优雅的 CIM，但需要 PPLN 工艺，
    我们当前是 EO 平台，列为远期。
 5. **全光 ReLU 等深学激活**（Marandi, Nanophotonics 2023）：与我们 sin² 互补，
