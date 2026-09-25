@@ -147,6 +147,15 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
 6. 顺带发现：[Lightelligence PACE 3 在 WAIC 2026 展示 256×256 光子矩阵
    推理卡](https://pandaily.com/lightelligence-optical-computing-commercialization-jul2026)
    ——前馈 matmul 路线的商业化代表，与 NeuraWave 的 RC 路线构成对照组。
+7. **物理 RC 的权威定标**：[Tanaka et al., Neural Networks 115, 100–123 (2019)](https://ar5iv.labs.arxiv.org/html/1808.04962)
+   （ar5iv 全文可读，被引 ~2900）——按物理基底分类的标准综述，写论文引言时用它
+   锚定"物理蓄水池"概念谱系。
+8. **RC 最强的真实应用锚点：光纤非线性均衡**（我们 04/05 的 channel 任务
+   正是这个负载）——Argyris et al. 2018 实验演示；[Masaad et al. 2022（64-QAM
+   + Kramers–Kronig 接收机仿真）](https://pmc.ncbi.nlm.nih.gov/articles/PMC11501668/)；
+   [2026 年新作报告 PRC 对相干信号非线性补偿带来 44% BER 改善](https://arxiv.org/pdf/2608.17419)。
+   这条线的商业逻辑最硬：均衡在模拟域线速完成就**不需要高速 ADC+DSP**，
+   正好打在光通信功耗痛点上——是"RC 潜力"一侧最有力的证据。
 
 ### 伊辛机的诚实性警示（对审稿/写论文有用）
 
