@@ -30,9 +30,22 @@
 - [RQ2.3] Khilo A. et al., "Photonic ADC: overcoming the bottleneck of electronic jitter", Opt. Express 20, 4454 (2012)（[MIT 全文](https://sclaser.mit.edu/documents/KhiloPhotonicADC.pdf)）| 用锁模激光超低定时抖动做光采样，绕开电子抖动 | 支撑 a)；**但注意差异化**：光子 ADC 路线仍是"先把整个时间轴数字化再算"——只是把采样前端换成光的，后端 ADC 量化和 DSP 功耗一分不少。我们（色散前端在检测前完成匹配滤波）与光子 ADC 是**不同层级**的方案：它优化采样器，我们消掉采样需求本身（黄超然 OSP 同款论证结构）| ✅ 差异化区间明确
 - [RQ2.2] 数字脉压功耗：检索到多为实现论文（Golubicic 2013 等），实测功耗数字稀少；CORE 博士论文（低功耗相控阵气象雷达）有 FPGA 脉压实现细节但未给 pJ/样本 | **暂缺硬数字**；可先用行业常识区间锚定：28–16 nm FPGA 信号处理实测能效 ~10–50 GFLOPS/W，10 GS/s × 复数 FIR（TBP~10³ tap）≈ 10¹³ MAC/s → **百瓦级**；与 TI ADC 的 4 W 合起来，"电子方案做 10 GHz 带宽脉压 ≈ 10–100 W 级"是安全口径 | 支撑 a) 量级判断，写论文前需找 1–2 篇给实测功耗的雷达处理 FPGA 文献坐实 | 部分触发
 
+## 2026-09-26 第二批：RQ3 占据图（色散×时间域计算）
+
+- [RQ3.1] Goda & Jalali, "Dispersive Fourier transformation for fast continuous single-shot measurements", Nat. Photon. 7, 102 (2013)；Mahjoubfar et al., Biomed. Opt. Express 4, 1618 (2013)（time-stretch + ML 流式细胞分类）| Jalali 线占据格子：**固定色散前端 + 数字 ML 后端**。色散只做"频谱→时间"映射帮电子 ADC 降速，学习全在数字端；色散不可调、读出非时间编码 | 支撑 c) 独创性声明（该格子被占≠我们的格子被占）；**占据者缺陷明确**：固定色散、仍依赖高速数字化 | ✅ 入占据图
+- [RQ3.1] Asghari & Jalali anamorphic/warped stretch 线（Appl. Opt. 52, 6735 (2013)；Mahjoubfar 2015 PMC4658532）| 按信号稀疏性设计非均匀群延迟轮廓做压缩采集——**群延迟轮廓是被"设计"的，但不是在线可调的**；后端仍是数字 | 同上 | ✅
+- [RQ3.1] Sozos K. et al., recurrent optical spectrum slicing（ROSS）线：PMC10955832 (2022/2024 综述性实验)；最新 arXiv:2604.20504 (2026-04, "co-packaged photonic reservoir + receiver" 全光均衡）| **最接近"色散当计算元件"的占据者**：光谱切片经色散介质获得波长依赖延迟，构成循环 RC 的虚拟节点间耦合。但：色散固定（光纤/DCF）、面向光通信均衡（补偿 CD 而非用它做通用计算）、读出是线性读出非时间编码、无 SNN | 威胁等级：中。c) 段独创性声明需写"色散在 ROSS 里只是延迟产生器，不是被调谐的计算变量；且无 spike/时间编码读出" | ✅ 入占据图，写作时必须引用区分
+- [RQ3.1] Larger L. et al., PRX 2017（被引 699）EO 相位延迟 TDRC | 延迟环 RC 经典作，延迟来自光纤环长度而非色散 | 不撞色散格子，但 RC 叙事必须引 | ✅
+- [RQ3 占据图 v0.1]（前端 × 后端）：
+  - 固定色散 × 数字后端 = Jalali time-stretch ML（强占据）
+  - 固定色散（作延迟源） × RC 线性读出 = Sozos/ROSS 线（中占据，通信均衡场景）
+  - 延迟线/微环 × RC = Larger 线及衍生物（强占据）
+  - **可调色散 × 时间编码 SNN 后端 = 空（我们的格子）**
+  - 可调色散 × 任何后端 = 基本空（检索未见把色散当"在线可调计算变量"的工作）| 支撑 c) | ✅ 判据达成（格子空，且能指出相邻格子占据者缺陷）
+
 ### 待办（下一批）
 
-- RQ3.1：time-stretch/色散计算占据图（部分已在 ising_literature_digest §三）；
-- RQ3.2：光子 SNN 突触/延迟实现方式梳理；
+- RQ3.2：光子 SNN 突触/延迟实现方式梳理（VCSEL spiking、MRR 权重等——部分已在 ising digest §三-12）；
+- RQ4：RC vs SNN 接口成本论证；
 - RQ5：各平台 |D|、延迟摆幅、ripple 对标表（用我们的核查数字定位）；
 - 用 Murmann 数据集出"fs vs fJ/step"边界图（本地脚本，标注我们目标工作点）。
