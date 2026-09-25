@@ -199,6 +199,13 @@ spike 链把连续波形事件化（免采样读出）。**这不是把 RC 硬�
    实证**，我们的论文只主张时序时间模式负载，恰好在 RC 胜区。⚠️ sin² 在
    小数据 NARMA 上比 tanh 差（0.744 vs 0.411），其优势区=大数据+非线性任务。
    图：`results/rc_vs_deep/rc_vs_deep.png`（可直接进论文）。
+
+   **强基线边界（7945HX 第二批对打，`results/rc_vs_baselines/`，rq 第三十批）**：
+   对 ESN/Volterra/ELM 强数字基线——NARMA 大预算 rc_tanh 0.117 全场最优
+   （教科书 ESN 0.274）；但信道均衡大预算 **RC 不占优**（SNR10 输 linear、
+   SNR20 输 Volterra 0.774 vs 0.762、SNR30 打平），护城河在**小训练预算**
+   （RC 0.61–0.63 vs Volterra 0.476、ESN 0.407）与免校准。写作纪律：
+   禁用"RC 优于经典基线"无限定表述。
 1. **vs LSTM/GRU**（Shahi 2022，被引 183，全文精读 ✅）：Lorenz-63 上
    LSTM/GRU 比 RC/NVAR **慢 3 个数量级**且精度更差；Morris-Lecar 爆发神经元
    数据上门控 RNN 基本失效。RC 在混沌/动力系统时序上的优势是系统级确立的；

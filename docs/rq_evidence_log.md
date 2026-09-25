@@ -222,7 +222,14 @@
 - [一致性核查] 三份文档（rc_tutorial / ising_literature_digest / rq_evidence_log）关键数字互查：designspace（319.0/363.2/0.1328/0.1377）、Kong（2.6e-3/3.9e-3/160 GSa/s）、PIC-OPO（0.07±0.017）、ADC 调研（9/707、92.6 pJ）、rc_vs_deep 八格数字 vs `results/rc_vs_deep/summary.json` 逐一相符；批次引用（rq 第四至二十八批）全部存在；下载清单销项状态（#3/#5/#6）三处一致；先占地图五行状态与精读段一致。**未发现矛盾**。
 - [旁路记录] 中转夹出现 PPT 会话的 HANDOFF（fig1 改收发链路）——按分工红线不处理；其架构描述（TX 拉伸光栅 + RX 压缩光栅 + 延迟环 RC + 慢 PD）与本会话教程 §5.1 的器件-RC 映射自洽，无需联动。
 
+## 2026-09-26 第三十批：小黑 rc_vs_baselines 验收（含 sanity 偏差的诚实记录）
+
+- [基线对打·sim] `results/rc_vs_baselines/`（commit 47d4583 区段，7945HX）：5 臂（rc_tanh / rc_sin2 / **ESN 稠密数字标准形** / **二阶 Volterra 信道经典基线** / ELM / linear）× NARMA / 信道（SNR 10/20/30 扫描）/ scene，900/900 行、0 ok=false | **核心数字（大预算）**：① NARMA NMSE：rc_tanh **0.117** 全场最优（rc_sin2 0.143、ESN 0.274、ELM 0.331、linear 0.334、Volterra 0.671）——**我们的掩码延迟环 SCR 打赢教科书 ESN**；② 信道均衡 SNR 扫描（5 种子均值±std）：SNR10 **linear 0.615 ≈ Volterra 0.613 > rc 0.571–0.579（RC 输）**；SNR20 **Volterra 0.774 > rc_sin2 0.762**（差 0.012，~1σ 内）；SNR30 rc_sin2 0.822 ≥ Volterra 0.820（打平）；③ **小预算段 RC 双臂全场最优**（0.61–0.63 vs Volterra 0.476、linear 0.540、ELM 0.548、ESN 0.407） | **判定（诚实版）：RC 在大预算信道任务上不占优——低 SNR 连线性都输、中 SNR 输 Volterra、高 SNR 打平；可辩护的护城河 = 小训练预算（校准成本）+ NARMA 类强非线性时序。论文禁用"RC 优于经典基线"的无限定表述** | ⚠️ sanity 偏差已记录（见下）
+- [验收记录] 任务书 sanity「channel@SNR20 rc 两臂 ≥ linear/volterra」**未达成**（Volterra 0.7736 > rc_sin2 0.7621；rc_tanh 0.7533 ≈ linear 0.7540）。按纪律：双方 JSON 与本分析入档，不改任何数值；小黑推送时尚未写 05/06 回执（06 可能在跑），已在中转夹 RECEIPT 中说明并提醒。
+- [数据质量注记] 1 行 ok=true 但 metric=NaN（narma/rc_tanh/n_train=100/seed=1，发散未被捕获），导致 summary 的 rc_tanh narma small_mean = NaN（聚合器用了 mean 而非 nanmean）——建议聚合器改 nanmean，原始行保留不动。
+- [对零号稿的收紧] 信道均衡叙事从"性能优势"改为"**训练数据效率 + 免 DSP 的模拟前端**"：大预算精度 Volterra 可追平，但 Volterra 需要精确信道建模/大量校准数据，我们免校准——这才是与 OSP 叙事兼容的表述。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑 05/06、07、08 回执；用户下载的清单 #1、#2、#4）；
-- 若仍无回执：核查 `论文零号稿_草稿.md` 与 RQ 日志的对齐度（零号稿三个目标数 vs 我们已固化的数字，找出零号稿需要更新的句子清单——只列清单不改原稿）。
+- 检查中转夹（小黑 06（ising_nonlinearity）、07、08 回执与 HANDOFF_FROM_7945HX_05_06.md；用户下载的清单 #1、#2、#4）；
+- 若仍无回执：把批 30 的收紧表述建议补进 `docs/rc_tutorial.md` §六对打表下方（加一行"强基线边界"注记）。
