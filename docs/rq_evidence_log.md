@@ -356,3 +356,13 @@
 
 - 检查中转夹（小黑 07 聚合器修复 commit、09 collision scheduler 进度、08b 回执）；
 - 备选：06b 递减步长调度任务书 DRAFT（Li 2024 G22 幅度不均+动态参数控制+Pramanik=立项依据齐）；批 39–44 回灌 rc_tutorial / digest。
+
+## 2026-09-26 第四十五批：06b 退火调度脚本+任务书（已发小黑，排 08b 后）
+
+- [sim·任务下发] 新脚本 `simulations/06b_ising_schedule.py`（导入 06 复用图生成/能量/SA 基准，只换退火调度）：5 调度（linear 锚点 / pow_r{0.5,0.75,1.0} Pramanik 幂律 / beta_ramp CIM 式耦合爬升）× act{sin,tanh} × 2 区域（fail_dense: dense+β5+noise1.0+N1000+α∈{0.3,0.5,0.8}；ctrl_3reg: 3reg+β1+noise0.1+α0.8）× 4 inst = 160 行。**冒烟 4 行通过并与 06 归档逐点对账**（dense 0.083 vs 归档 0.091=n_runs 子集差；3reg 0.208 vs 0.209 吻合；bk 种子一致）。任务书 `TASK_REQUEST_20260926_06b_ising_schedule.md` 已放中转夹，排 08b 后。
+- [科学问题] 调度能否把 sin 失效区救回 tanh 水平 + 对照区是否被帮倒忙——答案直接决定仿真 10 混频器臂是否必须内建增益定标/调度电路（Li 2024 动态参数控制 + Al-Kayed SI Pramanik 两条文献线索的自家验证）。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 07 聚合器修复 commit、09 进度、08b/06b 回执）；
+- 备选：批 39–45 回灌 rc_tutorial / digest（hybrid 裁决、sin 失效区、COL Ds-PRC、HANDOFF_08 口径差、光纤色散 FF-RC 先占）。
