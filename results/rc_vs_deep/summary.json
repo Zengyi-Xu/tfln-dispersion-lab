@@ -1,0 +1,74 @@
+{
+ "narma": {
+  "rc_tanh": {
+   "small_mean": 0.4111692992175273,
+   "big_mean": 0.13537971340634022
+  },
+  "rc_sin2": {
+   "small_mean": 0.743594625134234,
+   "big_mean": 0.15413082742061834
+  },
+  "mlp": {
+   "small_mean": 1.0324970310228108,
+   "big_mean": 0.3379047527528556
+  },
+  "linear": {
+   "small_mean": 0.42823927550675656,
+   "big_mean": 0.353827266555371
+  }
+ },
+ "channel": {
+  "rc_tanh": {
+   "small_mean": 0.6454220491182517,
+   "big_mean": 0.7620000000000001
+  },
+  "rc_sin2": {
+   "small_mean": 0.6403451943718435,
+   "big_mean": 0.7706999999999999
+  },
+  "mlp": {
+   "small_mean": 0.49492194377537485,
+   "big_mean": 0.7581
+  },
+  "linear": {
+   "small_mean": 0.5733490664343429,
+   "big_mean": 0.7516999999999999
+  }
+ },
+ "scene": {
+  "rc_tanh": {
+   "small_mean": 1.0,
+   "big_mean": 1.0
+  },
+  "rc_sin2": {
+   "small_mean": 1.0,
+   "big_mean": 1.0
+  },
+  "mlp": {
+   "small_mean": 1.0,
+   "big_mean": 1.0
+  },
+  "linear": {
+   "small_mean": 1.0,
+   "big_mean": 1.0
+  }
+ },
+ "static": {
+  "rc_tanh": {
+   "small_mean": 0.8452363636363637,
+   "big_mean": 0.9373333333333334
+  },
+  "rc_sin2": {
+   "small_mean": 0.7129,
+   "big_mean": 0.8379999999999999
+  },
+  "mlp": {
+   "small_mean": 0.9592363636363637,
+   "big_mean": 0.982
+  },
+  "linear": {
+   "small_mean": 0.9646939393939395,
+   "big_mean": 0.9873333333333333
+  }
+ }
+}
