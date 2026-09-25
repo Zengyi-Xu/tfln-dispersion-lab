@@ -20,7 +20,11 @@
 
 ### RQ2.1 主证据：ADC 能效边界
 
-- [RQ2.1] Murmann ADC Performance Survey 1997–2026（ISSCC+VLSI 数据，[github.com/bmurmann/ADC-survey](https://github.com/bmurmann/ADC-survey)）| 论文级权威数据源；公认趋势：采样率超过 ~1 GS/s 后 Walden FoM 系统性恶化（架构前沿 vs 技术前沿分叉）| 支撑零号稿 a) 的"互锁"声明 | 需从数据集提取 ≥5 GS/s、ENOB≥8 区域散点（可本地跑数据出图）
+- [RQ2.1] Murmann ADC Performance Survey 1997–2026（ISSCC+VLSI，[github.com/bmurmann/ADC-survey](https://github.com/bmurmann/ADC-survey)）| **已从原始数据集（rev20260801，N=707）提取定量边界**（脚本 `verify/adc_fom_plot.py`，图 `results/verify/adc_fom_boundary.png`）：
+  - 能量前沿：~1–2 fJ/step 平台维持到 ~500 MS/s，之后每十倍频恶化 ~5×：5.0 fJ/step @ 1.8 GS/s → 10.9 @ 5.6 GS/s → 22 @ 18 GS/s → 25.8 @ 56 GS/s；
+  - fs≥5 GS/s 全体（N=77）：FoM 中位 146 fJ/step，**ENOB 中位仅 5.3**，P/fs 中位 7.4 pJ/样本；
+  - **fs≥5 GS/s 且 ENOB≥8：707 篇里只有 9 篇**，P/fs 中位 **92.6 pJ/样本**——这就是零号稿 a) 要填的"贵区"；
+  - >5 GS/s 最优 P/fs = 958 fJ/样本（24 GS/s）——即便世界级前沿，TBP~10³ 的匹配滤波仅 ADC 就 ~1 nJ/决策 | 强支撑 a)：给出"采样率-ENOB-功耗互锁"的全数据证据 | ✅ 判据达成（a) 段的空可填：例——B=10 GHz、T_chirp=100 ns → TBP=10³ 样本/决策 → 电子链 ADC 能耗 ~1–93 nJ/决策（前沿至中位），未计 DSP）
 - [RQ2.1] TI ADC12DJ5200RF（[产品页](https://www.ti.com/product/ADC12DJ5200RF)，商用 RF 直采标杆）| 10.4 GS/s 单通道、12-bit 标称、**ENOB 8.6–8.8、功耗 4 W** → 385 fJ/样本（≈1 fJ/conv-step，已是该速率下世界级水平）；输入带宽 8 GHz，可用输入 >10 GHz | 支撑 a)：一次匹配滤波需 TBP~10³ 样本 → 仅 ADC 就 ~10²–10³ pJ/决策，还没算 DSP；且这是桌面级功耗，机载/星载不可承受 | ✅ 提供锚点
 - [RQ2.1 结构性上限] 孔径抖动限制：SNR_jitter = −20log₁₀(2π f_in σ_j)。σ_j=50 fs 时 f_in=20 GHz → SNR≈44 dB → **ENOB≈7**；f_in=60 GHz → ENOB≈5.7。抖动随工艺改善缓慢（十年改善 <4×），这是 a) 段"ENOB-采样率互锁"的物理根源 | 支撑 a) | ✅ 可写公式进零号稿
 
@@ -51,9 +55,12 @@
 - [RQ5/RQ1.2] TFLN 电调光栅先例簇：Prencipe et al. ACS Photonics 8, 2923 (2021)（可调超窄带光栅滤波器）；Pohl et al. IEEE PTL 33, 85 (2021)（100-GBd 波导光栅调制器）；BIT 2025 相移 WBG 电调微波光子滤波器；Glasgow 2025 电调制波导光栅 | **TFLN+光栅+电光调谐已存在，但调的都是滤波谱形/陷波位置，没人调"色散量/群延迟斜率"做时间域计算** | 既是威胁（工艺先例）又是支撑（可行性已被证明）；差异化措辞：tune *dispersion as a computational variable*，不是 tune filter | ✅ 精确划界
 - [RQ1.2 反例，必须记录] SiN 平台上**连续可调色散已存在**：高纵横比 SiN 芯超低损耗平台上的 10 阶晶格滤波器（21 个 MZI 级联、2.23 cm²），**−500 到 +500 ps/nm 连续可调**（ResearchGate 2025-08 条目引用）| **威胁** RQ1 判据句 v0.1 中"交集未被占据"的表述——需修正为：可调色散本身在 SiN 热调 MZI 晶格上存在，但 ① 热调 µs–ms 慢、② 横向滤波器架构的延迟摆幅受 FSR 限制、③ 与啁啾光栅的单程映射物理不同。TFLN EO 调谐的不可替代性收窄为"**ns 级调谐速度**" + CBG 固有的大摆幅/连续映射 | ⚠️ 触发反证条款：判据句 v0.2 待修订
 
+### RQ1 判据句 v0.2（2026-09-26，吸收 SiN 晶格滤波器反例）
+
+> 宽带相控阵/波形捷变雷达要求色散（真延迟）**在脉冲级时间尺度（ns–µs）上重构**，且连续、摆幅 ≥100 ps。现有方案：微环热调（连续、大范围，但 µs–ms 慢）；光开关切换（ns 快，但离散、精度低）；SiN MZI 晶格滤波器（连续 ±500 ps/nm，但热调慢 + 横向架构摆幅受 FSR 限）；波长扫描型（依赖快调激光，系统成本转移）。**"电光 ns 级 × 连续 × 大摆幅"三者交集无人占据**——TFLN 电光调谐啁啾光栅恰好同时满足三条，这是 TFLN 相对 SiN 的不可替代性所在（SiN 无显著 Pockels 效应，ns 级调谐只能靠载流子注入，损耗/功耗代价大）。
+> 出处：JEOS-RP 2025 OTTD 综述（四路线对比）；SiN 晶格滤波器 ±500 ps/nm（2025）；TFLN 电光调谐 ns 级为平台常识（Pockels r₃₃，调制器已达 100+ GBd）。
+
 ### 待办（下一批）
 
-- RQ1 判据句 v0.2 修订（吸收 SiN 晶格滤波器反例）；
 - RQ3.2：光子 SNN 突触/延迟实现方式梳理（部分已在 ising digest §三-12）；
-- RQ4：RC vs SNN 接口成本论证；
-- 用 Murmann 数据集出"fs vs fJ/step"边界图（本地脚本，标注我们目标工作点）。
+- RQ4：RC vs SNN 接口成本论证。
