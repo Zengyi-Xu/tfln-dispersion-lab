@@ -101,6 +101,11 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - 环境：torch 2.11.0+cu126（anaconda3），`KMP_DUPLICATE_LIB_OK=TRUE` 绕 OpenMP 冲突；LiDarSim 仓库经 ghfast 代理克隆（`workspace/lidar-pointnet`，HEAD 3cc5b6f，data/road_objects.npz 28,746 对象完好）
 - V6（C14 支持）：KITTI 全量 3 种子 road **0.871±0.004 / 0.924±0.001**、uav 0.754±0.003 / 0.860±0.003；seed0 与申报值逐位一致（原跑=seed 0）。键名乱码实因 GBK 环境误读 UTF-8 文件，`fix_kitti_keys.py` 已产出英文键版
 - V7（C15 支持）：预算扫描 1200→21558 五档，road 增益 +0.124→+0.053 严格单调收窄，中间点补齐；旧小预算 0.657/0.766 是单种子，3 种子均值 0.630/0.754
-- V8（C16 不支持）：4 类同口径对齐后合成 scan 1.000 / 0.9994 vs KITTI 0.924 / 0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度；旧「7 类合成 vs 4 类 KITTI」对比系口径错位。措辞替换见 SUMMARY §必须修改的表述 8
+- V8（C16 不支持）：4 类同口径对齐后合成 scan 1.000 / 0.9994 vs KITTI 0.924 / 0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度；旧「7 类合成 vs 4 类 KITTI」对比系口径错位。措辞替换见 SUMMARY §必须修改的表述 9
 - 新脚本（在 `lidar-pointnet/snn/`，未推送远端，待用户决定）：`road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py`
-- blocked 剩：V5（缺 `modelnet40_train/test.parquet`，请从旧机拷入 `lidar-pointnet/data/`）；V10-Concept Note 段；L1–L3
+
+**【双机合并 2026-09-25 晚：本机提交 6a47cff 与原机提交 9b4fd28 已合并】**
+- 原机并行完成了 V5（C12 支持 10 种子 ~7σ、角度加密 echo 0.721 超 raw 0.680 →「丢角度」机理决定性成立；C13 支持且更强：2bit 无损）、V6-road（CPU 3 种子 0.8696±0.0033 / 0.9119±0.0092）、V8（CPU，C16 同判不支持）、V10-Concept Note（数字全一致，唯一改动 = Yu 文献标题）
+- 跨机对照结论：C14 双机独立支持（扫描链 0.924 vs 0.912，差 0.012 在容差内）；C16 双机一致不支持；CPU 任务（V1–V4）两机数值逐项一致
+- 本机不再需要 ModelNet parquet（V5 已由原机销号）
+- blocked 仅剩：L1–L3（无 Lumerical，回旧机执行）

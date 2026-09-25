@@ -1,0 +1,90 @@
+{
+  "checks": [
+    {
+      "quantity": "TFLN FoM",
+      "formula": "2 n_g / (c a)",
+      "script": "m3b_delay_budget.py:60",
+      "computed": 424.5361211612844,
+      "claimed": 424.0,
+      "unit": "ps/dB",
+      "ok": true
+    },
+    {
+      "quantity": "3 dB swing",
+      "formula": "2 n_g L / c @ IL=3dB",
+      "script": "m3b_delay_budget.py:41,87-90",
+      "computed": 1.2736083634838533,
+      "claimed": 1.27,
+      "unit": "ns",
+      "ok": true
+    },
+    {
+      "quantity": "range window",
+      "formula": "c dTau / 2",
+      "script": "m3b_delay_budget.py:49",
+      "computed": 0.19090909090909092,
+      "claimed": 0.19,
+      "unit": "m",
+      "ok": true
+    },
+    {
+      "quantity": "D @ C=12nm/mm (n=2.2)",
+      "formula": "2 n_g/(c C)",
+      "script": "02_tolerance_scan.py:31-33, a5 table",
+      "computed": 1.223068349059891,
+      "claimed": 1.22,
+      "unit": "ps/nm",
+      "ok": true
+    },
+    {
+      "quantity": "D analytic for chirp2d",
+      "formula": "2 n_g/(c C), C=2 n_bar dLambda/dz",
+      "script": "run_scan_2d.py:133; chirp2d.npz",
+      "computed": 0.05011192982860122,
+      "claimed": 0.051,
+      "unit": "ps/nm",
+      "ok": true
+    },
+    {
+      "quantity": "kappa(w1500,dn=0.02)",
+      "formula": "pi n_g gap / lambda_B^2",
+      "script": "run_tolerance_fdtd.py:83; v2 re-extraction",
+      "computed": 606.2288918091269,
+      "claimed": 606.0,
+      "unit": "/cm",
+      "ok": true
+    },
+    {
+      "quantity": "dTau/dT",
+      "formula": "D lambda_B (dn/dT)/n_g",
+      "script": "02_tolerance_scan.py:211-217",
+      "computed": 0.03413472574194423,
+      "claimed": 0.034,
+      "unit": "ps/K",
+      "ok": true
+    }
+  ],
+  "ng_sensitivity": {
+    "2.05": {
+      "fom_ps_per_db": 414.4281182764919,
+      "swing_3db_ns": 1.2432843548294756,
+      "range_window_m": 0.18636363636363634
+    },
+    "2.1": {
+      "fom_ps_per_db": 424.5361211612844,
+      "swing_3db_ns": 1.2736083634838533,
+      "range_window_m": 0.19090909090909092
+    },
+    "2.2": {
+      "fom_ps_per_db": 444.75212693086945,
+      "swing_3db_ns": 1.3342563807926082,
+      "range_window_m": 0.2
+    },
+    "2.3": {
+      "fom_ps_per_db": 464.96813270045436,
+      "swing_3db_ns": 1.394904398101363,
+      "range_window_m": 0.20909090909090908
+    }
+  },
+  "all_ok": true
+}

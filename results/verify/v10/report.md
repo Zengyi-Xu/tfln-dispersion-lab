@@ -30,3 +30,31 @@
 
 1. 「ripple 峰峰值 ~9%（反射率口径）」——或改报群延迟口径「平台群延迟 ripple 1.2 ps（摆幅的 38%），切趾后可压至 0.1 ps 量级（TMM A6）」。
 2. 「D 与几何预言吻合到 8%」→ 建议「FDTD 实测 D=0.0512 与解析式 0.0502 偏差 +2%；与 TMM 独立模型 0.046 相差 ~10%」。
+
+---
+
+## 补充：Concept Note 第二版核查（本机已执行，docx 在原机 D 盘）
+
+> 以下为另一台主机（原机）2026-09-25 的补充核查，填补上文「未执行」项。
+> 方法：python-docx 抽取全部含数字句子 + 全文检索（`46 nm`/`594`/`1–20mm`/`2%` 等 pattern）。
+
+### 文书数字 → 仓库锚点（全部一致）
+
+| 文书表述 | 锚点 | 判定 |
+|---|---|---|
+| "group-delay swing of about one nanosecond over 10–100 GHz" | C1：3 dB → 1.274 ns（V4） | ✔ |
+| "insertion loss below 3 dB"（两处） | C1 预算口径 | ✔ |
+| "sub-metre-range sensing"（两处） | C1：0.19 m 窗口 | ✔ |
+| "about 1.6 ps/nm in 2.5 mm (Yu et al., 2022)" | Yu et al. Nature 612, 252 (2022) 实测 0.61/1.10/1.60 ps/nm | ✔ 数字属实 |
+| "greater than 0.89 accuracy in simulation on LiDAR echo formats" | road car/person 0.892、road vehicles 0.919 | ✔ 取下限，保守 |
+| 预算 20,000/20,000/19,000 | CEMSE 上限 20,000 | ✔ |
+
+### 关键澄清（修正 CROSSCHECK §3 末行的表述）
+
+- **46 nm/µm、594/cm、「1–20mm ~2%」均不在 Concept Note 第二版中**（全文检索为空；
+  推荐信素材与两封推荐信 docx 同样不含）。这三条只存在于 TASK_LOG.md。
+  → Concept Note 无需针对 C2/C7/C8 改写；修正措辞只需回填 TASK_LOG 与 lab-note。
+- **Concept Note 唯一需要修改的条目**：参考文献
+  "Yu et al., 'Integrated chirped waveguide Bragg gratings on thin-film lithium niobate,' Nature (2022)"
+  标题有误，实际文献为 **M. Yu et al., "Integrated femtosecond pulse generator on thin-film
+  lithium niobate," Nature 612, 252–258 (2022)**（正文 "1.6 ps/nm" 数字属实，可保留）。
