@@ -1,0 +1,205 @@
+[
+  {
+    "id": "root",
+    "parent": null,
+    "label": "KGFP 申请推进",
+    "type": "root",
+    "detail": "2026-07 至今"
+  },
+  {
+    "id": "p0",
+    "parent": "root",
+    "label": "Phase 0 立项与初版",
+    "type": "phase",
+    "detail": "研究方向定位"
+  },
+  {
+    "id": "p0_lit",
+    "parent": "p0",
+    "label": "文献：TFLN 流片速度 vs SiN",
+    "type": "milestone",
+    "detail": "Cheng Wang 组 TFLN 更快"
+  },
+  {
+    "id": "p0_v1",
+    "parent": "p0",
+    "label": "Concept Note v1 (100–1000 ps/nm)",
+    "type": "deliverable",
+    "detail": "2026-09 上旬"
+  },
+  {
+    "id": "p1",
+    "parent": "root",
+    "label": "Phase 1 器件物理标定",
+    "type": "phase",
+    "detail": "Objective 1 设计规则"
+  },
+  {
+    "id": "p1_m3b",
+    "parent": "p1",
+    "label": "M3b 延迟预算 → 亚米窗口",
+    "type": "milestone",
+    "detail": "TFLN 424 ps/dB; 0.19 m"
+  },
+  {
+    "id": "p1_a1a2",
+    "parent": "p1",
+    "label": "A1/A2 条宽与 dn 标定",
+    "type": "milestone",
+    "detail": "dλ/dw=46 nm/µm"
+  },
+  {
+    "id": "p1_a3a6",
+    "parent": "p1",
+    "label": "A3–A6 容差扫描",
+    "type": "milestone",
+    "detail": "相位/温度/切趾/长度"
+  },
+  {
+    "id": "p1_cross",
+    "parent": "p1",
+    "label": "TMM/FDTD 交叉校验",
+    "type": "milestone",
+    "detail": "偏差 ~10%"
+  },
+  {
+    "id": "p1_rules",
+    "parent": "p1",
+    "label": "器件设计规则 ×4",
+    "type": "knowledge",
+    "detail": "摆幅/切趾/条宽/dn/温漂"
+  },
+  {
+    "id": "p2",
+    "parent": "root",
+    "label": "Phase 2 算法与编码",
+    "type": "phase",
+    "detail": "Objective 2 光子 SNN"
+  },
+  {
+    "id": "p2_m3a",
+    "parent": "p2",
+    "label": "M3a delay learning",
+    "type": "milestone",
+    "detail": "连续编码 0.888"
+  },
+  {
+    "id": "p2_m7",
+    "parent": "p2",
+    "label": "M7 信息量匹配",
+    "type": "milestone",
+    "detail": "echo 0.41 vs raw 0.66"
+  },
+  {
+    "id": "p2_quant",
+    "parent": "p2",
+    "label": "池权重量化免疫",
+    "type": "knowledge",
+    "detail": "4–8 bit 不降性能"
+  },
+  {
+    "id": "p2_synth",
+    "parent": "p2",
+    "label": "合成道路目标",
+    "type": "milestone",
+    "detail": "0.892 / 0.919"
+  },
+  {
+    "id": "p3",
+    "parent": "root",
+    "label": "Phase 3 真实数据验证",
+    "type": "phase",
+    "detail": "从合成到 KITTI"
+  },
+  {
+    "id": "p3_download",
+    "parent": "p3",
+    "label": "KITTI 下载/提取",
+    "type": "milestone",
+    "detail": "28,746 对象"
+  },
+  {
+    "id": "p3_small",
+    "parent": "p3",
+    "label": "小预算扫描链 0.766",
+    "type": "milestone",
+    "detail": "train=1200"
+  },
+  {
+    "id": "p3_gpu",
+    "parent": "p3",
+    "label": "GPU 移植 3060",
+    "type": "milestone",
+    "detail": "corr=0.999991"
+  },
+  {
+    "id": "p3_full",
+    "parent": "p3",
+    "label": "全量预算 0.923",
+    "type": "knowledge",
+    "detail": "train=21.5k"
+  },
+  {
+    "id": "p3_gain",
+    "parent": "p3",
+    "label": "扫描链增益谱系",
+    "type": "knowledge",
+    "detail": "受限场景价值"
+  },
+  {
+    "id": "p4",
+    "parent": "root",
+    "label": "Phase 4 申请交付",
+    "type": "phase",
+    "detail": "Stage 1 截止 2026-10-01"
+  },
+  {
+    "id": "p4_v2",
+    "parent": "p4",
+    "label": "Concept Note v2",
+    "type": "deliverable",
+    "detail": "带宽绑定规格+风险句"
+  },
+  {
+    "id": "p4_rec",
+    "parent": "p4",
+    "label": "推荐信素材",
+    "type": "deliverable",
+    "detail": "口径与红线"
+  },
+  {
+    "id": "p4_stage1",
+    "parent": "p4",
+    "label": "Stage 1 提交 (todo)",
+    "type": "deliverable",
+    "detail": "CN+CV+两封推荐信"
+  },
+  {
+    "id": "px",
+    "parent": "root",
+    "label": "支撑与教训",
+    "type": "phase",
+    "detail": "跨会话/跨机器"
+  },
+  {
+    "id": "px_tasklog",
+    "parent": "px",
+    "label": "TASK_LOG 交接机制",
+    "type": "infra",
+    "detail": "事实源"
+  },
+  {
+    "id": "px_git",
+    "parent": "px",
+    "label": "两仓库 Git 迁移",
+    "type": "infra",
+    "detail": "代码+数据通道"
+  },
+  {
+    "id": "px_sleep",
+    "parent": "px",
+    "label": "教训：12h 睡眠假象",
+    "type": "lesson",
+    "detail": "先 profile 再优化"
+  }
+]

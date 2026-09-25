@@ -1,0 +1,268 @@
+[
+  {
+    "id": "workspace",
+    "parent": null,
+    "label": "KGFP 工作空间",
+    "type": "root",
+    "detail": "tfln-dispersion-lab + lidar-pointnet"
+  },
+  {
+    "id": "tfln",
+    "parent": "workspace",
+    "label": "tfln-dispersion-lab",
+    "type": "repo",
+    "detail": "TFLN 色散/器件/光子链路"
+  },
+  {
+    "id": "tfln_docs",
+    "parent": "tfln",
+    "label": "申请文书",
+    "type": "category",
+    "detail": "Concept Note / 报告 / 日志"
+  },
+  {
+    "id": "tfln_readme",
+    "parent": "tfln_docs",
+    "label": "README.md",
+    "type": "doc",
+    "detail": "项目总览"
+  },
+  {
+    "id": "tfln_tasklog",
+    "parent": "tfln_docs",
+    "label": "TASK_LOG.md",
+    "type": "doc",
+    "detail": "会话交接事实源"
+  },
+  {
+    "id": "tfln_report",
+    "parent": "tfln_docs",
+    "label": "simulation_report_2026-09-20.docx",
+    "type": "doc",
+    "detail": "器件仿真报告"
+  },
+  {
+    "id": "tfln_labnote",
+    "parent": "tfln_docs",
+    "label": "lab-note.ipynb",
+    "type": "notebook",
+    "detail": "实验记录主笔记"
+  },
+  {
+    "id": "tfln_ms",
+    "parent": "tfln_docs",
+    "label": "milestone-M1~M4.ipynb",
+    "type": "notebook",
+    "detail": "4 个里程碑 notebook"
+  },
+  {
+    "id": "tfln_dev",
+    "parent": "tfln",
+    "label": "器件仿真",
+    "type": "category",
+    "detail": "TMM/FDTD + 容差扫描"
+  },
+  {
+    "id": "tfln_sim",
+    "parent": "tfln_dev",
+    "label": "simulations/02_tolerance_scan.py",
+    "type": "code",
+    "detail": "TMM 容差扫描"
+  },
+  {
+    "id": "tfln_fdtd",
+    "parent": "tfln_dev",
+    "label": "lumerical/run_tolerance_fdtd.py",
+    "type": "code",
+    "detail": "FDTD 均匀/啁啾光栅"
+  },
+  {
+    "id": "tfln_m3b",
+    "parent": "tfln_dev",
+    "label": "lumerical/m3b_delay_budget.py",
+    "type": "code",
+    "detail": "延迟预算 424 ps/dB"
+  },
+  {
+    "id": "tfln_fdtd_res",
+    "parent": "tfln_dev",
+    "label": "lumerical/results/",
+    "type": "results",
+    "detail": "FDTD 原始数据"
+  },
+  {
+    "id": "tfln_tol_res",
+    "parent": "tfln_dev",
+    "label": "results/tolerance_scan.{npz,png}",
+    "type": "results",
+    "detail": "容差扫描结果"
+  },
+  {
+    "id": "tfln_kg",
+    "parent": "tfln",
+    "label": "知识/图谱",
+    "type": "category",
+    "detail": "任务-知识网络"
+  },
+  {
+    "id": "tfln_kg_py",
+    "parent": "tfln_kg",
+    "label": "task_knowledge_graph.py",
+    "type": "code",
+    "detail": "图谱生成脚本"
+  },
+  {
+    "id": "tfln_cards",
+    "parent": "tfln_kg",
+    "label": "kg_obsidian_cards.py",
+    "type": "code",
+    "detail": "Obsidian 卡片生成"
+  },
+  {
+    "id": "tfln_kg_json",
+    "parent": "tfln_kg",
+    "label": "results/task_kg.json",
+    "type": "datafile",
+    "detail": "43 节点 48 边"
+  },
+  {
+    "id": "tfln_infra",
+    "parent": "tfln",
+    "label": "基础设施",
+    "type": "category",
+    "detail": "Notebook 构建 + Git"
+  },
+  {
+    "id": "tfln_build",
+    "parent": "tfln_infra",
+    "label": "build_m1~m4_notebook.py",
+    "type": "code",
+    "detail": "自动生成 milestone notebook"
+  },
+  {
+    "id": "lidar",
+    "parent": "workspace",
+    "label": "lidar-pointnet",
+    "type": "repo",
+    "detail": "光子 SNN / LiDAR 分类实验"
+  },
+  {
+    "id": "lidar_code",
+    "parent": "lidar",
+    "label": "LiDAR/SNN 代码",
+    "type": "category",
+    "detail": "训练、编码、读出"
+  },
+  {
+    "id": "lidar_m7",
+    "parent": "lidar_code",
+    "label": "snn/m7_matched_info.py",
+    "type": "code",
+    "detail": "M7 信息量匹配"
+  },
+  {
+    "id": "lidar_kitti",
+    "parent": "lidar_code",
+    "label": "snn/road_kitti_experiment.py",
+    "type": "code",
+    "detail": "KITTI 扫描链分类"
+  },
+  {
+    "id": "lidar_isal",
+    "parent": "lidar_code",
+    "label": "snn/isal_range_profile.py",
+    "type": "code",
+    "detail": "ISAL 距离像生成"
+  },
+  {
+    "id": "lidar_pn",
+    "parent": "lidar_code",
+    "label": "models/pointnet.py",
+    "type": "code",
+    "detail": "PointNet 基线"
+  },
+  {
+    "id": "lidar_train",
+    "parent": "lidar_code",
+    "label": "train.py",
+    "type": "code",
+    "detail": "端到端训练"
+  },
+  {
+    "id": "lidar_data",
+    "parent": "lidar",
+    "label": "数据",
+    "type": "category",
+    "detail": "KITTI / ModelNet40 / road_objects"
+  },
+  {
+    "id": "lidar_road",
+    "parent": "lidar_data",
+    "label": "data/road_objects.npz",
+    "type": "datafile",
+    "detail": "28,746 道路对象"
+  },
+  {
+    "id": "lidar_kitti_dir",
+    "parent": "lidar_data",
+    "label": "data/kitti/",
+    "type": "data",
+    "detail": "原始 Velodyne + label"
+  },
+  {
+    "id": "lidar_mn40",
+    "parent": "lidar_data",
+    "label": "data/modelnet40_*.parquet",
+    "type": "datafile",
+    "detail": "ModelNet40 基准"
+  },
+  {
+    "id": "lidar_res",
+    "parent": "lidar",
+    "label": "结果",
+    "type": "category",
+    "detail": "实验输出"
+  },
+  {
+    "id": "lidar_m7_res",
+    "parent": "lidar_res",
+    "label": "outputs_m7/results.json",
+    "type": "datafile",
+    "detail": "M7 echo/raw 对比"
+  },
+  {
+    "id": "lidar_kitti_res",
+    "parent": "lidar_res",
+    "label": "snn/outputs_isal/road_kitti/",
+    "type": "results",
+    "detail": "KITTI 0.923"
+  },
+  {
+    "id": "lidar_outputs",
+    "parent": "lidar_res",
+    "label": "snn/outputs_classify/",
+    "type": "results",
+    "detail": "ModelNet40 分类"
+  },
+  {
+    "id": "lidar_docs",
+    "parent": "lidar",
+    "label": "文档/运行书",
+    "type": "category",
+    "detail": "README + RUNBOOK"
+  },
+  {
+    "id": "lidar_runbook",
+    "parent": "lidar_docs",
+    "label": "RUNBOOK_3060.md",
+    "type": "doc",
+    "detail": "3060 开箱指南"
+  },
+  {
+    "id": "lidar_readme",
+    "parent": "lidar_docs",
+    "label": "snn/README.md",
+    "type": "doc",
+    "detail": "SNN 实验说明"
+  }
+]
