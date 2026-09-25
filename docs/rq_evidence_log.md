@@ -60,7 +60,14 @@
 > 宽带相控阵/波形捷变雷达要求色散（真延迟）**在脉冲级时间尺度（ns–µs）上重构**，且连续、摆幅 ≥100 ps。现有方案：微环热调（连续、大范围，但 µs–ms 慢）；光开关切换（ns 快，但离散、精度低）；SiN MZI 晶格滤波器（连续 ±500 ps/nm，但热调慢 + 横向架构摆幅受 FSR 限）；波长扫描型（依赖快调激光，系统成本转移）。**"电光 ns 级 × 连续 × 大摆幅"三者交集无人占据**——TFLN 电光调谐啁啾光栅恰好同时满足三条，这是 TFLN 相对 SiN 的不可替代性所在（SiN 无显著 Pockels 效应，ns 级调谐只能靠载流子注入，损耗/功耗代价大）。
 > 出处：JEOS-RP 2025 OTTD 综述（四路线对比）；SiN 晶格滤波器 ±500 ps/nm（2025）；TFLN 电光调谐 ns 级为平台常识（Pockels r₃₃，调制器已达 100+ GBd）。
 
+## 2026-09-26 第四批：RQ4（RC vs SNN 接口成本）
+
+- [RQ4] Aadhi A. et al., "Scalable photonic reservoir computing for parallel machine learning", Nat. Commun. (2025)（被引 69）| 原文明确：时分复用虚拟节点机制"simplify the design ... **but also introduce latency and limit processing speed**" | 支撑 RQ4 论证素材：RC 的掩模/时分复用是公认的速度税 | ✅
+- [RQ4] Bauwens I., VUB 博士论文 | "this preprocessing procedure is based on time-multiplexing and **limits the computing bandwidth** of the system" | 同上，独立来源 | ✅
+- [RQ4] ESN vs LSM 对比工作（Virginia Tech 2026 等）| LSM = spiking 版 reservoir——**"SNN vs RC"本身是伪二分**：LSM 就是用 SNN 当蓄水池 | 提醒零号稿 b) 的"同一个本体论"表述要精确化：真正的对立面不是 RC，而是"需要高速均匀采样+数字读出的后端" | ✅ 措辞修正
+- **[RQ4 判据暂判定：降级]** 证据指向：SNN 相对 RC 的不可替代性**不成立**（LSM 就是 RC）；可辩护的表述是"SNN/事件驱动读出相对**均匀采样数字后端**省掉了 Nyquist 采样与采样保持，且能耗随事件稀疏度伸缩"——这把 b) 段的论证对象从"RC vs SNN"改为"连续时间模拟接口 vs 均匀采样数字接口"。色散输出是连续时间模拟信号，事件化读出（比较器/神经元阈值）天然免采样时钟。建议按 RQ4 判据第二条执行：**SNN 降级为工程选择，论证重心移到接口本体论** | ⚠️ 触发判据（第二分支）
+
 ### 待办（下一批）
 
 - RQ3.2：光子 SNN 突触/延迟实现方式梳理（部分已在 ising digest §三-12）；
-- RQ4：RC vs SNN 接口成本论证。
+- RQ2.2 补强：雷达数字脉压实测功耗（1–2 篇硬数字）。
