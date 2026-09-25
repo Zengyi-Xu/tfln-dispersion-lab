@@ -1,9 +1,9 @@
 # 防幻觉核查总结（2026-09-25，verify/2026-09-25 分支）
 
-执行主机：Windows 无 GPU 机（V1/V2/V3/V4/V9/V10-simulation_report）+ 原机（V5/V6-部分/V8/V10-Concept Note，CPU 即可，无需 GPU）。
-L1–L3 跳过（无 Lumerical）；V6、V7 已全部完成。
-所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`
-（另有对方机独立实现 `verify/v1_tolerance_recheck.py`、`verify/a1a2_reextract.py`、`verify/v3_chirp_extract.py`、`verify/v4_theory_check.py`，两机数值逐项一致）。
+执行主机：**双主机并行核查，全部完成**。本机 = Windows + RTX 3060（torch 2.11.0+cu126，V6 全量/V7/V8 GPU 复核）；对方 = 无 GPU 核查机（V1–V4/V9 + 独立重实现）与原机（V5/V6 两场景/V8/V10-Concept Note，CPU）。
+L1–L3 跳过（无 Lumerical）；17 条结论全部有判定（C14 双机独立支持，C16 双机一致不支持）。
+所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`（本机），
+另有对方机独立实现 `verify/v1_tolerance_recheck.py`、`verify/a1a2_reextract.py`、`verify/v3_chirp_extract.py`、`verify/v4_theory_check.py`，两机 CPU 任务数值逐项一致。
 
 ## 核查结果总表
 
@@ -22,9 +22,9 @@ L1–L3 跳过（无 Lumerical）；V6、V7 已全部完成。
 | C11 | 支持 | 0.0463 vs 0.051 = −9.6% ≈ 10% | `results/verify/v3`、`v4` |
 | C12 | 支持（10 种子，~7σ；机理决定性证实） | echo+MLP 0.412 → 0.435±0.028 vs raw+MLP 0.663 → 0.680±0.020；角度加密 echo（8扇区×36bin）**0.721±0.017 超 raw 上限** → 「丢角度」机理成立；attention 读出 0.381 更差 | `results/verify/v5/report.md`、`lidar-pointnet/outputs_m7/verify/results.json` |
 | C13 | 支持（且更强） | 4–8 bit 不降 → **2–8 bit 全程无损**（2bit 0.431 / 3bit 0.428 vs 未量化 0.435，10 种子） | `results/verify/v5` |
-| C14 | 支持（3 种子 × 2 场景，容差内；键名已修） | road_crossing 0.872/0.923 → **0.8696±0.0033 / 0.9119±0.0092**（增益 +0.042）；uav_cap 0.758/0.857 → **0.7547±0.0063 / 0.8560±0.0026**（增益 +0.102） | `results/verify/v6/report.md`、`lidar-pointnet/.../results_v67_verify.json` |
-| C15 | 支持（附限定） | 30 组（5 预算×3 种子×2 场景）全跑完：两臂精度随预算**严格单调上升**（1200→21558：road 0.660→0.870 / 0.763→0.912；uav 0.455→0.755 / 0.605→0.856）；增益收窄 road 严格单调（+0.103→+0.042），uav 趋势收窄但最低档例外（+0.149→+0.201 先升，因单次臂接近随机）；申报锚点 1200→0.657/0.766、21558→0.872/0.923 均复现（差 ≤0.004） | `results/verify/v7/report.md` |
-| C16 | **不支持** | 「合成 0.892/0.919 ≈ 真实 0.923」→ 同预算同口径下合成 0.979/1.000 vs KITTI 0.87/0.91，**差 8–21 pt，一致性是口径不对齐的巧合**；仅扫描链增益方向可引用（+2.1 vs +5.1 pt） | `results/verify/v8/report.md`、`lidar-pointnet/.../road_synth_v8/results_v8.json` |
+| C14 | **支持（双机独立）** | road_crossing 0.872/0.923（单种子申报）→ 本机 GPU 3 种子 **0.871±0.004 / 0.924±0.001**；uav_cap **0.754±0.003 / 0.860±0.003**；原机 CPU 3 种子 road **0.8696±0.0033 / 0.9119±0.0092**、uav **0.7547±0.0063 / 0.8560±0.0026**（road 扫描链差 0.012 在容差内，uav 逐位一致）；seed0 与申报逐位一致（原跑=seed 0）；键名乱码系 GBK 环境误读 UTF-8 文件 | `results/verify/v6/report.md` + `v6_kitti_full_3seeds.json`（本机）、`lidar-pointnet/.../results_v67_verify.json`（原机） |
+| C15 | **支持（双机同档五档完整，附一条限定）** | 两臂精度随预算**严格单调上升**（双机一致，逐档差 ≤0.03）；增益收窄：road **严格单调**（本机 +0.124→+0.053；原机 +0.103→+0.042）；uav 总体收窄但最低档例外（原机 +0.149→+0.201 先升——单次臂 0.455 接近随机；本机 4706 档 1σ 内回弹）；申报锚点 1200→0.657/0.766、21558→0.872/0.923 均复现（差 ≤0.004）；旧小预算基线为单种子，3 种子均值见 v7 报告 | `results/verify/v7/report.md` + `budget_sweep_summary.json`（本机）、`results_v67_verify.json` 的 `v7_budget_sweep`（原机） |
+| C16 | **不支持（双机一致）** | 旧「合成 0.892/0.919 ≈ 真实 0.923」系口径错位；同口径对齐后**合成近饱和**（本机 4 类 scan 1.000/0.9994，原机 0.979/1.000）vs KITTI（本机 0.924/0.860，原机 0.87/0.91），差 7.6–13.9 pp（本机）/ 8–21 pt（原机）——生成器不复现真实难度，不可背书；仅扫描链增益方向可引用 | `results/verify/v8/report.md` + `v8_synth_4class.json`（本机）、`lidar-pointnet/.../road_synth_v8/results_v8.json`（原机） |
 | C17 | 支持（原始 npz 已指认） | docx §2 数字与 `comprehensive_summary.npz` 逐位一致 | `results/verify/v10/report.md` |
 
 ## 必须修改的表述
@@ -43,9 +43,9 @@ L1–L3 跳过（无 Lumerical）；V6、V7 已全部完成。
 6. **ripple 口径（simulation_report §2.1）**：「ripple 峰峰值 ~9%」注明为反射率口径；群延迟口径 ripple = 1.2 ps（摆幅 38%）
 7. **C1 口径（m3b / Concept Note）**：α=0.033 dB/mm 注明「保守深刻蚀值」；当代刻蚀 0.2–0.4 dB/cm 时 FoM 升至 3.5–5.3×10³ ps/dB；并修正 Si 行 n_g=2.1→4.2（Si FoM 140→280 ps/dB）
 8. **Concept Note 参考文献（唯一需改处）**："Yu et al., 'Integrated chirped waveguide Bragg gratings on thin-film lithium niobate,' Nature (2022)" 标题有误 → 应为 **M. Yu et al., "Integrated femtosecond pulse generator on thin-film lithium niobate," Nature 612, 252–258 (2022)**（正文 "1.6 ps/nm in 2.5 mm" 数字属实，保留）
-9. **C16（TASK_LOG §二.M7 段「90% headline」与后续 proposal）**：删去「合成与真实惊人一致→生成器被背书」类表述；绝对精度只引 KITTI（0.87/0.91，3 种子），合成仅用于协议对比（增益方向一致）
-10. **C14 表述升级**：「0.872→0.923（单次运行）」→「0.870±0.003 → 0.912±0.009（3 种子固定划分）」；uav「0.758→0.857」→「0.755±0.006 → 0.856±0.003（3 种子固定划分）」
-11. **C15 表述升级**：「增益随预算单调收窄」→「精度随预算严格单调上升（1200→21558 样本：road +0.21/+0.15，uav +0.30/+0.25）；扫描链增益总体随预算收窄（road 严格单调 +0.103→+0.042；uav 最低预算档因单次臂接近随机而偏低，除外后单调）」
+9. **C16（TASK_LOG §二.M7 段「90% headline」与后续 proposal）**：删去「合成与真实惊人一致→生成器被背书」类表述；绝对精度只引 KITTI（本机 0.924/0.860，原机 0.87/0.91，3 种子），合成仅用于协议对比（增益方向一致）。建议措辞：「合成数据验证链路可达饱和性能；真实数据绝对性能以 KITTI 为准，生成器当前不复现真实难度（遮挡、截断、类不平衡）」
+10. **C14 表述升级**：「0.872→0.923（单次运行）」→「road_crossing 3 种子 0.871±0.004 / 0.924±0.001（本机 GPU）与 0.8696±0.0033 / 0.9119±0.0092（原机 CPU）；uav_cap 0.754±0.003 / 0.860±0.003（本机）与 0.755±0.006 / 0.856±0.003（原机）」
+11. **C15 表述升级**：「增益随预算单调收窄」→「精度随预算严格单调上升（1200→21558 样本：road +0.21/+0.15，uav +0.30/+0.25，双机一致）；扫描链增益总体随预算收窄（road 严格单调，本机 +0.124→+0.053 / 原机 +0.103→+0.042；uav 最低预算档因单次臂接近随机而偏低，除外后单调）」
 
 ## 新发现的风险点（本次核查产出）
 
@@ -53,15 +53,15 @@ L1–L3 跳过（无 Lumerical）；V6、V7 已全部完成。
 2. **R>0.9 平台在 TMM 无耗模型中不存在**（R_max≈0.77，V1）——「R>0.9 平台」规则仅适用于 FDTD 数据；TMM 侧用 R>0.5 去带边窗口。
 3. **m3b 三平台共用 n_g=2.1**：Si 应 ~4.2，Si 行 FoM 需修正。
 4. **带隙提取方法依赖**：平底带隙（强耦合）下谷底 argmin 有 ±1.5 nm 伪差，A1/A2 的 λ_B 必须用带边中点法（V2 脚本已固化）。
+5. **C14 跨机扫描链差异**：本机 GPU 0.924±0.001 vs 原机 CPU 0.912±0.0092，差 0.012（~1.3σ），在 CROSSCHECK 容差内但偏下限；引用时建议给双机区间 0.91–0.92。
 
 ## 遗留（blocked）
 
-| 任务 | 原因 | 解除条件 |
-|---|---|---|
-| V5（M7 10 种子+角度加密臂） | ~~无 GPU~~ **已完成（对方主机 CPU 5.5 min）** | 见 v5 报告与 CROSSCHECK §2 |
-| V6 road_crossing（3 种子+键名修复） | ~~同上~~ **已完成（CPU）** | 见 v6 报告 |
-| V6 uav_cap（3 种子） | ~~用户转移中断~~ **已完成（CPU 5.6 min，断点续跑生效）** | 见 v6 报告：0.755±0.006 / 0.856±0.003 |
-| V7（预算扫描） | ~~未执行~~ **已完成（CPU 54.4 min，30 组一次跑通）** | 见 v7 报告：C15 支持（附 uav 最低档限定） |
-| V8（合成↔真实一致性） | ~~无 GPU~~ **已完成（CPU 3.5 min），C16 不支持** | 见 v8 报告 |
-| V10-Concept Note 段 | ~~docx 不在核查机~~ **已由原机补核**（数字全一致；唯一改动 = Yu 文献标题） | 见 v10 报告补充节 |
-| L1–L3 | 无 Lumerical | 回旧机执行（各 15min–2h） |
+| 任务 | 状态 |
+|---|---|
+| V5（M7 10 种子+角度加密臂） | **已完成（原机 CPU 5.5 min）**，C12/C13 销号 |
+| V6 road/uav（3 种子+键名修复） | **双机完成**（本机 GPU 全量 + 原机 CPU 两场景，uav 逐位一致、road 扫描链差 0.012 在容差内） |
+| V7（预算扫描） | **双机完成**（同档五档 × 3 种子 × 2 场景；road 增益严格单调双机确认，uav 最低档例外双机确认） |
+| V8（合成↔真实一致性） | **双机完成**，C16 不支持结论一致 |
+| V10-Concept Note 段 | **已由原机补核**（数字全一致；唯一改动 = Yu 文献标题） |
+| L1–L3 | 无 Lumerical，回旧机执行（各 15min–2h），唯一剩余 blocked |

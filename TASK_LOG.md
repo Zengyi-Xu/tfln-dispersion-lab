@@ -99,6 +99,25 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - V1–V4/V9/V10：修正 C2、C7、C8、lab-note κ 表、ripple 口径、C1 α 口径、Si 行 n_g；Concept Note 唯一需改 = Yu 文献标题（→ "Integrated femtosecond pulse generator on thin-film lithium niobate," Nature 612, 252–258 (2022)）
 - V5–V8 原判 blocked（无 GPU），实际全部 CPU 跑通：V5 5.5 min、V8 3.5 min、V6 ~2.5 min/种子、V7 54 min
 - 新风险点：chirp npz 物理斜坡在 `tau_r` 字段（tau/tau_g 是平台平坦分量，拿错即得 D≈0）
-- 复现脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`；V5–V8 脚本在 `lidar-pointnet/snn/`（`road_kitti_verify_v67.py` 支持 `--v6-only/--v7-only/--scenario=` 断点续跑）
+- 复现脚本：`verify/v2_reextract_a1a2.py`（必须入库，已提交）、`verify/v1_recheck.py`、`verify/v3_chirp_robust.py`
+- blocked：V5–V8（无 GPU + LiDarSim 克隆网络中断仅 41M/300M+，需 U 盘拷贝或换网络 + road_objects.npz 82MB）；V10-Concept Note 段（第二版 docx 在原机 D 盘）；L1–L3（无 Lumerical）
+
+**【V6–V8 已执行完毕 2026-09-25 下午，本机 RTX 3060】**- 环境：torch 2.11.0+cu126（anaconda3），`KMP_DUPLICATE_LIB_OK=TRUE` 绕 OpenMP 冲突；LiDarSim 仓库经 ghfast 代理克隆（`workspace/lidar-pointnet`，HEAD 3cc5b6f，data/road_objects.npz 28,746 对象完好）
+- V6（C14 支持）：KITTI 全量 3 种子 road **0.871±0.004 / 0.924±0.001**、uav 0.754±0.003 / 0.860±0.003；seed0 与申报值逐位一致（原跑=seed 0）。键名乱码实因 GBK 环境误读 UTF-8 文件，`fix_kitti_keys.py` 已产出英文键版
+- V7（C15 支持）：预算扫描 1200→21558 五档，road 增益 +0.124→+0.053 严格单调收窄，中间点补齐；旧小预算 0.657/0.766 是单种子，3 种子均值 0.630/0.754
+- V8（C16 不支持）：4 类同口径对齐后合成 scan 1.000 / 0.9994 vs KITTI 0.924 / 0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度；旧「7 类合成 vs 4 类 KITTI」对比系口径错位。措辞替换见 SUMMARY §必须修改的表述 9
+- 新脚本（在 `lidar-pointnet/snn/`，未推送远端，待用户决定）：`road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py`
+
+**【双机合并 2026-09-25 晚：本机提交 6a47cff 与原机提交 9b4fd28 已合并】**
+- 原机并行完成了 V5（C12 支持 10 种子 ~7σ、角度加密 echo 0.721 超 raw 0.680 →「丢角度」机理决定性成立；C13 支持且更强：2bit 无损）、V6-road（CPU 3 种子 0.8696±0.0033 / 0.9119±0.0092）、V8（CPU，C16 同判不支持）、V10-Concept Note（数字全一致，唯一改动 = Yu 文献标题）
+- 跨机对照结论：C14 双机独立支持（扫描链 0.924 vs 0.912，差 0.012 在容差内）；C16 双机一致不支持；CPU 任务（V1–V4）两机数值逐项一致
+- 本机不再需要 ModelNet parquet（V5 已由原机销号）
+- blocked 仅剩：L1–L3（无 Lumerical，回旧机执行）
+
+**【二次合并 2026-09-25 晚：原机 851bd7b（V6 uav + V7 全档补齐）已并入】**
+- 原机补齐 V6 uav_cap（3 种子 0.7547±0.0063 / 0.8560±0.0026，与本机 GPU 0.754±0.003 / 0.860±0.003 逐位一致）与 V7 五档扫描（CPU 54.4 min，30 组一次跑通）
+- 双机同档对照（1200/2802/4706/7706/21558 × 3 种子 × 2 场景）：两臂精度逐档差 ≤0.03（最低档为种子方差）；road 增益严格单调收窄双机确认（本机 +0.124→+0.053，原机 +0.103→+0.042）；uav 最低档非单调例外双机确认（单次臂近随机所致）
+- 申报锚点 1200→0.657/0.766、21558→0.872/0.923 双机均复现（差 ≤0.004）
+- **17 条结论全部销号**：14 支持/部分支持，3 不支持（C2、C7 原值、C16）；唯一剩余 blocked = L1–L3（Lumerical）
+- 复现脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`（本机）；V5–V8 脚本在 `lidar-pointnet/snn/`（`road_kitti_verify_v67.py` 支持 `--v6-only/--v7-only/--scenario=` 断点续跑；另有本机 `road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py` 未推送远端，待用户决定）
 - 仍 blocked：L1–L3（本机无 Lumerical，需原机 E 盘 v252）
-- 待办：另一台主机 CROSSCHECK「对方值」列合并（对方推送后 rebase 合并）
