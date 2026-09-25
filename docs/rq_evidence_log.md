@@ -268,8 +268,21 @@
 
 - [文档] `docs/rc_tutorial.md` 三处更新：① §六新增第 6 条"vs Catch-22 结构弱点"（划界+反转利用，FAQ Q1 同步）；② §七新增 7.1"应用场景的时间尺度纪律"（CPI 级热调可及 ❌ / 逐脉冲敏捷 ✅ / 脉内重构 ✅ 三档表 + DRFM 环路 0.1–1 µs 对抗依据 + 目标数 3 加 ≤100 ns 指标）；③ §七新增 7.2"开环纪律"（永不主张闭环动力学预测）+ 第 6 条补 CMIM"三墙"对照（内存墙/转换墙/负值编码墙）。教程至此与批 30–35 全部结论对齐。
 
+## 2026-09-26 第三十七批：Li ACS Photonics 2024 自助获取（清单 #1 部分销项）+ 顺带捕获两个新条目
+
+- [获取记录] 正文仍付费墙（$48），但经桌面浏览器过了 Cloudflare 拿到：① 官方摘要全文；② **SI 全文**（figshare 免费，`ph4c00003_si_001.pdf` 已存中转夹，转文本 `.tmp/li2024_si.txt`）；③ **Correction 内容**（DOI 10.1021/acsphotonics.4c00855，2024-05-29：仅替换 Figure 3——CSR 稀疏矩阵格式/FPGA MAC 架构图，**不涉及自旋数/延迟/能效数字**）。清单 #1 降级为中优先级残项（只剩正文 Methods/结果讨论未读），不再阻塞。
+- [文献判定·先占] Li, Z. et al., "Scalable On-Chip Optoelectronic Ising Machine Utilizing Thin-Film Lithium Niobate Photonics", ACS Photonics 11(4), 1703–1714 (2024)，中山大学 Jie Liu/SCNU Changjian Guo 组 | **双方案**：Scheme I = TFLN 芯片 + FPGA 稀疏 MVM（CSR 格式 + 可配置并行累加器/气泡层），2048 自旋、**迭代延迟 1.78 µs**；Scheme II = **单个片上 FMZM 同时做线性乘法+非线性变换**（强度调制域），16,384 自旋 MAX-CUT（自称当时片上 IM 最大规模） | **器件参数（SI S1）**：X-cut NanoLN 400 nm TFLN/3 µm BOX，VπL=3.8 V·cm 推挽，56 Ω，**3-dB EO 带宽仅 ~30 GHz**（vs CMIM 的 HyperLight 110 GHz——CMIM 快 4 个数量级的器件根源） | **负值编码（SI S4）**：强度调制无法直接取负——差分双信号法（I⁺+I⁻ 消交叉项留 W⊗x），矢量构造成 [+w,−w,…] DC 平衡对（8B/10B 式），**容量减半——与 CMIM 的辅助符号墙完全同构，"负值编码墙"是 IM/DD 路线的通病，我们的三墙表述由此获得第二个独立实例** | **能效（SI S5）**：Scheme I 51.9 pJ/MAC+35 pJ/symbol（2.6 GBaud）；Scheme II 42.6 pJ/MAC（6.25 GBaud）；Scheme II 预测（100 GBaud、1 V 驱动、FPGA DSP 累加）**2.4 pJ/MAC**——注意这个 2.4 pJ/MAC 是 TFLN EO 路线能效的合理锚点，写能效对标时可用 | ✅ 对仿真 10 的意义：耦合矩阵实现细节（CSR+差分编码）已够支撑相关工作段的写作，正文残项不阻塞任何当前决策
+- [对 CMIM 对照表的修正] CMIM Table 1 里 Li 2024 的口径（6.25 GBaud、16,384 自旋方格子、TTS 800.74 s）与 SI 一致；CMIM 引用它时说"only basic benchmark problems"——但 Li 的 1.78 µs 迭代延迟是 FPGA 全流水实测值，比 CMIM 的实验室实测（~0.1 Hz 端到端）**实在得多**；写综述时要给 Li 2024 公平待遇：它是片上 TFLN IM 的第一枪，器件带宽是其后所有指标的瓶颈。
+
+## 2026-09-26 第三十八批：⚠️ 新威胁——Ding/Pei "双 MZM NGRC"（ACS Photonics 2026）占用"物理 NGRC"概念
+
+- [文献判定·威胁，高] Ding, B., Pei, L. et al., "Architecture-Level Simplification and Nonlinearity Enhancement of Photonic Reservoir Computing with Only Two MZMs", **ACS Photonics 13(3), 705–714 (2026-01-21)**，北京交通大学裴丽组（摘要+SI 预览精读，正文付费墙）| **核心概念：用 MZM 内禀 sin² 响应替代二次函数，在输入层实现最高 7 阶非线性变换——明确自称 "MZM-based NGRC"** | 数字：NCE 信道均衡 SER 5.56×10⁻⁴（仅 16 特征维）、NARMA10 NMSE **0.155**（22 特征维，岭回归）/ 0.105（随机森林读出）；特征维 ~20 vs 传统 RC 数百-千节点；SI 含 Lorenz63 observer | **这正是批 34 我们从 Catch-22 推出的"physical NGRC"叙事的实验先占**——"器件非线性=精确高阶特征"不再是空格子 | ⚠️
+- [划界与定量对照] ① **未占**：片上集成（他们是分立光纤 MZM 系统，集成只是展望）、可调色散 GD（NGRC 无真实循环动力学，时延维靠 k 个离散延迟）、事件读出、雷达负载；② **定量**：他们的 NARMA10 0.155（22 维实验）**比我们 designspace/baselines 的 rc_tanh 0.117/rc_sin2 0.143（仿真）更差**——我们掩码延迟环 SCR 在数字上反而占优，但实验 vs 仿真不能直接比，论文里只能并列引用不能宣称优势；③ 他们也是"sin² 非线性有效"的盟友证据（强化我们 designspace 的 sin² 臂合理性）；④ **对 rc_tutorial §七.4"片上 NGRC 化"的修订**：该方向表述必须从"空格子"改为"BJTU 已实验演示 MZM-NGRC（分立、固定延迟、基准任务），我们的差异化=色散 GD 提供波长复用连续延迟抽头（他们需 k 个分立延迟）+ 片上 + 可调 + 事件读出"。
+- [连锁发现·待查] Crossref 同检索带出：**"Dynamic-scaling photonic reservoir computing via adaptive semiconductor-optical-amplifier nonlinearity", Chinese Optics Letters (2026)**（DOI 10.3788/col202624.081901）——"动态缩放+自适应 SOA 非线性"听起来逼近"可调"叙事，下一批核查其摘要。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑 06、07、08 回执；用户下载的清单 #1 Li ACS Photonics 2024——现在优先级升高：它是 CMIM 的直接前作、且是本平台 TFLN 伊辛唯一实验先例）；
-- 把批 30–35 新约束回灌 `docs/rc_tutorial.md`（§七加"开环纪律+应用时间尺度"小节；§Ising 副演示加"内存墙/转换墙/编码墙"三墙表述）；
-- 若小黑 06 回执到：按 TASK_REQUEST_20260926_05_06.md 验收（3072 行、tanh/sin/clip E/E_BK≥0.95、laser 臂小 α·β 区允许变差），并考虑是否把 06b（递减步长调度，批 35③）写进增补任务书。
+- 检查中转夹（小黑 06、07、08 回执；中转夹新增 `ph4c00003_si_001.pdf` 是我下载的 Li 2024 SI，不是小黑文件）；
+- 核查 COL 2026 "Dynamic-scaling PRC via adaptive SOA nonlinearity"（批 38 连锁发现，摘要级即可判威胁度）；
+- 若小黑 06 回执到：按 TASK_REQUEST_20260926_05_06.md 验收，并考虑 06b（递减步长调度，批 35③）增补任务书；
+- Li 2024 正文残项（Methods/结果讨论）等用户明早下载，不阻塞。
