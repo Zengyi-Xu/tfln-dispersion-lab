@@ -289,9 +289,15 @@
   ③ **噪声-TTS 权衡**：sin 最优点 noise=0.1 → E/E_BK≈1.07、TTS≈16 迭代；noise=1.0 同质但 TTS≈210（慢 13×）——噪声帮助的是坏工作点（CMIM"噪声有益"叙事），好工作点不需要大噪声；laser 在 dense/N=100 有 0.704 不垫底，死区问题主要在稀疏大图。
 - [对文档的回灌] digest §一 06 复现段的 quick 档观察被全量扫描证实并扩展（失效区/占优区地图是新内容）；仿真 10 骨架的"唯象饱和增益混频"臂设计可参考①——混频器输入摆幅定标是必须建模的器件约束。
 
+## 2026-09-26 第四十批：小黑 07 rc_vs_ngrc 验收（Catch-22 在我们硬件仿真上的完整复现 + hybrid 裁决）
+
+- [仿真验收·sim] `results/rc_vs_ngrc/`（commit c3ef837，7945HX，全量 42.5 s）：7 臂（rc_tanh/rc_sin2/esn/ngrc/volterra/**hybrid**/linear）× 3 任务 = **1080/1080 行** | **sanity**：narma rc_tanh 入区间 ✅、channel rc>0.65@≥500 ✅、ngrc lorenz 73% 发散=预期 ✅ | **两处偏差双方入档不改数**：① rc_tanh lorenz 13/60 发散、esn 2/60（全在 λ≤1e-4——弱正则下读出条件数爆炸，闭环预测无人免疫）；② 5 行 ok=false（narma inf 发散，原样保留）| **第三处（小黑发现）**：聚合器 `lorenz_diverged_frac` bug（先滤后均恒为 1）——正确口径 rc_tanh 22%/esn 3%/ngrc 73%/hybrid 65%；已授权小黑单独 commit 修聚合器、不动原始行 | 中转夹已写 RECEIPT_07 | ✅
+- **头条数字（λ=1e-4 切片，我方复算）**：① NARMA：**hybrid 全场最优**（3000→0.086）> rc_tanh（0.093）> rc_sin2（0.156）> esn（0.257）> linear > volterra ≈ ngrc（0.66）；② channel：小预算 rc 双臂最优（50→0.597/0.575），大预算 volterra 反超（3000→0.776 vs rc_sin2 0.770）——与 rc_vs_baselines 互洽；③ **Lorenz 闭环：ngrc 稳定时 VPT≈5.9–6.2 Lyapunov，rc_tanh 仅 0.2–0.6，但 ngrc 73% 配置发散**；④ hybrid 核心问题"RC 循环分量能否稳住 NGRC 病态"——**裁决：不能**（λ=1e-2：4/20 vs 5/20；λ=1e-4：15/20 vs 19/20，仅边际改善；λ=1e-6 皆 20/20 全发散）；hybrid 的价值在 NARMA 互补（有界池+多项式特征），不在抗发散。
+- **科学意义（三重新证据）**：① **Catch-22 Model III 在我们仿真上复现**——NGRC 二次特征=Lorenz 精确非线性，稳定时碾压（VPT 6 vs 0.4），73% 发散率就是它的 catch-22；② 我们 rc 闭环 VPT 低同样是已知弱区——**开环负载定位获得自家数据支撑**（批 34/36 的红线不再是纯文献防御）；③ NARMA 上 NGRC 全面落后（0.66 vs 0.086）说明"精确非线性优势"是任务依赖的——NARMA 的 10 步延迟结构里循环记忆比多项式阶数值钱。论文表述：闭环预测基准让给 NGRC/数字，开环信号处理是我们的领土，hybrid 是两者之间的诚实地带。
+
 ### 待办（下一批）
 
-- 主线：精读 Li 2024 正文（`D:\BaiduSyncdisk\Temp_transit\ph4c00003.pdf`，用户已下，清单 #1 全销项）；
+- 主线：精读 Li 2024 正文（`D:\BaiduSyncdisk\Temp_transit\ph4c00003.pdf`，清单 #1 全销项）；
 - 核查 COL 2026 "Dynamic-scaling PRC via adaptive SOA nonlinearity"（批 38 连锁发现）；
-- 检查中转夹（小黑 07 rc_vs_ngrc / 08 interface_readout 回执——06 已验收销项）；
-- 备选：06b 递减步长调度增补任务书起草（DRAFT 不发，等 07/08 出结果后排期）。
+- 检查中转夹（小黑 08 interface_readout 回执；小黑顺手修 07 聚合器 diverged_frac 的 commit）；
+- 备选：06b 递减步长调度增补任务书起草（DRAFT 不发）；把批 39–40 回灌 rc_tutorial §六（hybrid 裁决 + sin Ising 失效区）。
