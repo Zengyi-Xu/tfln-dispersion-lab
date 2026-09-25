@@ -158,9 +158,12 @@ def build(fname, with_grating):
 
 def run_and_extract(fsp, tag):
     fdtd = lumapi.FDTD(hide=False)
-    # limit MPI processes: 12-rank runs on this laptop repeatedly lost engine
-    # processes mid-run; 6 ranks leaves CPU for interactive use and is stable.
+    # 6 ranks x 2 threads: fastest stable config measured on this laptop
+    # (verify/v5_fdtd_scaling.py). More MPI ranks are slower on the hybrid
+    # 4P+4E+4LPE CPU; the old 12-rank "lost engine" was extreme slowdown,
+    # not a crash.
     fdtd.setresource("FDTD", 1, "processes", 6)
+    fdtd.setresource("FDTD", 1, "threads", 2)
     fdtd.load(fsp)
     fdtd.run()
 

@@ -147,6 +147,11 @@ def build(fname, dn, L, chirp_dLambda=0.0):
 def extract(fsp, tag):
     fdtd = lumapi.FDTD(hide=False)
     fdtd.setresource("FDTD", 1, "processes", 6)
+    # benchmark (verify/v5_fdtd_scaling.py): 6x2 threads is 18% faster than
+    # 6x1 on this 12-core hybrid CPU; raising MPI ranks hurts (p12 is 4.5x
+    # slower — LP-E cores gate every step, which is what looked like the
+    # "lost engine" crashes at 12 ranks).
+    fdtd.setresource("FDTD", 1, "threads", 2)
     fdtd.load(fsp)
     fdtd.run()
 
