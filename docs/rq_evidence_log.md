@@ -346,3 +346,13 @@
 - 起草 08b（更难噪声档+LIF 降维）任务书 DRAFT（低优先级，排 09 后）；
 - 检查中转夹（小黑 07 聚合器修复 commit、09 collision scheduler 进度）；
 - 备选：06b 递减步长调度任务书（Li 2024 G22 幅度不均+动态参数控制=新立项依据）；批 39–43 回灌 rc_tutorial / digest（COL Ds-PRC + HANDOFF_08 口径差）。
+
+## 2026-09-26 第四十四批：08b 加难档脚本+任务书（已发小黑，排 09 后）
+
+- [sim·任务下发] 新脚本 `simulations/08b_interface_readout_hard.py`（不改 08，导入复用其任务生成/前端/读出；输出独立目录 `results/interface_readout_hard/`）：噪声 {0.10,0.20,0.35,0.50} × 5 种子 ×（uniform 3 臂 = 08 最强参照 + lif_N{16,32,64}）= 120 行。文献机 quick 冒烟 2 行通过（115 s）：**noise=0.35 时 lif_N64 0.950@404 vs uniform_fs0.25_b8 0.956@4096**——LIF 退出饱和（难度到位 ✅）且等精度能耗仍 ~1/10 ✅。任务书 `TASK_REQUEST_20260926_08b_interface_readout_hard.md` 已放中转夹，排 09 后，预计小黑 <10 min。
+- [设计要点] ① noise=0.10 锚点行用于跨脚本一致性检验（应复现 08 的 lif ~0.999/469）；② 08b 的 lif 随机数流取同一 rng 前 n 行（N=64 时与 08 同分布但实现路径不同，若有数值差异如实记录不对齐）；③ 科学问题：LIF 精度崩溃点 + 时间编码所需神经元数下限。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 07 聚合器修复 commit、09 collision scheduler 进度、08b 回执）；
+- 备选：06b 递减步长调度任务书 DRAFT（Li 2024 G22 幅度不均+动态参数控制+Pramanik=立项依据齐）；批 39–44 回灌 rc_tutorial / digest。

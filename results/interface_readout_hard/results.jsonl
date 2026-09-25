@@ -1,0 +1,2 @@
+{"arm": "uniform", "fs_mult": 0.25, "bits": 8, "lif_n": null, "noise": 0.35, "seed": 0, "acc": 0.95625, "energy_proxy": 4096.0, "n_features": 512}
+{"arm": "lif", "fs_mult": null, "bits": null, "lif_n": 64, "noise": 0.35, "seed": 0, "acc": 0.95, "energy_proxy": 404.1475, "n_features": 64}
