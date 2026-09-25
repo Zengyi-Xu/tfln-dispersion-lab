@@ -96,3 +96,11 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - 新风险点：chirp npz 物理斜坡在 `tau_r` 字段（tau/tau_g 是平台平坦分量，拿错即得 D≈0）
 - 复现脚本：`verify/v2_reextract_a1a2.py`（必须入库，已提交）、`verify/v1_recheck.py`、`verify/v3_chirp_robust.py`
 - blocked：V5–V8（无 GPU + LiDarSim 克隆网络中断仅 41M/300M+，需 U 盘拷贝或换网络 + road_objects.npz 82MB）；V10-Concept Note 段（第二版 docx 在原机 D 盘）；L1–L3（无 Lumerical）
+
+**【V6–V8 已执行完毕 2026-09-25 下午，本机 RTX 3060】**
+- 环境：torch 2.11.0+cu126（anaconda3），`KMP_DUPLICATE_LIB_OK=TRUE` 绕 OpenMP 冲突；LiDarSim 仓库经 ghfast 代理克隆（`workspace/lidar-pointnet`，HEAD 3cc5b6f，data/road_objects.npz 28,746 对象完好）
+- V6（C14 支持）：KITTI 全量 3 种子 road **0.871±0.004 / 0.924±0.001**、uav 0.754±0.003 / 0.860±0.003；seed0 与申报值逐位一致（原跑=seed 0）。键名乱码实因 GBK 环境误读 UTF-8 文件，`fix_kitti_keys.py` 已产出英文键版
+- V7（C15 支持）：预算扫描 1200→21558 五档，road 增益 +0.124→+0.053 严格单调收窄，中间点补齐；旧小预算 0.657/0.766 是单种子，3 种子均值 0.630/0.754
+- V8（C16 不支持）：4 类同口径对齐后合成 scan 1.000 / 0.9994 vs KITTI 0.924 / 0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度；旧「7 类合成 vs 4 类 KITTI」对比系口径错位。措辞替换见 SUMMARY §必须修改的表述 8
+- 新脚本（在 `lidar-pointnet/snn/`，未推送远端，待用户决定）：`road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py`
+- blocked 剩：V5（缺 `modelnet40_train/test.parquet`，请从旧机拷入 `lidar-pointnet/data/`）；V10-Concept Note 段；L1–L3

@@ -1,6 +1,6 @@
 # 防幻觉核查总结（2026-09-25，verify/2026-09-25 分支）
 
-执行主机：Windows 无 GPU 机。完成 V1/V2/V3/V4/V9/V10（部分）；V5–V8 blocked（无 GPU + lidar 仓库未就位）；L1–L3 跳过（无 Lumerical）。
+执行主机：Windows + RTX 3060 本机（torch 2.11.0+cu126）。完成 V1/V2/V3/V4/V6/V7/V8/V9/V10（部分）；V5 blocked（缺 ModelNet parquet）；L1–L3 跳过（无 Lumerical）。
 所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`。
 
 ## 核查结果总表
@@ -20,9 +20,9 @@
 | C11 | 支持 | 0.0463 vs 0.051 = −9.6% ≈ 10% | `results/verify/v3`、`v4` |
 | C12 | 未执行（blocked） | — | `results/verify/v5/report.md` |
 | C13 | 未执行（blocked） | — | `results/verify/v5/report.md` |
-| C14 | 未执行（blocked） | —（键名乱码修复一并等待仓库就位） | `results/verify/v6/report.md` |
-| C15 | 未执行（blocked） | — | `results/verify/v7/report.md` |
-| C16 | 未执行（blocked） | — | `results/verify/v8/report.md` |
+| C14 | **支持** | 0.872/0.923（单种子）→ **0.871±0.004 / 0.924±0.001**（road，3 种子）；uav 0.754±0.003 / 0.860±0.003；seed0 与申报值逐位一致（原跑=seed 0）；键名乱码系 GBK 环境误读，文件实为 UTF-8 | `results/verify/v6/report.md` + `v6_kitti_full_3seeds.json` |
+| C15 | **支持** | 增益随预算单调收窄（road：+0.124@1.2k → +0.053@21.6k；uav：+0.196 → +0.106）；旧小预算 0.657/0.766 为单种子，3 种子均值 0.630/0.754 | `results/verify/v7/report.md` + `budget_sweep_summary.json` |
+| C16 | **不支持，须改表述** | 旧对比口径错位（7 类合成 vs 4 类 KITTI）；同口径对齐后合成 scan 1.000/0.9994 vs 真实 0.924/0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度 | `results/verify/v8/report.md` + `v8_synth_4class.json` |
 | C17 | 支持（原始 npz 已指认） | docx §2 数字与 `comprehensive_summary.npz` 逐位一致 | `results/verify/v10/report.md` |
 
 ## 必须修改的表述
@@ -40,6 +40,9 @@
 5. **TASK_LOG §二.A 余弦切趾行**：「0.1 ps 容限 ↔ 3× 长度」保留，但注明 1mm 短器件不适用线性外推（见 C2）
 6. **ripple 口径（simulation_report §2.1）**：「ripple 峰峰值 ~9%」注明为反射率口径；群延迟口径 ripple = 1.2 ps（摆幅 38%）
 7. **C1 口径（m3b / Concept Note）**：α=0.033 dB/mm 注明「保守深刻蚀值」；当代刻蚀 0.2–0.4 dB/cm 时 FoM 升至 3.5–5.3×10³ ps/dB；并修正 Si 行 n_g=2.1→4.2（Si FoM 140→280 ps/dB）
+8. **C16（合成↔真实一致性）**
+   - 旧：「合成 0.892/0.919 与真实 0.923 一致 → 生成器被背书」
+   - 新：「合成数据验证链路可达饱和性能（4 类合并 scan 1.000）；真实绝对性能以 KITTI 为准（0.924/0.860），合成↔真实差距 7.6–13.9 pp——生成器当前不复现真实难度（遮挡、截断、类不平衡），不可据合成结果直接背书真实场景性能」
 
 ## 新发现的风险点（本次核查产出）
 
@@ -52,9 +55,6 @@
 
 | 任务 | 原因 | 解除条件 |
 |---|---|---|
-| V5（M7 10 种子+角度加密臂） | 无 GPU；仓库正文缺失 | GPU 主机 + 完整 LiDarSim 克隆 + road_objects.npz |
-| V6（KITTI 3 种子+键名修复） | 同上 | 同上（全量 ~10–20 min GPU） |
-| V7（预算扫描） | 同上 | 同上（2–3 h GPU） |
-| V8（合成↔真实一致性） | 同上 | 同上 |
+| V5（M7 10 种子+角度加密臂） | 缺 `modelnet40_train.parquet` / `modelnet40_test.parquet`（LiDarSim `data/`，本机已搜 Desktop/Downloads/Documents 均无） | 从旧机拷贝两个 parquet 到 `lidar-pointnet/data/` |
 | V10-Concept Note 段 | 第二版 docx 在原机 D 盘 | 拷入工作区后可补跑（C2/C7/C8 修正措辞已备） |
 | L1–L3 | 无 Lumerical | 回旧机执行（各 15min–2h） |
