@@ -365,6 +365,19 @@ Marandi 组，"TFLN χ² 高速非线性 RC"这个大格子已被实验占据—
 - QA 领域的教训同样适用于光子 IM：只在"硬件原生"实例上测 = best-case。
 - 我们 06 用 SA 作参照 + 随机图实例（非定制结构）+ 报 E/E_BK 比值而非绝对 cut，
   符合这套诚实规范；将来写论文时要主动声明实例生成方式。
+- **Mohseni, McMahon & Byrnes, Nat. Rev. Phys. 4, 363 (2022)（被引 881，领域标准
+  综述，全文已读 2026-09-26，清单 #3 销项）的基准总判决**："Today, Ising hardware
+  based on classical digital technologies is the best performing for common benchmark
+  problems."——SK 模型 TTS 最优是 RBM/东芝分叉机（数字硬件）；MaxCut 实测最优
+  是 RBM，CIM3/PRIS/MRT 的曲线是**理论外推非实测**；3R3X 上 SATonGPU 最优；
+  D-Wave 因 Chimera 稀疏连接需 N² 物理比特嵌入而吃亏，deceptive cluster loops
+  上只有常数因子加速、无标度优势；所有路线 TTS 随 N 指数恶化，竞争只在指数
+  和前置因子上。**对我们的含义**：任何"光子伊辛机超越数字硬件"的表述都违反
+  该综述结论——伊辛在我们论文里只能做**副演示**（展示 sin² 非线性的多功能性），
+  主叙事必须留在"时间模式信号处理的能效/延迟"（零号稿 a 判据），这与
+  "不比精度比能效"完全一致。引用句式：「即使在被引 881 次的领域标准综述中，
+  光子/模拟伊辛机在通用基准上也未超越数字硬件（Mohseni et al. 2022）；
+  我们因此不主张优化霸权，而主张 XX」。
 
 ---
 

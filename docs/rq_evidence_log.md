@@ -131,7 +131,13 @@
 - [旁证] MDPI Photonics 12, 974 (2025)（SOI 级联 CBG 可调延迟做光子 CNN 卷积移位）已于早前批次入库（digest §五 #3）——本次交叉确认其为仿真工作、热调、SOI 平台，与我们 TFLN EO 色散整形不同生态位。
 - [仿真候选 09] 色散耦合伊辛链退火可行性（一维链+次近邻，CBG GD 生成耦合剖面，MZM sin² 作增益/非线性）——列入小黑任务队列，等 05–08 回执后再发。
 
+## 2026-09-26 第十四批：Mohseni NRP 2022 全文精读（清单 #3 销项）+ 伊辛基准现实入库
+
+- [伊辛基准·标准综述] Mohseni, McMahon & Byrnes, "Ising machines as hardware solvers of combinatorial optimization problems", Nat. Rev. Phys. 4, 363–379 (2022)（被引 881）| 原文总判决："Ising hardware based on **classical digital technologies is the best performing** for common benchmark problems"；SK/MaxCut TTS 实测最优=RBM/东芝分叉机（数字），CIM3/PRIS/MRT 曲线是理论外推；D-Wave 受 Chimera 稀疏连接+N² 嵌入拖累，只有定制问题类（deceptive cluster loops）有常数因子加速、无标度优势；所有路线 TTS 随 N 指数恶化，竞争只在指数/前置因子 | **强约束**：光子/模拟伊辛机在通用基准上未超越数字硬件——我们的论文不能把伊辛当主叙事，只能作 sin² 非线性多功能性的副演示；主叙事留在时序信号处理能效（与"不比精度比能效"判据一致）| ✅ 获取方式：作者课程主页公开 PDF（aiichironakano.github.io），清单 #3 销项
+- [方法学沿用] 该综述的 TTS 定义（99% 集体成功概率折算）+ Hamerly 的 T_ann 假象警示 = 我们 06 仿真已遵循的诚实规范；写论文时实例生成方式、退火时长扫描必须主动声明。
+- [引用句式，入零号稿]「即使在被引 881 次的领域标准综述中，光子/模拟伊辛机在通用基准上也未超越数字硬件（Mohseni et al. 2022）；我们因此不主张优化霸权，而主张面向实时时序信号的能效/延迟优势。」
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑 05/06/07/08 回执；用户下载的清单 #1–#4）；
-- 若仍无回执：继续文献循环——光子伊辛机能耗基准（我们与 CIM/SPA 的能效对比数字是否站得住，支撑零号稿"不比精度比能效"）或 RC 在线学习（读出权重在线更新 vs 我们的离线岭回归，审稿人可能问）。
+- 检查中转夹（小黑 05/06/07/08 回执；用户下载的清单 #1、#2、#4——#3、#5、#6 已自行解决）；
+- 若仍无回执：继续文献循环——Hamerly 2019 CIM vs D-Wave（Sci. Adv.，OA）精读能效数字；或 RC 在线学习（读出在线更新 vs 我们离线岭回归，审稿人可能问）。
