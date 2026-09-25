@@ -96,7 +96,18 @@
 - [RC vs DL] Valle J. et al., Chaos Solitons Fractals (2025)（被引 24）：LSTM vs Transformer 混沌预测对比，仍把 RC 当基准对手 | RC 在 2025 年的 DL 论文里仍是必须打的基准——领域地位佐证 | ✅
 - [RC vs DL·反面] LLM/Transformer 长程混沌预测（arXiv:2608.29579）等线正在从"短观测长预测"角度侵蚀 RC 领地 | 诚实记录：RC 的精度护城河在被压缩，**硬件能耗/延迟优势才是不可替代的部分**——这正是我们零号稿的论证方向（不比精度比能效） | ✅
 
+## 2026-09-26 第十批：Shahi 2022 精读数字（Machine Learning with Applications 8, 100300）
+
+全文已读（PMC9230140，五个数据集：Mackey-Glass、Lorenz-63、Morris-Lecar 爆发神经元、ENSO、心脏电压实验数据）。可引用硬数字：
+
+- **Lorenz-63**：LSTM/GRU 训练+预测耗时比 NVAR/ESN **慢 3 个数量级以上**（"more than 3 orders of magnitude slower"）；ESN 比 NVAR 慢 2–5× 但同量级；
+- **Morris-Lecar**："LSTM and GRU have little if any predictive power"——门控 RNN 在爆发式混沌上基本失效，RC 正常；
+- **Mackey-Glass**：NVAR 最高效；最大 ESN（500 单元）比对应 NVAR 预测误差低 ~8%——规模上去后 RC 精度可反超 NVAR；
+- **ENSO**：LSTM/GRU 比 ESN 慢近 2 个数量级，且 RMSE 与 ESN 相当（精度无补偿）。
+
+**给"蓄水池不好用"质疑的回答骨架**：在混沌/动力系统类时序上，门控 RNN 要么失效要么慢 2–3 个数量级且精度更差；RC 的合法领地由这类系统对比论文系统性确立（Shahi 2022, 被引 183）。同事印象中"RC 不好用"若来自静态/图像类任务，那是拿 RC 打它不该打的仗——我们的零号稿恰恰只主张时序时间模式任务。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑回执 / 用户下载的 Kong 2026、PIC-OPO RC）；
-- 若仍无回执：精读 Shahi 2022 提取具体对比数字表。
+- 检查中转夹（小黑回执 / 用户下载）；
+- 若仍无回执：把 digest §三 RC 定标与 rq_evidence_log 做一次交叉索引，避免两套文件数字漂移。
