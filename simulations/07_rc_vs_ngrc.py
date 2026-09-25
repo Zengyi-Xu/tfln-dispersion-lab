@@ -113,7 +113,7 @@ def run_esn_mv(U, N, rho, gamma, a, seed=11):
 
 def make_feats_scalar(arm, sig, seed):
     """标量任务（narma/channel）。返回 (feats, drop)：drop = 目标序列要从头部
-    丢掉的样本数（NGRC 的首行对应 t=1）。"""
+    丢掉的样本数（NGRC 的首行对应 t=(k-1)s；hybrid 与之对齐）。"""
     if arm.startswith("rc_"):
         return rc04.run_reservoir_masked(sig, RC_CFG["N"], RC_CFG["rho"],
                                          RC_CFG["gamma"], arm[3:]), 0
@@ -123,6 +123,13 @@ def make_feats_scalar(arm, sig, seed):
     if arm == "ngrc":
         # 标量任务用 k=8, s=1：与 volterra mem=8 同窗口、特征数 45≈44，公平对打
         return ngrc_feats(sig, k=8, s=1), 7
+    if arm == "hybrid":
+        # Chepuri et al. 2024 (arXiv:2403.18953)：H = r ⊕ O，SCR(tanh) 状态
+        # 与 NGRC 特征拼接，单一岭读出
+        r = rc04.run_reservoir_masked(sig, RC_CFG["N"], RC_CFG["rho"],
+                                      RC_CFG["gamma"], "tanh")
+        o = ngrc_feats(sig, k=8, s=1)
+        return np.hstack([r[7:], o]), 7
     if arm == "volterra":
         return rc05.volterra_feats(sig), 0
     return rc04.window_feats(sig), 0  # linear
@@ -138,6 +145,10 @@ def make_feats_mv(arm, U, seed):
                           ESN_CFG["a"], seed=seed + 100), 0
     if arm == "ngrc":
         return ngrc_feats(U, k=2, s=1), 1
+    if arm == "hybrid":
+        r = run_scr_mv(U, RC_CFG["N"], RC_CFG["rho"], RC_CFG["gamma"], "tanh")
+        o = ngrc_feats(U, k=2, s=1)
+        return np.hstack([r[1:], o]), 1
     raise ValueError("arm %s not available for lorenz" % arm)
 
 
@@ -189,6 +200,27 @@ def run_lorenz(arm, n_train, lam, seed, n_wash=500, n_test=1000):
         for t in range(n_test):
             feat = ngrc_feats(np.vstack([u_prev, u]))
             u_prev, u = u, reg.predict(feat)[-1]
+            preds[t] = u
+            if not np.all(np.isfinite(u)) or np.max(np.abs(u)) > 1e6:
+                blew = t + 1
+                break
+        preds = preds[:blew]
+    elif arm == "hybrid":
+        # SCR(tanh) 状态 + NGRC taps 联合闭环
+        f = rc03.make_f("tanh")
+        M = np.random.default_rng(7).uniform(-1.0, 1.0, (RC_CFG["N"], 3))
+        rho, gamma = RC_CFG["rho"], RC_CFG["gamma"]
+        x = np.zeros(RC_CFG["N"])
+        for n in range(len(Utr)):
+            x = f(rho * np.roll(x, 1) + gamma * (M @ Utr[n]))
+        u_prev, u = Utr[-2].copy(), Utr[-1].copy()
+        preds = np.empty((n_test, 3))
+        blew = n_test
+        for t in range(n_test):
+            if t:
+                x = f(rho * np.roll(x, 1) + gamma * (M @ u))
+            feat = np.hstack([x, ngrc_feats(np.vstack([u_prev, u]))[-1]])
+            u_prev, u = u, reg.predict(feat[None, :])[0]
             preds[t] = u
             if not np.all(np.isfinite(u)) or np.max(np.abs(u)) > 1e6:
                 blew = t + 1
@@ -281,8 +313,9 @@ def run_config(cfg):
 
 
 def build_grid(quick=False):
-    arms_sc = ["rc_tanh", "rc_sin2", "esn", "ngrc", "volterra", "linear"]
-    arms_lo = ["rc_tanh", "esn", "ngrc"]
+    arms_sc = ["rc_tanh", "rc_sin2", "esn", "ngrc", "hybrid", "volterra",
+               "linear"]
+    arms_lo = ["rc_tanh", "esn", "ngrc", "hybrid"]
     if quick:
         n_trains, lams, seeds = [100, 500], [1e-4], [0]
         n_trains_lo = [200, 1000]
@@ -317,7 +350,10 @@ def aggregate():
                                         encoding="utf-8")]
     rows = [r for r in rows if r.get("ok")]
     arms = [("rc_tanh", "o-"), ("rc_sin2", "s-"), ("esn", "^-"),
-            ("ngrc", "*-"), ("volterra", "v--"), ("linear", "x:")]
+            ("ngrc", "*-"), ("hybrid", "P-"), ("volterra", "v--"),
+            ("linear", "x:")]
+    arms_lo = [("rc_tanh", "o-"), ("esn", "^-"), ("ngrc", "*-"),
+               ("hybrid", "P-")]
 
     fig, axes = plt.subplots(2, 3, figsize=(17, 8))
 
@@ -378,7 +414,7 @@ def aggregate():
     ax = axes[1, 1]
     sub = [r for r in rows if r["task"] == "lorenz" and r["lam"] == 1e-4]
     ns = sorted({r["n_train"] for r in sub})
-    for arm, mk in arms[:3]:
+    for arm, mk in arms_lo:
         m = [np.mean([r["metric"] for r in sub
                       if r["arm"] == arm and r["n_train"] == n]) for n in ns]
         ax.plot(ns, m, mk, ms=4, label=arm)
@@ -390,7 +426,7 @@ def aggregate():
     # (f) lorenz：VPT vs λ × n_train（Chaos 2025 复现窗口）
     ax = axes[1, 2]
     sub = [r for r in rows if r["task"] == "lorenz"]
-    for arm, mk in [("ngrc", "*"), ("esn", "^"), ("rc_tanh", "o")]:
+    for arm, mk in [("ngrc", "*"), ("esn", "^"), ("rc_tanh", "o"), ("hybrid", "P")]:
         for n in sorted({r["n_train"] for r in sub}):
             lams = sorted({r["lam"] for r in sub})
             m = [np.mean([r["metric"] for r in sub
@@ -418,7 +454,7 @@ def aggregate():
     nd = [r for r in rows if r["task"] == "lorenz" and r.get("diverged")]
     summ["lorenz_diverged_frac"] = {
         arm: float(np.mean([r["diverged"] for r in nd if r["arm"] == arm]))
-        if any(r["arm"] == arm for r in nd) else None for arm, _ in arms[:3]}
+        if any(r["arm"] == arm for r in nd) else None for arm, _ in arms_lo}
     with open(os.path.join(OUT, "summary.json"), "w", encoding="utf-8") as f:
         json.dump(summ, f, indent=1, ensure_ascii=False)
     print(json.dumps(summ, indent=1, ensure_ascii=False))
