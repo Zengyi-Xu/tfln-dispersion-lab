@@ -366,3 +366,14 @@
 
 - 检查中转夹（小黑 07 聚合器修复 commit、09 进度、08b/06b 回执）；
 - 备选：批 39–45 回灌 rc_tutorial / digest（hybrid 裁决、sin 失效区、COL Ds-PRC、HANDOFF_08 口径差、光纤色散 FF-RC 先占）。
+
+## 2026-09-26 第四十六/四十七批：小黑进度检查（无新回执）+ 批 39–45 回灌教程与 digest
+
+- [中转夹/git] 无新 commit、无 HANDOFF_08/08b/06b 回执——小黑应在跑 09 collision scheduler（或 PPT 线）。07 聚合器修复 commit 亦未到。下载清单保持全销项。
+- [文档回灌] `docs/rc_tutorial.md` 四处：① §六第 2 条补自家 rc_vs_ngrc 数据（hybrid 最优 0.086、Lorenz 闭环裁决、hybrid 稳不住 NGRC 病态）；② §六第 4 条补 interface_readout 全量结果（LIF 8.7×/2.2× 双口径、lc 失败、"等精度 4–9×"措辞纪律）；③ §六第 6 条补 Catch-22 自家复现（73% 发散、开环定位获自家数据支撑）；④ 新增 **§5.4 非 TFLN 近邻先占表**（光纤色散 FF-RC / Nie 2024 无环激光神经元 / COL Ds-PRC——"adaptive PRC"一词已被输入定标层占用，我们的"可调"表述需区分）+ Ds-PRC 与 06 sin 失效区的"工作点定标共同纪律"互证。
+- [文档回灌] `docs/ising_literature_digest.md` 两处：① §一"我不懂→自己复现"段第 4 条更新为 06 全量完成 + 新增第 5 条（失效区/占优区地图、噪声-TTS 权衡、06b 后续）；② §二 Al-Kayed 段 Li 2024 数字升级为正文 Table 2 口径（Scheme I 1.78 µs 实测公平待遇、Scheme II 0.4 s 传输自证、2.4 pJ/MAC 能效锚点、WDM 缺元件=我们切口）。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 09 进度、08b/06b 回执、07 聚合器修复 commit）；
+- 若长时间无回执：通读 rc_tutorial 全文做一致性校对（五处改动后），或起草仿真 10 混频器臂设计草案（消化批 39/42/45 的器件约束）。
