@@ -308,6 +308,19 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
 **风险**：若 Kong 的虚拟节点就是用 CBG 色散做的，①坍塌，我们的故事
 必须整体退守到 ②③④。明早拿到全文后第一时间核对此点。
 
+13. **RC vs 门控 RNN/深度学习的系统对比数字**（回答同事质疑的定量弹药，
+    详见 `docs/rq_evidence_log.md` 第九、十批）：Shahi et al.,
+    Machine Learning with Applications 8, 100300 (2022)（被引 183，全文已读）——
+    Lorenz-63 上 LSTM/GRU 比 NVAR/ESN **慢 3 个数量级以上**；Morris-Lecar 爆发
+    神经元数据上 LSTM/GRU "little if any predictive power"而 RC 正常；ENSO 上
+    LSTM/GRU 慢近 2 个数量级且精度无补偿。**反面也要记**：LLM/Transformer 正在
+    压缩 RC 的精度护城河，能耗/延迟才是真护城河（与零号稿"不比精度比能效"一致）。
+14. **OSP 定位警示**（详见 rq_evidence_log 第八批）：黄超然组 Science 2026
+    的 OSP（arXiv:2504.15044）**本身就是深度 RC**——"RC 硬件碾压 DSP"论点已被
+    Science 级占据。OSP 是盟友证据（RC 硬件路线被顶级验证）+ 划界对象
+    （它是固定延迟×通信均衡，我们是可调色散×雷达时间模式×TFLN）。
+    §三-12 与 RQ4 结论一致（SNN-vs-RC 伪二分，LSM=spiking 版 RC），无数字漂移。
+
 ### 伊辛机的诚实性警示（对审稿/写论文有用）
 
 - Hamerly（NTT）的基准方法学幻灯片指出：time-to-solution 对退火时长 T_ann
