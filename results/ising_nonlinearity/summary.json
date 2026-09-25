@@ -1,0 +1,46 @@
+{
+ "tanh": {
+  "best_cfg": {
+   "alpha": 0.3,
+   "beta": 10.0,
+   "noise": 0.1,
+   "graph": "3reg",
+   "N": 1000
+  },
+  "best_energy_ratio": 1.0928050948968195,
+  "global_mean": 0.8450652757326016
+ },
+ "sin": {
+  "best_cfg": {
+   "alpha": 0.3,
+   "beta": 10.0,
+   "noise": 0.5,
+   "graph": "3reg",
+   "N": 1000
+  },
+  "best_energy_ratio": 1.0891965850076528,
+  "global_mean": 0.652620415164907
+ },
+ "laser": {
+  "best_cfg": {
+   "alpha": 1.0,
+   "beta": 10.0,
+   "noise": 1.0,
+   "graph": "3reg",
+   "N": 1000
+  },
+  "best_energy_ratio": 1.0542094741524362,
+  "global_mean": 0.555259970773434
+ },
+ "clip": {
+  "best_cfg": {
+   "alpha": 0.3,
+   "beta": 10.0,
+   "noise": 0.5,
+   "graph": "3reg",
+   "N": 1000
+  },
+  "best_energy_ratio": 1.0928794179665715,
+  "global_mean": 0.8349538548759329
+ }
+}
