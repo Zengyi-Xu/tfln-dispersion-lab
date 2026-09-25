@@ -111,6 +111,16 @@ Queen's/McGill/Shastri/Plant + Milkshake Technology，[全文](https://arxiv.org
   全靠电子域 DSP 存储与寻址——**光学部分只做逐元乘**。真正全光的耦合层
   （色散/衍射/干涉网络）仍是空白；且它没有记忆/时序维度（纯优化机），
   不做 RC。我们的"色散耦合层 + RC/Ising 统一"定位没有被这篇封死。
+- **正式版+SI 增量（2026-09-26 精读，rq 第三十五批）**：
+  ① 200 GOPS 口径限定为"模拟光学核心运算"（SI §S2 原文），端到端迭代率实际
+  ~0.1 Hz（AWG 上传 9.76 s + RTO 0.81 s/迭代），Table 1 的 TTS 全是估计值；
+  ② DSP 流水线深度 115（20+51+3+51 tap），@500 MHz → 反馈延迟投影 230–500 ns；
+  ③ 自旋上限 = AWG 内存 2²⁰ 样本，负值编码再减半——**耦合存储/寻址全在电子域，
+  其三堵墙（内存墙/DAC-ADC 转换墙/负值编码墙）正是我们"耦合存进器件几何"
+  路线的对照组**；④ 噪声退火有最优波特率（106 GBaud=89 迭代 vs 32 GBaud=144、
+  128 GBaud=240）；⑤ 功耗：QD SOA 1.19 W 占大头，单通道 48 GOPS/W，
+  并行投影 2.34 TOPS/W；⑥ 更新方程 σ(t+1)=(I−βJ)σ−αh+ξ 有 Pramanik 收敛
+  理论背书（递减步长调度可证收敛，实验未实现——我们 06b 可补）。
 
 ### 我不懂 → 自己复现检验的点（simulations/06 的第一手结果）
 
@@ -179,11 +189,15 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
    computing", Nat. Commun. 15, 2056 (2024)](https://www.nature.com/articles/s41467-024-45187-1)
    ——RC 领域最权威的展望（558 次引用）。挑战清单：超参敏感、缺乏硬件友好理论、
    大规模任务竞争力不足。
-2. **Zhang & Cornelius 的 Catch-22**（2023，
-   [报道](https://www.innovationnewsnetwork.com/what-are-the-limitations-to-reservoir-computing/37814/)）：
-   ① RC 预测混沌系统需要 warmup 时间 ≈ 动力学本身的时间尺度；
-   ② NGRC 必须把非线性形式"预先偷渡"进模型。——这解释了同事口中的"不好用"：
-   RC 的超参/结构敏感是公认痛点。
+2. **Zhang & Cornelius, "Catch-22s of reservoir computing", Phys. Rev. Research 5,
+   033213 (2023)（全文已精读，rq 第三十四批）**：两个 catch-22 的硬数字——
+   ① 标准 RC 预测多稳态 basin 需 warmup ≈ **整个瞬态**（能量跌破势垒才行，
+   超参优化+N_r 加倍均无解）；② NGRC 免 warmup 但对读出非线性**极端敏感**：
+   1% 参数不确定度 → basin 准确率 ~100%→<50%（随机 33.3%）；多项式/RBF 通用
+   特征全部失败，只有精确非线性成功。**对我们的双向意义**：打击面限于闭环
+   basin/吸引子预测（我们全部负载是开环信号处理，不在其中）；且"除非已知精确
+   非线性否则学不会"恰是**物理器件的卖点**——器件响应就是精确非线性本身，
+   零模型失配（physical NGRC 论据 + 伊辛副演示动机）。
 3. [RC 作光子前处理器 + DNN 读出（Frontiers, 2022）](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.1051941/full)
    ——混合路线：光 RC 做时序展开，数字 DNN 做精细读出。这是"RC 不是取代深度学习
    而是前置特征提取"的折中定位。
