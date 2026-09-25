@@ -116,7 +116,16 @@
 - **反向利用**：Kong 的读出需要 160 GSa/s 高速电子采样——这是 TFLN-RC 现状"把瓶颈推给 ADC"的活例证，直接支撑零号稿 a) 与 RQ4 的事件读出论证（08 仿真正是测这个）。
 - 方法学警示：Kong 每个配置只跑单次确定性仿真（无种子统计）——我们的多种子协议是审稿人可见的严谨性优势，写论文时值得点出。
 
+## 2026-09-26 第十二批：PIC-OPO RC 全文精读（最后一个真风险销项，威胁定级：中）
+
+- [RQ3 威胁复核] Parto M., Li G.H.Y., Sekine R., Gray R.M., Williams J., Marandi A., "High-speed reservoir computing using photonic integrated circuit optical parametric oscillators", Sci. Adv. 12(38):eaeb3077 (2026-09-18，OA)。获取方式：science.org/PubMed 均被反爬挡死，**EuropePMC REST API 拿到 PMCID=PMC13588183 开放全文**——不用再等用户下载，清单 #6 销项。
+- 架构（OPONN）：EO comb（10 GHz、1045 nm、~2 ps）→ EOM 掩码（AWG 10 GSa/s）→ TFLN x-cut 跑道腔 PPLN OPO（简并，信号 ~2090 nm；腔反馈=记忆、参量放大=全光非线性）→ 12 GHz PD → 数字加权平均读出（in silico SVD）。Lorenz63 NMSE 0.07±0.017 / MGS 0.06±0.017 / PAM4 SER 19%→7%（线性对照 11%）/ 波形分类 100%（3×100 样本）。10 GHz 受限于 AWG，声称全光化可 sub-ns（SI S2）。专利 US20240061316A1 + PINC Technologies 利益关联。
+- **判定：大格子被占、我们的格子仍空**。① "TFLN χ² 高速非线性 RC" 已被**实验**占据（Caltech Marandi 组，与 TFLN 伊辛机同组）——零号稿若有"首次 TFLN RC"类措辞必须降级；② 但它的记忆=腔 roundtrip（τ 由 FSR 钉死不可调）、读出=快 PD+数字训练（仍在电子采样范式内）、任务=基准老三样（无雷达、无 spike、无可调色散）；③ 可行性盟友价值：TFLN χ² 非线性做 RC 物理成立 + 300 样本小样本读出训练可行。
+- **[措辞建议，入零号稿]**：把新颖性表述从"TFLN 上的 RC"收紧为"**首个基于在线可调色散器件的时间编码处理链路**"（对标 OPO 腔的固定 τ 与微环的固定延迟链）。威胁级别定为"中"是因为同组已有 >100 GHz 全光路线（arXiv:2501.05756）在追速度叙事——我们的护城河不在速度在**可调性+事件读出+负载**。
+- **反向利用**：OPONN 的读出仍是 12 GHz PD + 数字 SVD，与 Kong 的 160 GSa/s 采样同属"把瓶颈推给电子"——两家 TFLN-RC 先占都成了 RQ4 事件读出论证的反面例证。
+- 至此 digest §三 TFLN×RC 先占地图（Wang 2024 / Abdalla 2023 / Kong 2026 / PIC-OPO 2026 / 忆阻器 2023）**全部精读销项**。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑回执 / 用户下载的 PIC-OPO RC，清单 #6 成为唯一待核先占）；
-- 若仍无回执：尝试用桌面浏览器读 Science Advances 的 PIC-OPO RC（sciadv.aeb3077）。
+- 检查中转夹（小黑 05/06/07/08 回执；用户下载的清单 #1–#4）；
+- 若仍无回执：继续"片上非线性×新方向"文献循环（TFLN 微梳×计算、EO+χ² 协同的可写角度已记入第六批；可再查光子伊辛机与色散器件的交叉——伊辛机的自旋耦合矩阵是否可用色散 GD 实现）。

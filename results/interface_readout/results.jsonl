@@ -1,0 +1,4 @@
+{"arm": "uniform", "fs_mult": 0.5, "bits": 4, "noise": 0.05, "seed": 0, "acc": 0.8520833333333333, "energy_proxy": 4096.0, "n_features": 1024}
+{"arm": "uniform", "fs_mult": 1.0, "bits": 4, "noise": 0.05, "seed": 0, "acc": 0.7604166666666666, "energy_proxy": 8192.0, "n_features": 2048}
+{"arm": "lc", "fs_mult": null, "bits": 4, "noise": 0.05, "seed": 0, "acc": 0.5625, "energy_proxy": 663.1275, "n_features": 40}
+{"arm": "lif", "fs_mult": null, "bits": null, "noise": 0.05, "seed": 0, "acc": 1.0, "energy_proxy": 468.98, "n_features": 64}
