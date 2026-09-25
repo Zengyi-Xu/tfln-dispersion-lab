@@ -47,7 +47,10 @@
   - road_crossing：单次 0.657 → 扫描链 **0.766**（+0.11）；uav_cap：0.419 → 0.631（+0.21）
   - **扫描链增益在真实数据上成立**（架构故事的核心证据）；绝对值低于合成（0.766 vs 0.89-0.96）主要是训练预算仅 1200 + 真实遮挡 + 类不平衡（truck 仅 736）
   - uav_cap 与 KITTI 车端采集几何不匹配，不作为主要场景
-- **今晚待跑**：road_kitti_experiment.py 训练预算提到全量（~15k+），验证真实数据上限（预计 10+ 小时）
+- **今晚待跑**：road_kitti_experiment.py 训练预算提到全量（每类 75%，~21.5k train）。
+  **代码已 GPU 化并推送**（LiDarSim `eb4a5f0`）：`make_dataset_fast` 批量仿真（corr=0.999991 校验通过）、读出自动走 CUDA、--n-tr-per/--cpu 参数。
+  ⚠️ 更正认知：上一轮 12h 是**笔记本睡眠挂起的墙钟假象**，真实旧配置仅 3–4 min；全量配置本机 CPU ~45 min、3060 GPU ~10–20 min。
+  **3060 机器开箱即用**：clone LiDarSim + 拷 `data/road_objects.npz`（82MB）+ 装 CUDA torch，按 `RUNBOOK_3060.md` 一条命令开跑。
 
 ## 三、今晚待办（新会话按此对接）
 
