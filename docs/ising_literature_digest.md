@@ -123,6 +123,24 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
    而是前置特征提取"的折中定位。
 4. 我们自己的 04/05 数据（quick 档）：RC 在信道均衡小预算段领先（0.66 vs MLP 0.48），
    静态任务落后（0.71 vs 0.94）——与文献判断一致：**领域特异，不是潜力死刑**。
+5. **商业化动向（重要更正）**：之前说"商业化产品里没有 RC"需要细化——
+   [Quantum Computing Inc. 于 2026 年 4 月推出 NeuraWave](https://quantumcomputingreport.com/quantum-computing-inc-launches-neurawave-photonic-platform-for-edge-ai-inference/)：
+   PCIe 卡形态的光子 RC 平台，**恰好基于 TFLN 集成光子**，定位边缘 AI/时序推理。
+   注意：QCi 是争议性公司（市值驱动叙事浓，独立技术验证少），NeuraWave 的实测
+   性能没有同行评议背书。**正确表述**：学术界主流片上色散/衍射网络确实不用 RC，
+   但产业端已有人把光子 RC 做成产品形态在卖——且用的正是我们的材料平台。
+   这把我们的问题从"RC 有没有前途"细化为"RC 在哪些负载上是帕累托最优"。
+6. 顺带发现：[Lightelligence PACE 3 在 WAIC 2026 展示 256×256 光子矩阵
+   推理卡](https://pandaily.com/lightelligence-optical-computing-commercialization-jul2026)
+   ——前馈 matmul 路线的商业化代表，与 NeuraWave 的 RC 路线构成对照组。
+
+### 伊辛机的诚实性警示（对审稿/写论文有用）
+
+- Hamerly（NTT）的基准方法学幻灯片指出：time-to-solution 对退火时长 T_ann
+  高度敏感，T_ann 取得过大时 Tsoln 随 N 变平，会造成**量子加速假象**。
+- QA 领域的教训同样适用于光子 IM：只在"硬件原生"实例上测 = best-case。
+- 我们 06 用 SA 作参照 + 随机图实例（非定制结构）+ 报 E/E_BK 比值而非绝对 cut，
+  符合这套诚实规范；将来写论文时要主动声明实例生成方式。
 
 ---
 
