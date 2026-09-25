@@ -61,7 +61,7 @@ try:
     print("\nopenvino devices:", core.available_devices)
     if "GPU" in core.available_devices:
         print("GPU name:", core.get_property("GPU", "FULL_DEVICE_NAME"))
-        x = ov.runtime.Tensor(np.random.randn(1, 64).astype(np.float32))
+        x = ov.Tensor(np.random.randn(1, 64).astype(np.float32))
         w = np.random.randn(64, 32).astype(np.float32)
         param = ov.opset13.parameter([1, 64], np.float32)
         mat = ov.opset13.constant(w)

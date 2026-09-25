@@ -1,10 +1,10 @@
-# V6 报告 — KITTI 全量复核（部分完成：road_crossing ✓，uav_cap 待续）
+# V6 报告 — KITTI 全量复核（road_crossing ✓，uav_cap ✓，全部完成）
 
 - 结论原文（C14）：KITTI 全量 road 0.872→**0.923**（+0.05），uav 0.758→0.857；键名乱码待修
 - 脚本：`lidar-pointnet/snn/road_kitti_verify_v67.py`（新增；`--v6-only` / `--v7-only` 分段，仿真缓存复用）
 - 输出：`lidar-pointnet/snn/outputs_isal/road_kitti/results_v67_verify.json`（UTF-8 英文键，乱码已修）+ `sim_cache_*.npz`
 - 运行：本机 **CPU**（torch 2.14 cpu 版；无需 GPU），仿真 ~2.5 min/场景，读出 ~2–3 min/种子
-- 状态：road_crossing 3 种子完成；uav_cap 仿真已缓存、读出因用户转移中断，续跑一条命令即可
+- 状态：road_crossing ✓、uav_cap ✓（各 3 种子，断点续跑生效，uav_cap 读出 5.6 min）
 
 ## road_crossing（train 21,558 / test 7,188 固定 75% 划分，3 种子）
 
@@ -25,6 +25,19 @@ car 0.963–0.977 / truck 0.47–0.55 / pedestrian 0.75–0.89 / cyclist 0.50–
 小类（truck 184、cyclist 385 测试样本）方差大，是绝对精度的主要拖累；混淆矩阵显示
 truck↔car、cyclist↔pedestrian 是主要混淆对（与 V8 合成实验形成鲜明对比：合成上这些类全对）。
 
+## uav_cap（3 种子，2026-09-25 续跑完成）
+
+| 种子 | 单次 HRRP+CNN1D | 扫描链+ESN+角度 | 增益 |
+|---|---|---|---|
+| 0 | 0.751 | 0.859 | +0.108 |
+| 1 | 0.762 | 0.855 | +0.094 |
+| 2 | 0.751 | 0.854 | +0.104 |
+| **均值±std** | **0.7547 ± 0.0063** | **0.8560 ± 0.0026** | **+0.102 ± 0.007** |
+
+- 对照申报值 0.758 / 0.857：单次臂差 −0.003、扫描链差 −0.001，均在容差内 ✓。
+- uav 场景增益（+0.10）显著大于 road_crossing（+0.04），方向与申报一致。
+- **C14（uav_cap 部分）：支持**，建议表述改为「0.755±0.006 → 0.856±0.003（3 种子）」。
+
 ## 键名乱码修复
 
 - 旧 `results.json` 键为中文 UTF-8（GBK 控制台显示为乱码）：`单次HRRP+CNN1D`、`4波束x3步+ESN+角度`。
@@ -33,5 +46,5 @@ truck↔car、cyclist↔pedestrian 是主要混淆对（与 V8 合成实验形�
 
 ## 遗留
 
-- uav_cap：仿真缓存已就位（`sim_cache_uav_cap.npz`），续跑 `python snn/road_kitti_verify_v67.py --v6-only` 约 10 min。
+- 无（V6 两场景均已 3 种子完成；V7 预算扫描进行中）。
 - 仿真种子口径说明：复核版对全库 28,746 对象统一用 seed_off=0 仿真（对象级种子流含 +i，train/test 天然独立），与原脚本 train=0/test=1 统计等价。
