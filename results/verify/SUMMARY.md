@@ -1,7 +1,9 @@
 # 防幻觉核查总结（2026-09-25，verify/2026-09-25 分支）
 
-执行主机：Windows 无 GPU 机。完成 V1/V2/V3/V4/V9/V10（部分）；V5–V8 blocked（无 GPU + lidar 仓库未就位）；L1–L3 跳过（无 Lumerical）。
-所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`。
+执行主机：Windows 无 GPU 机（V1/V2/V3/V4/V9/V10-simulation_report）+ 原机（V5/V6-部分/V8/V10-Concept Note，CPU 即可，无需 GPU）。
+L1–L3 跳过（无 Lumerical）；V6 uav_cap 与 V7 待执行窗口。
+所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`
+（另有对方机独立实现 `verify/v1_tolerance_recheck.py`、`verify/a1a2_reextract.py`、`verify/v3_chirp_extract.py`、`verify/v4_theory_check.py`，两机数值逐项一致）。
 
 ## 核查结果总表
 
@@ -18,19 +20,19 @@
 | C9 | 支持 | κ +8%（实测 +8.4%）；λ_B 漂移 0.03nm（midgap 实测 0.022nm；argmin 法假漂移 1.8nm） | `results/verify/v2` |
 | C10 | 支持（附限定） | D=0.051 不变（R>0.9: 0.0512/0.0518/0.0507）；ripple +24%（实测 +24.1%）；「必须 R>0.9」获机理实证（dn022 低阈值 D 被低估 20–40%） | `results/verify/v3/report.md` + `verify/v3_chirp_robust.py` |
 | C11 | 支持 | 0.0463 vs 0.051 = −9.6% ≈ 10% | `results/verify/v3`、`v4` |
-| C12 | 未执行（blocked） | — | `results/verify/v5/report.md` |
-| C13 | 未执行（blocked） | — | `results/verify/v5/report.md` |
-| C14 | 未执行（blocked） | —（键名乱码修复一并等待仓库就位） | `results/verify/v6/report.md` |
-| C15 | 未执行（blocked） | — | `results/verify/v7/report.md` |
-| C16 | 未执行（blocked） | — | `results/verify/v8/report.md` |
+| C12 | 支持（10 种子，~7σ；机理决定性证实） | echo+MLP 0.412 → 0.435±0.028 vs raw+MLP 0.663 → 0.680±0.020；角度加密 echo（8扇区×36bin）**0.721±0.017 超 raw 上限** → 「丢角度」机理成立；attention 读出 0.381 更差 | `results/verify/v5/report.md`、`lidar-pointnet/outputs_m7/verify/results.json` |
+| C13 | 支持（且更强） | 4–8 bit 不降 → **2–8 bit 全程无损**（2bit 0.431 / 3bit 0.428 vs 未量化 0.435，10 种子） | `results/verify/v5` |
+| C14 | 支持（3 种子，验收线内偏低沿；键名已修） | road_crossing 0.872/0.923 → **0.8696±0.0033 / 0.9119±0.0092**（增益 +0.042）；uav_cap 待续（缓存就位） | `results/verify/v6/report.md`、`lidar-pointnet/.../results_v67_verify.json` |
+| C15 | 部分待核 | 小预算 0.766 + 全量 0.912（复核）锚点在；中间预算点未跑（脚本/缓存就绪，CPU ~1h） | `results/verify/v7/report.md` |
+| C16 | **不支持** | 「合成 0.892/0.919 ≈ 真实 0.923」→ 同预算同口径下合成 0.979/1.000 vs KITTI 0.87/0.91，**差 8–21 pt，一致性是口径不对齐的巧合**；仅扫描链增益方向可引用（+2.1 vs +5.1 pt） | `results/verify/v8/report.md`、`lidar-pointnet/.../road_synth_v8/results_v8.json` |
 | C17 | 支持（原始 npz 已指认） | docx §2 数字与 `comprehensive_summary.npz` 逐位一致 | `results/verify/v10/report.md` |
 
 ## 必须修改的表述
 
-1. **C2（Concept Note / TASK_LOG §二.A / lab-note §17 规则 1）**
+1. **C2（TASK_LOG §二.A / lab-note §17 规则 1；Concept Note 已核验不含此句，见 v10 补充）**
    - 旧：「摆幅随 L 严格线性（Δτ=2n_gL/c，1–20 mm 偏差 ~2%）」
    - 新：「延迟摆幅随 L 线性：L≥5 mm 与几何值偏差 ≤3%（全域 R>0.5 窗口 ≤1%）；1 mm 短器件偏差 −8%~−15%，需切趾补偿后使用」
-2. **C7（同上 + 申请书 Objective 1）**
+2. **C7（TASK_LOG / lab-note / 后续申请书 Objective 1；Concept Note 已核验不含此数）**
    - 旧：「dλ_B/dw = 46 nm/µm（R²=1.000）」
    - 新：「dλ_B/dw ≈ 41 nm/µm（R²=0.999，带边中点提取；阈值 0.1–0.9 稳健 39.9–40.9）」；±10nm 条宽误差 → ±0.41 nm λ_B 偏移（非 ±0.46）
 3. **C8**
@@ -40,6 +42,9 @@
 5. **TASK_LOG §二.A 余弦切趾行**：「0.1 ps 容限 ↔ 3× 长度」保留，但注明 1mm 短器件不适用线性外推（见 C2）
 6. **ripple 口径（simulation_report §2.1）**：「ripple 峰峰值 ~9%」注明为反射率口径；群延迟口径 ripple = 1.2 ps（摆幅 38%）
 7. **C1 口径（m3b / Concept Note）**：α=0.033 dB/mm 注明「保守深刻蚀值」；当代刻蚀 0.2–0.4 dB/cm 时 FoM 升至 3.5–5.3×10³ ps/dB；并修正 Si 行 n_g=2.1→4.2（Si FoM 140→280 ps/dB）
+8. **Concept Note 参考文献（唯一需改处）**："Yu et al., 'Integrated chirped waveguide Bragg gratings on thin-film lithium niobate,' Nature (2022)" 标题有误 → 应为 **M. Yu et al., "Integrated femtosecond pulse generator on thin-film lithium niobate," Nature 612, 252–258 (2022)**（正文 "1.6 ps/nm in 2.5 mm" 数字属实，保留）
+9. **C16（TASK_LOG §二.M7 段「90% headline」与后续 proposal）**：删去「合成与真实惊人一致→生成器被背书」类表述；绝对精度只引 KITTI（0.87/0.91，3 种子），合成仅用于协议对比（增益方向一致）
+10. **C14 表述升级**：「0.872→0.923（单次运行）」→「0.870±0.003 → 0.912±0.009（3 种子固定划分）」；uav 数字待 V6 续跑后补 std
 
 ## 新发现的风险点（本次核查产出）
 
@@ -52,9 +57,10 @@
 
 | 任务 | 原因 | 解除条件 |
 |---|---|---|
-| V5（M7 10 种子+角度加密臂） | 无 GPU；仓库正文缺失 | GPU 主机 + 完整 LiDarSim 克隆 + road_objects.npz |
-| V6（KITTI 3 种子+键名修复） | 同上 | 同上（全量 ~10–20 min GPU） |
-| V7（预算扫描） | 同上 | 同上（2–3 h GPU） |
-| V8（合成↔真实一致性） | 同上 | 同上 |
-| V10-Concept Note 段 | 第二版 docx 在原机 D 盘 | 拷入工作区后可补跑（C2/C7/C8 修正措辞已备） |
+| V5（M7 10 种子+角度加密臂） | ~~无 GPU~~ **已完成（对方主机 CPU 5.5 min）** | 见 v5 报告与 CROSSCHECK §2 |
+| V6 road_crossing（3 种子+键名修复） | ~~同上~~ **已完成（CPU）** | 见 v6 报告 |
+| V6 uav_cap | 用户转移中断 | `road_kitti_verify_v67.py --v6-only`（缓存就位，~10 min） |
+| V7（预算扫描） | 未执行（脚本/缓存就绪） | `road_kitti_verify_v67.py --v7-only`（CPU ~1h） |
+| V8（合成↔真实一致性） | ~~无 GPU~~ **已完成（CPU 3.5 min），C16 不支持** | 见 v8 报告 |
+| V10-Concept Note 段 | ~~docx 不在核查机~~ **已由原机补核**（数字全一致；唯一改动 = Yu 文献标题） | 见 v10 报告补充节 |
 | L1–L3 | 无 Lumerical | 回旧机执行（各 15min–2h） |

@@ -1,9 +1,10 @@
-# V7 报告 — blocked（未执行）
+# V7 报告 — 训练预算扫描（就绪未跑）
 
-- 原因：核查主机无 GPU（nvidia-smi 不可用），且 lidar-pointnet 仓库正文未成功取得
-  （本机网络对 github.com:443 传输反复中断，仅 41M/300M+ 对象；code/outputs_m7/outputs_isal/data 均缺失）。
-- 依赖：
-  1. GPU 主机（torch cuda）；
-  2. LiDarSim 仓库完整克隆（建议 U 盘拷贝或换网络；`data/road_objects.npz` 82MB 与 `checkpoints/` 不在 git）；
-  3. V6 还需修复 `road_kitti/results.json` 键名编码（GBK 乱码 → UTF-8 英文键）。
-- 任务书验收标准未降低，待 GPU 主机按 VERIFICATION_PLAN.md 第 3 节执行。
+- 状态：脚本与数据已就位，等待执行窗口（用户两次转移中断）。
+- 脚本：`lidar-pointnet/snn/road_kitti_verify_v67.py --v7-only`
+  - 预算档：每类上限 {300, 750, 1500, 3000, None} → 总预算 {1200, 3000, 6000, 12000, 21558}
+  - 3 种子 × 2 场景（road_crossing / uav_cap）× 双臂（单次 / 扫描链）
+  - 两场景仿真缓存均已存在（`sim_cache_*.npz`），V7 无需再仿真
+- 预估：CPU ~50–60 min；每档完成即落盘 `results_v67_verify.json`，可随时中断续跑。
+- 任务书验收：增益随预算单调收窄（C15）；申报锚点 1200→0.657/0.766、21558→0.872/0.923
+  （复核锚点：21558 处 0.870/0.912，见 v6 报告）。
