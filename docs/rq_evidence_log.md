@@ -108,7 +108,15 @@
 
 **给"蓄水池不好用"质疑的回答骨架**：在混沌/动力系统类时序上，门控 RNN 要么失效要么慢 2–3 个数量级且精度更差；RC 的合法领地由这类系统对比论文系统性确立（Shahi 2022, 被引 183）。同事印象中"RC 不好用"若来自静态/图像类任务，那是拿 RC 打它不该打的仗——我们的零号稿恰恰只主张时序时间模式任务。
 
+## 2026-09-26 第十一批：Kong 2026 全文精读（最大定位风险解除）
+
+- [RQ3 威胁复核] Kong D. et al., "Delay-based photonic reservoir computing on thin-film lithium niobate with time–wavelength-coupled virtual nodes", npj Unconv. Comput. 3, 36 (2026-07-21，OA)。获取方式：桌面浏览器读 nature.com 全文（FetchURL 被反爬，**不用再等用户下载，清单 #5 销项**）。
+- 架构：MZM 编码 10 GHz 脉冲列 → 5 级微环（τ=20 ps）→ PPLN χ² SHG（1550→775 nm）→ 双 PD + **160 GSa/s 电子采样** → 岭回归。Santa Fe NMSE 2.6e-3 / NARMA-10 3.9e-3，FW+SH 比单分量低约 1 个数量级。需 ~200 mW 平均光功率达 SNR 45 dB。
+- **判定：不占我们的格子**。"时-波长耦合"=χ² 倍频双通道，非色散连续 GD 映射；记忆=微环离散延迟；无电光在线可调、无 spike/事件读出、纯仿真单 run。差异化假设①②③④全部存活（细节见 digest §三 Kong 精读段）。
+- **反向利用**：Kong 的读出需要 160 GSa/s 高速电子采样——这是 TFLN-RC 现状"把瓶颈推给 ADC"的活例证，直接支撑零号稿 a) 与 RQ4 的事件读出论证（08 仿真正是测这个）。
+- 方法学警示：Kong 每个配置只跑单次确定性仿真（无种子统计）——我们的多种子协议是审稿人可见的严谨性优势，写论文时值得点出。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑回执 / 用户下载）；
-- 若仍无回执：把 digest §三 RC 定标与 rq_evidence_log 做一次交叉索引，避免两套文件数字漂移。
+- 检查中转夹（小黑回执 / 用户下载的 PIC-OPO RC，清单 #6 成为唯一待核先占）；
+- 若仍无回执：尝试用桌面浏览器读 Science Advances 的 PIC-OPO RC（sciadv.aeb3077）。
