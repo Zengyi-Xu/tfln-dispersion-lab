@@ -143,7 +143,13 @@
 - [验收口径记录] 任务书预估行数 ≥47000 是我口径估错（按每 arch 两行），实际每 run 一行、全网格恰好 23520，无缺失——已在中转夹 RECEIPT_designspace_20260926.md 向小黑说明，未改任何数值。
 - [队列状态] `results/rc_vs_baselines/`、`results/rc_vs_deep/` 空目录已就位；小黑后续优先级建议：rc_vs_deep > rc_vs_baselines > 07-NGRC > 08 全量复核。
 
+## 2026-09-26 第十六批：Hamerly 2019（CIM vs D-Wave）精读（OA，PMC6534389）
+
+- [伊辛基准·原始实验对比] Hamerly R. et al., "Experimental investigation of performance differences between coherent Ising machines and a quantum annealer", Sci. Adv. 5:eaau0823 (2019)（被引 511，全文已读）| 可引用结论：① TTS 定义 T_soln = T_ann·⌈log(0.01)/log(1−P)⌉（99% 集体成功，与 Mohseni 综述同源）；② **连接度是决定性变量**——CIM（全连接）在 SK 和稠密 MAX-CUT 上碾压 DW2Q，DW2Q 仅在 d=3–4 立方图上快 10–100× 且优势随 N 缩小；③ 经验假说：物理退火机最优 TTS ~ exp(O(N_ph^½))，D-Wave 嵌入使 N_ph→N² 从而指数吃亏；④ NTT CIM 有效环程时间 2.5N ns（把 TTS 折算成墙钟时间的关键参数）；⑤ 作者自承"claims are only suggestive, not conclusive" | 对零号稿的用法：支撑"连接度/嵌入开销比量子性更重要"的方法学声明；也给我们的 CIM 对比提供折算基准（环程 2.5N ns）| ✅
+- [能效数字状态] Hamerly 本文**没有系统能效对比**（原文说 wall-clock/energy 留作后续工作）；二手来源（CNRS-Thales 博士论文 2023 表格：CMOS 0.45 mJ、忆阻器 0.22 µJ、D-Wave 250 MJ/解——含 25 kW 低温制冷）可作背景但**不可作一手引用**，需找原始出处（Cai et al. Nat. Electron. 2020 忆阻器；Dutta et al. 2020 振荡器 1.3×10⁷ solutions/s/W）再引。
+- [与 Mohseni 2022 的互洽性] 两篇结论一致：稠密问题上光/模拟机相对 D-Wave 有优势，但相对最优数字硬件无优势——第十四批"伊辛只作副演示"的判据不变。
+
 ### 待办（下一批）
 
 - 检查中转夹（小黑 rc_vs_deep / 05-06 / 07 / 08 回执；用户下载的清单 #1、#2、#4）；
-- 若仍无回执：继续文献循环——Hamerly 2019 CIM vs D-Wave（Sci. Adv.，OA，PMC6534389）精读能效/TTS 数字。
+- 若仍无回执：RC 在线学习文献循环（FORCE learning / 在线读出更新 vs 我们的离线岭回归——审稿人可能问"为什么不在线训练"）。
