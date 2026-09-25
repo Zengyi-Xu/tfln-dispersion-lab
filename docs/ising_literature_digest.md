@@ -179,11 +179,15 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
    computing", Nat. Commun. 15, 2056 (2024)](https://www.nature.com/articles/s41467-024-45187-1)
    ——RC 领域最权威的展望（558 次引用）。挑战清单：超参敏感、缺乏硬件友好理论、
    大规模任务竞争力不足。
-2. **Zhang & Cornelius 的 Catch-22**（2023，
-   [报道](https://www.innovationnewsnetwork.com/what-are-the-limitations-to-reservoir-computing/37814/)）：
-   ① RC 预测混沌系统需要 warmup 时间 ≈ 动力学本身的时间尺度；
-   ② NGRC 必须把非线性形式"预先偷渡"进模型。——这解释了同事口中的"不好用"：
-   RC 的超参/结构敏感是公认痛点。
+2. **Zhang & Cornelius, "Catch-22s of reservoir computing", Phys. Rev. Research 5,
+   033213 (2023)（全文已精读，rq 第三十四批）**：两个 catch-22 的硬数字——
+   ① 标准 RC 预测多稳态 basin 需 warmup ≈ **整个瞬态**（能量跌破势垒才行，
+   超参优化+N_r 加倍均无解）；② NGRC 免 warmup 但对读出非线性**极端敏感**：
+   1% 参数不确定度 → basin 准确率 ~100%→<50%（随机 33.3%）；多项式/RBF 通用
+   特征全部失败，只有精确非线性成功。**对我们的双向意义**：打击面限于闭环
+   basin/吸引子预测（我们全部负载是开环信号处理，不在其中）；且"除非已知精确
+   非线性否则学不会"恰是**物理器件的卖点**——器件响应就是精确非线性本身，
+   零模型失配（physical NGRC 论据 + 伊辛副演示动机）。
 3. [RC 作光子前处理器 + DNN 读出（Frontiers, 2022）](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.1051941/full)
    ——混合路线：光 RC 做时序展开，数字 DNN 做精细读出。这是"RC 不是取代深度学习
    而是前置特征提取"的折中定位。
