@@ -1,6 +1,6 @@
 # 任务日志 / 会话交接
 
-> 供新会话快速对接。最近更新：2026-09-25（防幻觉核查全部完成，见第六节）
+> 供新会话快速对接。最近更新：2026-09-26（防幻觉核查全部完成，含 L1–L3，见第六节）
 > 主线任务：KGFP Call 2027 申请（Concept Note）+ 支撑仿真（A 组容差 + M7 分类）
 
 ## 一、申请状态（Concept Note 第二版已完成）
@@ -72,6 +72,7 @@
 - Lumerical：装在 E 盘（`E:/Program Files/ANSYS Inc/v252/Lumerical/`），本机默认 python 无 lumapi，需用自带 python 3.13.1 或脚本内 `sys.path.append`
 - FDTD 并行：脚本内设 6 进程（12 进程在笔记本上不稳定）
 - 均匀光栅（77.5 µm）每任务 10–20 min；250 µm 啁啾为长任务（1.5–3 h）
+- 绘图约定：画布拉格光栅结构示意图时，相邻高低折射率段必须用不同颜色区分（否则看起来像一根完整直波导）
 - 新会话涉及 Concept Note 内容时，先读第二版 docx 和本日志，不要重读第一版
 
 ## 五、Obsidian 知识卡片生成（2026-09-25 追加）
@@ -120,4 +121,12 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - 申报锚点 1200→0.657/0.766、21558→0.872/0.923 双机均复现（差 ≤0.004）
 - **17 条结论全部销号**：14 支持/部分支持，3 不支持（C2、C7 原值、C16）；唯一剩余 blocked = L1–L3（Lumerical）
 - 复现脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`（本机）；V5–V8 脚本在 `lidar-pointnet/snn/`（`road_kitti_verify_v67.py` 支持 `--v6-only/--v7-only/--scenario=` 断点续跑；另有本机 `road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py` 未推送远端，待用户决定）
-- 仍 blocked：L1–L3（本机无 Lumerical，需原机 E 盘 v252）
+- ~~仍 blocked：L1–L3（本机无 Lumerical，需原机 E 盘 v252）~~
+
+**【L1–L3 已执行完毕 2026-09-25/26，原机 Lumerical v252】**
+- L1（w1470/w1520 细网格 dx=5nm + 宽窗 1500–1640nm/281pt 重跑，62 min）：n_g 收敛（2.10365 vs 2.10457）；dλB/dw=40.79 nm/µm（阈值扫描 40.76–40.90）落在 40.65±0.53 内 ✓；κ=607.5/607.0/cm 落在 606–608 ✓ → C7/C8 复核值排除数值假象。λB 绝对值 −0.25nm 共模偏移（dx=10nm staircasing 系统误差），不影响任何已入库结论
+- L2（chirp dn=0.020 仅加密网格 dx=5nm，75 min）：D@R>0.9 = 0.0513 vs 0.0512（+0.15%，验收 ±5% 内）✓；阈值色散 ±0.0022 与基准一致；「必须 R>0.9 平台」规则二次确认（低阈值 D 低估在细网格下同样复现）
+- L3（C1 真实信号链，CPU）：实测 tau_r 重建 H(ω) 得真实压缩脉冲（FWHM 0.146ps 含旁瓣）替换高斯 spike，M1 链四项指标不变（0.267/1.000/1.000/0.389 vs 0.267/1.000/1.000/0.400）；FoM 真实链口径 389（器件级）/384 ps/dB（3dB 预算应用级）= −8~−10%，主因 R>0.9 平台截断 η=0.915 → 建议措辞注明「真实信号链有效 FoM ≈385–390 ps/dB，3dB 预算摆幅 1.17ns、窗口 0.18m」
+- 脚本：`verify/l1_fdtd_rerun.py`、`verify/l1_analyze.py`、`verify/l2_chirp_mesh.py`、`verify/l2_analyze.py`、`verify/l3_real_chain.py`；证据 `results/verify/l1`–`l3/`（json+png+report.md，.fsp 入库）
+- 排障固化：fftshift 后的非单调时间轴喂 np.interp 会静默得全零（L3 脚本注释）
+- **至此核查任务全清：17/17 结论 + L1–L3 全部完成，无剩余 blocked**

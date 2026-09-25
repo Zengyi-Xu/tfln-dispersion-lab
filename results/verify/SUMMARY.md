@@ -1,7 +1,7 @@
 # 防幻觉核查总结（2026-09-25，verify/2026-09-25 分支）
 
 执行主机：**双主机并行核查，全部完成**。本机 = Windows + RTX 3060（torch 2.11.0+cu126，V6 全量/V7/V8 GPU 复核）；对方 = 无 GPU 核查机（V1–V4/V9 + 独立重实现）与原机（V5/V6 两场景/V8/V10-Concept Note，CPU）。
-L1–L3 跳过（无 Lumerical）；17 条结论全部有判定（C14 双机独立支持，C16 双机一致不支持）。
+L1–L3 已于 2026-09-25/26 在原机完成（Lumerical v252，见 `results/verify/l1`–`l3/report.md`）；17 条结论全部有判定（C14 双机独立支持，C16 双机一致不支持）。
 所有任务报告：`results/verify/v*/report.md`；可复用脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`（本机），
 另有对方机独立实现 `verify/v1_tolerance_recheck.py`、`verify/a1a2_reextract.py`、`verify/v3_chirp_extract.py`、`verify/v4_theory_check.py`，两机 CPU 任务数值逐项一致。
 
@@ -64,4 +64,4 @@ L1–L3 跳过（无 Lumerical）；17 条结论全部有判定（C14 双机独�
 | V7（预算扫描） | **双机完成**（同档五档 × 3 种子 × 2 场景；road 增益严格单调双机确认，uav 最低档例外双机确认） |
 | V8（合成↔真实一致性） | **双机完成**，C16 不支持结论一致 |
 | V10-Concept Note 段 | **已由原机补核**（数字全一致；唯一改动 = Yu 文献标题） |
-| L1–L3 | 无 Lumerical，回旧机执行（各 15min–2h），唯一剩余 blocked |
+| L1–L3 | **已完成（原机 Lumerical v252，2026-09-25/26）**：L1 细网格重跑 w1470/w1520 → dλB/dw=40.79、κ=607.0/607.5/cm，验收通过；L2 啁啾 dx=5nm → D=0.0513（+0.15%），收敛；L3 真实信号链 → M1 指标不变，FoM 真实链口径 384–389 ps/dB（−8~−10%，平台截断 η=0.915 所致） |

@@ -1,0 +1,6 @@
+L2 chirp mesh convergence: dx=5.0 nm (baseline 10 nm), dy=20.0 nm, L=250 um, dn=0.020, dLambda=17.30 nm, n_freq=121
+building chirp_fine ...
+  grating: 1291 segments, L = 250.1 um, chirp dLambda = 17.30 nm
+running chirp_fine (long) ...
+  chirp_fine done. tau mean = 1.7512 ps, tau_r mean = 1.4115 ps
+L2 FDTD run done.
