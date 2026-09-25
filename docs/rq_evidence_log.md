@@ -229,7 +229,11 @@
 - [数据质量注记] 1 行 ok=true 但 metric=NaN（narma/rc_tanh/n_train=100/seed=1，发散未被捕获），导致 summary 的 rc_tanh narma small_mean = NaN（聚合器用了 mean 而非 nanmean）——建议聚合器改 nanmean，原始行保留不动。
 - [对零号稿的收紧] 信道均衡叙事从"性能优势"改为"**训练数据效率 + 免 DSP 的模拟前端**"：大预算精度 Volterra 可追平，但 Volterra 需要精确信道建模/大量校准数据，我们免校准——这才是与 OSP 叙事兼容的表述。
 
+## 2026-09-26 第三十一批：零号稿对齐审查（只列清单不改原稿）
+
+- [零号稿核查] `docs/zero_draft_alignment_review.md` 已写：① 可填充——§a 待补数字有 Murmann 硬数据（9/707、92.6 pJ/样本）、C13 物理版、数据效率三任务规律；② 需收紧——§b"同一本体论"段按 RQ4 判定改写（事件读出 vs 采样后端，SNN 可替换）、数据效率必须保留"小预算"限定（大预算 Volterra/linear 可反超）、禁止"首次 TFLN RC"句式；③ 可核销——威胁 #1（占据图完成，我们的格子空）、威胁 #3 部分核销（护城河收窄到 EO ns 速度，应用侧论证仍是缺口：多制式波形自适应匹配滤波）；④ 三个目标数状态盘点（缺口都不变，#3 建议加"调谐时间"指标）；⑤ 新增三条威胁（PIC-OPO 措辞纪律、Mohseni 判决、Volterra 边界）| ✅ 原稿未动，改动权在用户
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑 06（ising_nonlinearity）、07、08 回执与 HANDOFF_FROM_7945HX_05_06.md；用户下载的清单 #1、#2、#4）；
-- 若仍无回执：把批 30 的收紧表述建议补进 `docs/rc_tutorial.md` §六对打表下方（加一行"强基线边界"注记）。
+- 检查中转夹（小黑 06、07、08 回执与 HANDOFF_FROM_7945HX_05_06.md；用户下载的清单 #1、#2、#4）；
+- 若仍无回执：威胁 #3 的应用侧论证调研——"波形敏捷/多制式雷达需要 ns 级可重构匹配滤波"的文献支撑（cognitive radar, waveform-agile radar, adaptive matched filtering 需求侧证据）。
