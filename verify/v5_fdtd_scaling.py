@@ -184,7 +184,7 @@ def main():
     out = os.path.join(OUT, "fdtd_scaling.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump({
-            "machine": "Ultra 5 338H, 12C/12T no HT, 32GB",
+            "machine": "Ryzen 9 7945HX, 16C/32T Zen4",
             "domain_um": [X_SPAN * 1e6, Y_SPAN * 1e6],
             "sim_time_fs": sim_time * 1e15,
             "mesh_accuracy": MESH_ACCURACY,
