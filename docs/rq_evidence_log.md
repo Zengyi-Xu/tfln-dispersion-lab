@@ -154,7 +154,12 @@
 - [读出训练·先占与出路] Antonik P., Duport F., Hermans M., Smerieri A., Haelterman M., Massar S., "Online training of an opto-electronic reservoir computer applied to real-time channel equalization", IEEE TNNLS 28(11), 2686 (2017)；Antonik P., Haelterman M., Massar S., "Online training for high-performance analogue readout layers in photonic reservoir computers", Cognitive Computation 9(3), 297–306 (2017)（VUB Massar 组，光电 RC 领域最成体系的一组）| 核心事实：**模拟读出层 + 在线训练（SGD/FORCE 式逐样本更新）在光电 RC 上 2017 年就已实验实现，性能与数字离线读出同级**；离线岭回归被原文明确称为硬件 RC 的"主要瓶颈"（数据要搬回后处理机） | 我们的答辩骨架：① 离线岭回归是概念验证期的标准做法，不损失器件结论（读出训练与蓄水池动力学解耦）；② 在线模拟读出已有成熟先例（VUB 2017×2），是我们的兼容升级路径而非缺口；③ 更根本的：我们的事件化读出（LIF 首脉冲）把读出数据量压到每样本几个时间戳，离线训练的"数据搬运瓶颈"对我们不成问题——08 仿真正是在定量这条 | ✅ 引用弹药
 - [方法学备选] FORCE learning（Sussillo & Abbott 2009）= RC 闭环在线训练的经典算法；若审稿人要求在线演示，仿真层面可低成本补一个 FORCE vs 岭回归对照（列入候选仿真，优先级低于 05–08）。
 
+## 2026-09-26 第十八批：事件化/spike 延迟编码读出的实验先例（给 RQ4/08 找佐证）
+
+- [事件读出·先例盘点] ① VCSEL-SA 可激发神经元：spike latency（刺激→首脉冲间隔）编码是公认实验能力（中国光学期刊 2021 综述 Fig.1 及一系列 VCSEL-SA 工作）；② RTD 共振隧穿二极管 resonate-and-fire 神经元（arXiv:2510.14515，2025）：C 波段 1550 nm 直接光注入、ns 速率全-or-无脉冲——**电信波段光电脉冲神经元的最新实验**；③ 人工视觉神经元 rate+TTFS 复用编码（Nat. Commun. 2024，s41467-024-48103-9）：首脉冲延迟随刺激强度指数变化（3.51→1.19 µs）——TTFS 编码在器件层面成立；④ SNN 在 neuromorphic 硬件上做 IM/DD 光通信解映射（arXiv:2302.14726）：SNN 读出已进光通信系统 | **判定：spike 延迟编码的物理载体充分存在，但没有人把它用作"色散/CBG 处理波形的读出方式"——08 仿真的命题（LIF 首脉冲读出色散压缩脉冲）在文献中仍是空格，且每个组件都有实验先例支撑** | ✅ 支撑 RQ4 与 08 的合法性
+- [措辞边界] 先例④（SNN 解映射）说明"SNN 读出光链路"概念已有人做——我们 08 的差异化不在"用 SNN 读出"本身，而在**输入是被色散器件物理整形过的波形**（延迟即特征），读出的是器件产生的时序结构而非任意电信号。
+
 ### 待办（下一批）
 
 - 检查中转夹（小黑 rc_vs_deep / 05-06 / 07 / 08 回执；用户下载的清单 #1、#2、#4）；
-- 若仍无回执：事件化光读出文献循环（LIF/事件相机读出 × 光子学先例，给 RQ4/08 找实验佐证）。
+- 若仍无回执：商业化光计算版图 2026 快查（MZI 网格 vs 衍射 vs RC——回应同事"商业化研究里没有蓄水池"的现况核对，补 digest §三"生态错位"论证的时效性）。
