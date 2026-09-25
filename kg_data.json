@@ -1,0 +1,506 @@
+{
+  "nodes": [
+    {
+      "id": "dev_grat",
+      "label": "TFLN 啁啾光栅 / 群延迟 ~ps/nm",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "dev_mod",
+      "label": "TFLN 电光调制器 / Pockels 延迟",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "dev_sin",
+      "label": "SiN 平台 / 长窗低损耗",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "dev_qd",
+      "label": "QD-MLL 脉冲源 / 6.74bit 权重",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "dev_ring",
+      "label": "TFLN 微环 / MRR 蓄水池",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "dev_pd",
+      "label": "光电探测 + ns 电读出",
+      "layer": "物理/器件层"
+    },
+    {
+      "id": "sim_fdtd",
+      "label": "Lumerical FDTD / 光栅脉压",
+      "layer": "仿真器层"
+    },
+    {
+      "id": "sim_hrrp",
+      "label": "isal_range_profile / HRRP + ISAL",
+      "layer": "仿真器层"
+    },
+    {
+      "id": "sim_3d",
+      "label": "isal_3dview / 3D 视角扫描",
+      "layer": "仿真器层"
+    },
+    {
+      "id": "sim_sem",
+      "label": "semantic_sim.py / 语义回波",
+      "layer": "仿真器层"
+    },
+    {
+      "id": "sim_pulse",
+      "label": "simulator.py / 相参脉冲串",
+      "layer": "仿真器层"
+    },
+    {
+      "id": "m_esn",
+      "label": "ESN/LSM 光子蓄水池 / 256-512 神经元",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_ce",
+      "label": "CE / Ridge 读出 + StandardScaler",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_dly",
+      "label": "delay learning / 可调延迟训练",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_cnn",
+      "label": "1D/2D CNN / 经验上限基准",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_look",
+      "label": "multi-look 平均 / 散斑分集",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_cfar",
+      "label": "CA-CFAR / FFT 经典基线",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_inv",
+      "label": "不变特征 / 自相关 块剖面",
+      "layer": "方法层"
+    },
+    {
+      "id": "m_ann",
+      "label": "PointNet / PN2 / ANN 上限",
+      "layer": "方法层"
+    },
+    {
+      "id": "t_m1",
+      "label": "当前 M1 / ps光+ns电读出 / tau_leak内~1.0",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m2",
+      "label": "当前 M2 / digits 0.94 / ModelNet 0.40",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m3",
+      "label": "当前 M3 / 可调延迟价值 + TFLN 预算",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m4",
+      "label": "当前 M4 / 单次 HRRP 0.38",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m4_scan",
+      "label": "当前 M4b / 4波束x3步 ESN 0.68",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m4_dist",
+      "label": "当前 M4c / 分布式上限 0.80",
+      "layer": "实验层"
+    },
+    {
+      "id": "t_m4_auto",
+      "label": "当前 M4d / 车vs非车 0.89",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_m1",
+      "label": "隔壁 M1 / 器件容差",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_m2",
+      "label": "隔壁 M2 / K杂波 CFAR 172x失效",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_m3",
+      "label": "隔壁 M3 / 微多普勒不变性",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_m4",
+      "label": "隔壁 M4 / 硬件协同 0.14mW",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_m6",
+      "label": "隔壁 M6 / 语义分类 0.81",
+      "layer": "实验层"
+    },
+    {
+      "id": "l_cl",
+      "label": "隔壁上限 / oracle 0.74 / PointNet 0.986",
+      "layer": "实验层"
+    },
+    {
+      "id": "c_time",
+      "label": "① 时标分离 / ps光 + ns电读出成立",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_ceiling",
+      "label": "② 蓄水池上限 / ~0.38-0.40",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_sensing",
+      "label": "③ 结构化传感增益 / 0.38->0.68",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_speckle",
+      "label": "④ 光学粗糙目标 / 相干ISAL方位散焦",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_info",
+      "label": "⑤ 信息受限 / HRRP上限 0.82",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_auto",
+      "label": "⑥ 自动驾驶粗分类 / 单次剖面 0.89",
+      "layer": "结论层"
+    },
+    {
+      "id": "c_hw",
+      "label": "⑦ 硬件-算法协同 / 蓄水池功耗 uW级",
+      "layer": "结论层"
+    },
+    {
+      "id": "a_auto",
+      "label": "自动驾驶 LiDAR / 车 行人 骑手粗识别",
+      "layer": "应用层"
+    },
+    {
+      "id": "a_uav",
+      "label": "UAV 无人机 / 交通监管",
+      "layer": "应用层"
+    },
+    {
+      "id": "a_rd",
+      "label": "道路监控 / 尘雾 散斑环境",
+      "layer": "应用层"
+    },
+    {
+      "id": "a_sar",
+      "label": "SAR / 合成孔径前端",
+      "layer": "应用层"
+    },
+    {
+      "id": "a_mic",
+      "label": "低光子相干显微 / 散斑组织",
+      "layer": "应用层"
+    },
+    {
+      "id": "a_plan",
+      "label": "博士后研究计划 / M5 + plan_draft",
+      "layer": "应用层"
+    }
+  ],
+  "edges": [
+    {
+      "src": "dev_grat",
+      "dst": "sim_fdtd",
+      "relation": "生成"
+    },
+    {
+      "src": "dev_grat",
+      "dst": "sim_hrrp",
+      "relation": "脉压前端"
+    },
+    {
+      "src": "dev_mod",
+      "dst": "m_dly",
+      "relation": "物理载体"
+    },
+    {
+      "src": "dev_ring",
+      "dst": "m_esn",
+      "relation": "物理载体"
+    },
+    {
+      "src": "dev_qd",
+      "dst": "dev_grat",
+      "relation": "驱动光源"
+    },
+    {
+      "src": "dev_pd",
+      "dst": "t_m1",
+      "relation": "ns读出"
+    },
+    {
+      "src": "sim_fdtd",
+      "dst": "t_m1",
+      "relation": "验证"
+    },
+    {
+      "src": "sim_hrrp",
+      "dst": "t_m4",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_hrrp",
+      "dst": "t_m4_scan",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_hrrp",
+      "dst": "t_m4_dist",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_hrrp",
+      "dst": "t_m4_auto",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_3d",
+      "dst": "l_cl",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_sem",
+      "dst": "l_m6",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_pulse",
+      "dst": "l_m2",
+      "relation": "信号源"
+    },
+    {
+      "src": "sim_pulse",
+      "dst": "l_m3",
+      "relation": "信号源"
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m1",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m2",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m4",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m4_scan",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m4_dist",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "t_m4_auto",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "l_m2",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "l_m3",
+      "relation": ""
+    },
+    {
+      "src": "m_esn",
+      "dst": "l_m6",
+      "relation": ""
+    },
+    {
+      "src": "m_ce",
+      "dst": "t_m4",
+      "relation": "读出"
+    },
+    {
+      "src": "m_dly",
+      "dst": "t_m3",
+      "relation": ""
+    },
+    {
+      "src": "m_cnn",
+      "dst": "t_m4",
+      "relation": "上限基准"
+    },
+    {
+      "src": "m_cnn",
+      "dst": "t_m4_scan",
+      "relation": "上限基准"
+    },
+    {
+      "src": "m_look",
+      "dst": "t_m4",
+      "relation": "散斑分集"
+    },
+    {
+      "src": "m_cfar",
+      "dst": "l_m2",
+      "relation": "对照"
+    },
+    {
+      "src": "m_inv",
+      "dst": "l_m3",
+      "relation": "决定性"
+    },
+    {
+      "src": "m_ann",
+      "dst": "l_cl",
+      "relation": "上限"
+    },
+    {
+      "src": "t_m1",
+      "dst": "c_time",
+      "relation": ""
+    },
+    {
+      "src": "t_m2",
+      "dst": "c_ceiling",
+      "relation": ""
+    },
+    {
+      "src": "l_m6",
+      "dst": "c_ceiling",
+      "relation": "互证"
+    },
+    {
+      "src": "t_m4",
+      "dst": "c_ceiling",
+      "relation": ""
+    },
+    {
+      "src": "t_m4_scan",
+      "dst": "c_sensing",
+      "relation": ""
+    },
+    {
+      "src": "t_m4_dist",
+      "dst": "c_sensing",
+      "relation": ""
+    },
+    {
+      "src": "t_m4",
+      "dst": "c_speckle",
+      "relation": ""
+    },
+    {
+      "src": "t_m4_scan",
+      "dst": "c_speckle",
+      "relation": "响应"
+    },
+    {
+      "src": "t_m4_scan",
+      "dst": "c_info",
+      "relation": ""
+    },
+    {
+      "src": "t_m4_dist",
+      "dst": "c_info",
+      "relation": ""
+    },
+    {
+      "src": "t_m4_auto",
+      "dst": "c_auto",
+      "relation": ""
+    },
+    {
+      "src": "l_m4",
+      "dst": "c_hw",
+      "relation": ""
+    },
+    {
+      "src": "l_cl",
+      "dst": "c_info",
+      "relation": "定界"
+    },
+    {
+      "src": "c_auto",
+      "dst": "a_auto",
+      "relation": ""
+    },
+    {
+      "src": "c_sensing",
+      "dst": "a_auto",
+      "relation": ""
+    },
+    {
+      "src": "c_speckle",
+      "dst": "a_sar",
+      "relation": ""
+    },
+    {
+      "src": "c_info",
+      "dst": "a_plan",
+      "relation": ""
+    },
+    {
+      "src": "c_hw",
+      "dst": "a_plan",
+      "relation": ""
+    },
+    {
+      "src": "c_ceiling",
+      "dst": "a_plan",
+      "relation": ""
+    },
+    {
+      "src": "c_time",
+      "dst": "a_plan",
+      "relation": ""
+    },
+    {
+      "src": "l_m2",
+      "dst": "a_rd",
+      "relation": "散斑/尘雾"
+    },
+    {
+      "src": "l_m3",
+      "dst": "a_uav",
+      "relation": ""
+    },
+    {
+      "src": "l_m6",
+      "dst": "a_rd",
+      "relation": ""
+    }
+  ]
+}
