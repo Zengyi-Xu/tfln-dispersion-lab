@@ -7,11 +7,9 @@
   tfln-dispersion-lab/results/learning_tree_mermaid.md
 """
 import os
-import sys
 
-# 复用 build_tree_views.py 里的树数据
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_tree_views import (
+# 复用 tree_data.py 里的树数据（无 matplotlib 依赖）
+from tree_data import (
     PROJECT_TREE, LEARNING_TREE,
     PROJECT_COLOR, LEARNING_COLOR,
 )
