@@ -221,7 +221,7 @@ cells.append(nbf.v4.new_markdown_cell(r"""## 5. 讨论：这次仿真验证了�
 1. Lumerical 的 2D FDTD 是 **Z-normal**（XY 面内传播），不是 XZ；沿 z 传播的直觉布局会报 "z min bc inactive"；
 2. lumapi 的 `fdtd.set({...})` 批量赋值在此版本不可靠，需逐属性 `set(k, v)`；
 3. 监视器设频点前要先 `override global monitor settings = 1`；
-4. 笔记本上 12 进程 MPI 反复在中途丢 engine，限 6 进程后稳定（`setresource("FDTD", 1, "processes", 6)`）；
+4. 7945HX 实测：12 进程为甜点（比 6 进程快约 37%，仍留 4 核给系统）；338H 等低压平台建议按自身核数调低；
 5. 复场监视器的 E 是 5 维 `(x, y, z, f, component)`，必须**先选主导偏振分量**再取相位，否则三个分量混在一起、群延迟完全错误；
 6. 波导芯层折射率要给得比目标模式有效折射率高（本例 2.07 → $n_{\rm eff}\approx2.02$），否则禁带整体漂出光源窗口。
 

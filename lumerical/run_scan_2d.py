@@ -146,7 +146,7 @@ def build(fname, dn, L, chirp_dLambda=0.0):
 
 def extract(fsp, tag):
     fdtd = lumapi.FDTD(hide=False)
-    fdtd.setresource("FDTD", 1, "processes", 6)
+    fdtd.setresource("FDTD", 1, "processes", 12)
     fdtd.load(fsp)
     fdtd.run()
 

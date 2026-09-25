@@ -82,7 +82,7 @@ def main():
     })
 
     fdtd.save(fsp)
-    fdtd.setresource("FDTD", 1, "processes", 4)
+    fdtd.setresource("FDTD", 1, "processes", 12)
 
     print("running FDTD (GUI should be visible) ...", flush=True)
     fdtd.run()
