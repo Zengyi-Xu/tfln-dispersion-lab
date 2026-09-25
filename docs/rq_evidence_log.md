@@ -280,9 +280,18 @@
 - [划界与定量对照] ① **未占**：片上集成（他们是分立光纤 MZM 系统，集成只是展望）、可调色散 GD（NGRC 无真实循环动力学，时延维靠 k 个离散延迟）、事件读出、雷达负载；② **定量**：他们的 NARMA10 0.155（22 维实验）**比我们 designspace/baselines 的 rc_tanh 0.117/rc_sin2 0.143（仿真）更差**——我们掩码延迟环 SCR 在数字上反而占优，但实验 vs 仿真不能直接比，论文里只能并列引用不能宣称优势；③ 他们也是"sin² 非线性有效"的盟友证据（强化我们 designspace 的 sin² 臂合理性）；④ **对 rc_tutorial §七.4"片上 NGRC 化"的修订**：该方向表述必须从"空格子"改为"BJTU 已实验演示 MZM-NGRC（分立、固定延迟、基准任务），我们的差异化=色散 GD 提供波长复用连续延迟抽头（他们需 k 个分立延迟）+ 片上 + 可调 + 事件读出"。
 - [连锁发现·待查] Crossref 同检索带出：**"Dynamic-scaling photonic reservoir computing via adaptive semiconductor-optical-amplifier nonlinearity", Chinese Optics Letters (2026)**（DOI 10.3788/col202624.081901）——"动态缩放+自适应 SOA 非线性"听起来逼近"可调"叙事，下一批核查其摘要。
 
+## 2026-09-26 第三十九批：小黑 06 ising_nonlinearity 验收（"MZM sin² 兼做 Ising 机"成立，附失效区地图）
+
+- [仿真验收·sim] `results/ising_nonlinearity/`（commit ad40f37，7945HX，全量 1465 s）：4 激活（tanh/sin/laser/clip）× α∈{0.3,0.5,0.8,1.0} × β∈{1,2,5,10} × noise∈{0.1,0.5,1.0} × 图（3reg 反铁磁=max-cut / dense 自旋玻璃）× N∈{100,1000} × 4 实例 = **3072/3072 行、0 ok=false** | **sanity 全过**：tanh/sin/clip 最优 E/E_BK = 1.093/1.089/1.093（config 均值口径，≥0.95 ✅）；laser 全局均值 0.555 最低且 3reg/N=1000 塌到 0.251——阈值死区预期物理 ✅ | **口径记录**：summary.json=config 均值口径；单行极值口径 1.1086/1.1072/1.0758/1.1057——两口径结论一致，双方入档不改数 | 小黑回执 HANDOFF_FROM_7945HX_06 与我方独立分析一致；中转夹已写 RECEIPT_06 | ✅
+- **任务 B 答案：我们的 TFLN MZM sin² 能兼做 Ising 机**——最优点（α=0.3, β=10, 3reg）sin 1.089 ≈ tanh 1.093 ≈ clip 1.093，器件非线性零成本。但有三个超出回执的物理发现：
+  ① **sin 失效区 = dense + β=5 + 大噪声 + N=1000（配对 sin−tanh −0.97）**：sin 非单调（|z|>π/2 折返），稠密图耦合和 ~√N 大信号时有效增益变号——**器件设计约束：MZM 臂必须增益定标把输入箝在单调区**；
+  ② **sin 占优区 = 3reg + α=0.8 + β=1 + 小噪声（+0.68）**——稀疏弱耦合小信号区 sin 优于 tanh；
+  ③ **噪声-TTS 权衡**：sin 最优点 noise=0.1 → E/E_BK≈1.07、TTS≈16 迭代；noise=1.0 同质但 TTS≈210（慢 13×）——噪声帮助的是坏工作点（CMIM"噪声有益"叙事），好工作点不需要大噪声；laser 在 dense/N=100 有 0.704 不垫底，死区问题主要在稀疏大图。
+- [对文档的回灌] digest §一 06 复现段的 quick 档观察被全量扫描证实并扩展（失效区/占优区地图是新内容）；仿真 10 骨架的"唯象饱和增益混频"臂设计可参考①——混频器输入摆幅定标是必须建模的器件约束。
+
 ### 待办（下一批）
 
-- 检查中转夹（小黑 06、07、08 回执；中转夹新增 `ph4c00003_si_001.pdf` 是我下载的 Li 2024 SI，不是小黑文件）；
-- 核查 COL 2026 "Dynamic-scaling PRC via adaptive SOA nonlinearity"（批 38 连锁发现，摘要级即可判威胁度）；
-- 若小黑 06 回执到：按 TASK_REQUEST_20260926_05_06.md 验收，并考虑 06b（递减步长调度，批 35③）增补任务书；
-- Li 2024 正文残项（Methods/结果讨论）等用户明早下载，不阻塞。
+- 主线：精读 Li 2024 正文（`D:\BaiduSyncdisk\Temp_transit\ph4c00003.pdf`，用户已下，清单 #1 全销项）；
+- 核查 COL 2026 "Dynamic-scaling PRC via adaptive SOA nonlinearity"（批 38 连锁发现）；
+- 检查中转夹（小黑 07 rc_vs_ngrc / 08 interface_readout 回执——06 已验收销项）；
+- 备选：06b 递减步长调度增补任务书起草（DRAFT 不发，等 07/08 出结果后排期）。
