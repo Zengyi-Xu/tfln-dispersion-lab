@@ -149,7 +149,12 @@
 - [能效数字状态] Hamerly 本文**没有系统能效对比**（原文说 wall-clock/energy 留作后续工作）；二手来源（CNRS-Thales 博士论文 2023 表格：CMOS 0.45 mJ、忆阻器 0.22 µJ、D-Wave 250 MJ/解——含 25 kW 低温制冷）可作背景但**不可作一手引用**，需找原始出处（Cai et al. Nat. Electron. 2020 忆阻器；Dutta et al. 2020 振荡器 1.3×10⁷ solutions/s/W）再引。
 - [与 Mohseni 2022 的互洽性] 两篇结论一致：稠密问题上光/模拟机相对 D-Wave 有优势，但相对最优数字硬件无优势——第十四批"伊辛只作副演示"的判据不变。
 
+## 2026-09-26 第十七批：RC 读出在线训练（审稿人预防："为什么用离线岭回归？"）
+
+- [读出训练·先占与出路] Antonik P., Duport F., Hermans M., Smerieri A., Haelterman M., Massar S., "Online training of an opto-electronic reservoir computer applied to real-time channel equalization", IEEE TNNLS 28(11), 2686 (2017)；Antonik P., Haelterman M., Massar S., "Online training for high-performance analogue readout layers in photonic reservoir computers", Cognitive Computation 9(3), 297–306 (2017)（VUB Massar 组，光电 RC 领域最成体系的一组）| 核心事实：**模拟读出层 + 在线训练（SGD/FORCE 式逐样本更新）在光电 RC 上 2017 年就已实验实现，性能与数字离线读出同级**；离线岭回归被原文明确称为硬件 RC 的"主要瓶颈"（数据要搬回后处理机） | 我们的答辩骨架：① 离线岭回归是概念验证期的标准做法，不损失器件结论（读出训练与蓄水池动力学解耦）；② 在线模拟读出已有成熟先例（VUB 2017×2），是我们的兼容升级路径而非缺口；③ 更根本的：我们的事件化读出（LIF 首脉冲）把读出数据量压到每样本几个时间戳，离线训练的"数据搬运瓶颈"对我们不成问题——08 仿真正是在定量这条 | ✅ 引用弹药
+- [方法学备选] FORCE learning（Sussillo & Abbott 2009）= RC 闭环在线训练的经典算法；若审稿人要求在线演示，仿真层面可低成本补一个 FORCE vs 岭回归对照（列入候选仿真，优先级低于 05–08）。
+
 ### 待办（下一批）
 
 - 检查中转夹（小黑 rc_vs_deep / 05-06 / 07 / 08 回执；用户下载的清单 #1、#2、#4）；
-- 若仍无回执：RC 在线学习文献循环（FORCE learning / 在线读出更新 vs 我们的离线岭回归——审稿人可能问"为什么不在线训练"）。
+- 若仍无回执：事件化光读出文献循环（LIF/事件相机读出 × 光子学先例，给 RQ4/08 找实验佐证）。
