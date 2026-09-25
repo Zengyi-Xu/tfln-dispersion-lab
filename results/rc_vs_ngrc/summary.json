@@ -1,0 +1,77 @@
+{
+ "narma": {
+  "rc_tanh": {
+   "big_mean": 0.09254901780699273
+  },
+  "rc_sin2": {
+   "big_mean": 0.15574993776093837
+  },
+  "esn": {
+   "big_mean": 0.2570502939212907
+  },
+  "ngrc": {
+   "big_mean": 0.6643025695715357
+  },
+  "hybrid": {
+   "big_mean": 0.08630884048142937
+  },
+  "volterra": {
+   "big_mean": NaN
+  },
+  "linear": {
+   "big_mean": 0.32939163567846885
+  }
+ },
+ "channel": {
+  "rc_tanh": {
+   "big_mean": 0.7561
+  },
+  "rc_sin2": {
+   "big_mean": 0.7704
+  },
+  "esn": {
+   "big_mean": 0.541
+  },
+  "ngrc": {
+   "big_mean": 0.7679879578524836
+  },
+  "hybrid": {
+   "big_mean": 0.7627696939287506
+  },
+  "volterra": {
+   "big_mean": 0.7763
+  },
+  "linear": {
+   "big_mean": 0.7506
+  }
+ },
+ "lorenz": {
+  "rc_tanh": {
+   "big_mean": 0.18928
+  },
+  "rc_sin2": {
+   "big_mean": null
+  },
+  "esn": {
+   "big_mean": 1.07016
+  },
+  "ngrc": {
+   "big_mean": 0.28028
+  },
+  "hybrid": {
+   "big_mean": 0.3494400000000001
+  },
+  "volterra": {
+   "big_mean": null
+  },
+  "linear": {
+   "big_mean": null
+  }
+ },
+ "lorenz_diverged_frac": {
+  "rc_tanh": 1.0,
+  "esn": 1.0,
+  "ngrc": 1.0,
+  "hybrid": 1.0
+ }
+}
