@@ -276,9 +276,11 @@ spike 链把连续波形事件化（免采样读出）。**这不是把 RC 硬�
    输入层特征"（分立光纤、固定延迟、基准任务）——我们的差异化 =
    色散 GD 提供波长复用连续延迟抽头 + 片上 + 可调 + 事件读出；
 5. **读出升级路径**：离线岭回归 → 在线 SGD（VUB 2017 先例）→
-   事件化 LIF 读出（08 仿真验证中）——三步互不冲突，可逐篇发表；
+   事件化 LIF 读出（08 全量已验证 ✅ rq 第四十一批：等精度能耗代理低
+   4–9×；08b 加难档在跑）——三步互不冲突，可逐篇发表；
 6. **结构化伊辛耦合**（远期）：色散 GD 生成距离依赖耦合，匹配晶格/幂律
-   伊辛模型（Rydberg 物理），仿真候选 09（digest §五 #8）。
+   伊辛模型（Rydberg 物理），仿真候选见 digest §五 #8（06/06b 已验证
+   MZM sin² 可兼做 Ising 机 + 失效区地图，rq 第三十九批）。
    **对照组已锁定**（rq 第三十五批）：CMIM（Nature 2025）代表的"电子域存
    耦合"路线有三堵墙——内存墙（自旋上限=AWG 内存 2²⁰ 样本）、DAC/ADC
    逐迭代转换墙（TTS 下限 4.1 µs 前馈+DSP）、负值编码墙（IM/DD 需辅助
@@ -340,8 +342,10 @@ A：大格子被占了，我们的格子没：可调色散（他们全部固定 
 
 ## 九、证据索引
 
-- 逐条文献判定：`docs/rq_evidence_log.md`（二十批，2026-09-26）
+- 逐条文献判定：`docs/rq_evidence_log.md`（四十七批，2026-09-26）
 - 伊辛机/TFLN-RC 先占地图与精读：`docs/ising_literature_digest.md` §三
 - 我们自己的仿真数据：`results/rc_designspace/`（23,520 run）、
-  `results/interface_readout/`（08 quick）、`results/verify/`（L1–L3 待跑）
+  `results/interface_readout/`（08 全量 225 行 ✅）、`results/rc_vs_ngrc/`
+  （07 全量 1080 行 ✅）、`results/ising_nonlinearity/`（06 全量 3072 行 ✅）、
+  `results/verify/`（L1–L3 待跑）
 - 设计空间扫描六联图：`results/rc_designspace/rc_designspace.png`
