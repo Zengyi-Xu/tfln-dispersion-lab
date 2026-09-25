@@ -290,7 +290,8 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
 | Abdalla et al., Opt. Express 31, 11610 (2023)（EC Lyon/RMIT） | LNOI 最简延迟 RC 架构 | 已发表 |
 | **Kong et al., npj Unconv. Comput. (2026)**（清华黄翊东组） | **TFLN 延迟 RC + 时-波长耦合虚拟节点** | 已见刊，全文待下载（清单 #5） |
 | PIC-OPO RC, Sci. Adv. (2026-09) | TFLN OPO 高速 RC | 全文待下载（清单 #6） |
-| arXiv:2305.06608 | LiNbO₃ 易忆阻器 RC | 预印本 2023 |
+| arXiv:2305.06608 | LiNbO₃ 易失性忆阻器 RC：**电子域体材料**（非线性 I-V +
+  短时记忆，数字识别 0–9），非光波导——与我们物理层不同，威胁低 | 预印本 2023 |
 
 **Wang 2024 精读后的收紧判断**：它的慢非线性（热光/光折变，MHz 级）与我们的
 **EO MZM sin²（GHz 级）差 3 个数量级**；它的记忆靠环腔级联，我们靠
