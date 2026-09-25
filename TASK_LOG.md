@@ -79,3 +79,10 @@ python kg_obsidian_cards.py --vault <Obsidian vault 路径>
 ```
 Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task。
 图数据：`results/task_kg.json`（43 节点 48 边）；脚本：`kg_obsidian_cards.py`、`task_knowledge_graph.py`。
+
+## 六、防幻觉核查任务（2026-09-25 追加）
+
+已生成 `VERIFICATION_PLAN.md`：17 条关键结论登记表 + 10 个验证任务（V1–V10）。
+**已确认疑点**：C2「1–20mm 偏差~2%」与 npz 不符（1mm −14.9%）；C7/C8（46 nm/µm、W1470 κ=594/cm）证据未入库，
+仓库内 npz 仍是旧提取值（21.9 nm/µm、444/cm）——GPU 主机优先执行 V2 重提取。
+分支：`verify/2026-09-25`，结果写 `results/verify/`。
