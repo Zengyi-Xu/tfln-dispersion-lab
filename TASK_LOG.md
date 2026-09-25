@@ -16,7 +16,8 @@
 **已完成：A3–A6（TMM，纯 Python）**
 - 脚本：`simulations/02_tolerance_scan.py`；结果：`results/tolerance_scan.npz` / `.png`
 - 关键结论：
-  - 摆幅随 L 严格线性（Δτ=2n_gL/c，1–20 mm 偏差 ~2%），D 由啁啾率决定（C=12 nm/mm → D≈1.22 ps/nm）
+  - ~~摆幅随 L 严格线性（Δτ=2n_gL/c，1–20 mm 偏差 ~2%）~~ **【V1 核查修正】** 摆幅随 L 线性：L≥5 mm 偏差 ≤3%（全域 R>0.5 窗口 ≤1%）；1 mm 短器件偏差 −8%~−15%（窗口效应），需切趾补偿后使用
+  - D 由啁啾率决定（C=12 nm/mm → D≈1.22 ps/nm）【V1 复现一致】
   - FDTD 交叉校验：TMM D=0.046 vs FDTD 0.051 ps/nm（10%）
   - 余弦切趾：ripple 2.85→0.09 ps（进 M1 的 0.1 ps 容限），摆幅保留 1/3 → **设计规则：0.1 ps 容限 ↔ 3× 长度**
   - 随机相位误差（σ_λB≤0.1nm）与温漂（0.03 ps/K，梯度 1K/mm）影响可忽略；ripple 主因是端面法珀效应
@@ -25,8 +26,10 @@
 **已完成：A1/A2 均匀光栅部分（FDTD，7 个运行，稳健重提取）**
 - 脚本：`lumerical/run_tolerance_fdtd.py`（复用 `run_scan_2d.py`，断点续跑）；数据 `lumerical/results/w*_raw.npz`、`dnf*_raw.npz`、`dn010/dn040_raw.npz`
 - ⚠️ 带隙提取必须用"最长 T<0.5 连续段"法；脚本里的 `band_center` 交叉法在个别点误判（w1470 曾误报 κ=444，重提取为 594/cm）
-- **A1 条宽标定**（dn=0.02，w=1470–1530 nm）：dλ_B/dw = **46 nm/µm（R²=1.000）**，κ ≈ 570–600/cm。±10 nm 条宽误差 → ±0.46 nm λ_B 偏移，对啁啾匹配是重要工艺窗口
-- **A2 dn 标定**（w=1500 nm，dn=0.01–0.04）：κ = 340/520/569/619/1238 /cm，κ∝dn 线性度 +8%；λ_B 对 dn ±10% 仅漂 0.03 nm
+  - **【V2 核查修正 2026-09-25】** 重提取脚本已入库 `verify/v2_reextract_a1a2.py`；平底带隙下谷底 argmin 有 ±1.5nm 伪差，λ_B 须用**带边中点法**：
+  - w1470 κ 重提取值 **607/cm**（非 594；五条 w 谱 κ=606–608/cm，对条宽不敏感）；证据 `results/verify/v2/`
+- **A1 条宽标定**（dn=0.02，w=1470–1530 nm）：~~dλ_B/dw = **46 nm/µm（R²=1.000）**~~ **【V2 核查修正】dλ_B/dw = 40.65±0.53 nm/µm（R²=0.999，midgap 法；阈值 0.1–0.9 扫描 39.9–40.9）**。±10 nm 条宽误差 → ±0.41 nm λ_B 偏移（非 ±0.46）
+- **A2 dn 标定**（w=1500 nm，dn=0.01–0.04）：~~κ = 340/520/569/619/1238 /cm~~ **【V2 修正】κ = 353/556/607/658/1246 /cm**（n_g=2.105，midgap 法），κ∝dn 线性度 +8%（实测 +8.4%）；λ_B 对 dn ±10% 仅漂 0.03 nm（midgap 实测 0.022nm；argmin 法假漂移 1.8nm）
 - **A2b 啁啾 dn ±10%（FDTD 长任务，已完成）**：250 µm 啁啾光栅，R>0.9 平台法提取
   - dn=0.018 / 0.020 / 0.022：D = 0.052 / 0.051 / 0.051 ps/nm（**D 对 dn ±10% 不敏感**）
   - ripple_pp = 1.26 / 1.22 / 1.51 ps（+10% dn 时 ripple 增 ~24%，-10% 几乎不变）
@@ -86,3 +89,10 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 **已确认疑点**：C2「1–20mm 偏差~2%」与 npz 不符（1mm −14.9%）；C7/C8（46 nm/µm、W1470 κ=594/cm）证据未入库，
 仓库内 npz 仍是旧提取值（21.9 nm/µm、444/cm）——GPU 主机优先执行 V2 重提取。
 分支：`verify/2026-09-25`，结果写 `results/verify/`。
+
+**【V1–V4/V9/V10 已执行完毕 2026-09-25，无 GPU 主机】**
+- 总结：`results/verify/SUMMARY.md`（17 条逐条结论 + 必改表述 + blocked 清单）
+- 修正：C2（1mm 偏差 −8%~−15%）、C7（→40.65 nm/µm）、C8（→607/cm）、lab-note κ 表、ripple 口径、C1 α 口径、Si 行 n_g
+- 新风险点：chirp npz 物理斜坡在 `tau_r` 字段（tau/tau_g 是平台平坦分量，拿错即得 D≈0）
+- 复现脚本：`verify/v2_reextract_a1a2.py`（必须入库，已提交）、`verify/v1_recheck.py`、`verify/v3_chirp_robust.py`
+- blocked：V5–V8（无 GPU + LiDarSim 克隆网络中断仅 41M/300M+，需 U 盘拷贝或换网络 + road_objects.npz 82MB）；V10-Concept Note 段（第二版 docx 在原机 D 盘）；L1–L3（无 Lumerical）
