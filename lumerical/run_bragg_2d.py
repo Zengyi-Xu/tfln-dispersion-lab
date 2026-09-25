@@ -22,7 +22,8 @@ import os
 import sys
 import numpy as np
 
-sys.path.append(r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python")
+sys.path.append(os.environ.get(
+    "LUMERICAL_API_PATH", r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python"))
 import lumapi
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -158,9 +159,13 @@ def build(fname, with_grating):
 
 def run_and_extract(fsp, tag):
     fdtd = lumapi.FDTD(hide=False)
-    # 7945HX tuning: 12 processes is the sweet spot (≈37% faster than 6,
-    # leaves 4 cores for OS/interactive use, avoids 16-proc sync overhead).
-    fdtd.setresource("FDTD", 1, "processes", 12)
+    # measured optimum on the 338H laptop (verify/v5_fdtd_scaling.py);
+    # override per machine via env, e.g. FDTD_PROCESSES=12 FDTD_THREADS=1
+    # on a 16-core all-P-core host.
+    fdtd.setresource("FDTD", 1, "processes",
+                     int(os.environ.get("FDTD_PROCESSES", 6)))
+    fdtd.setresource("FDTD", 1, "threads",
+                     int(os.environ.get("FDTD_THREADS", 2)))
     fdtd.load(fsp)
     fdtd.run()
 
