@@ -67,3 +67,15 @@
 - FDTD 并行：脚本内设 6 进程（12 进程在笔记本上不稳定）
 - 均匀光栅（77.5 µm）每任务 10–20 min；250 µm 啁啾为长任务（1.5–3 h）
 - 新会话涉及 Concept Note 内容时，先读第二版 docx 和本日志，不要重读第一版
+
+## 五、Obsidian 知识卡片生成（2026-09-25 追加）
+
+在另一台机器上生成任务-知识图谱卡片库（43 卡 + MOC，Obsidian 图谱视图可看致密网状结构）：
+```
+git clone git@github.com:Zengyi-Xu/tfln-dispersion-lab.git
+cd tfln-dispersion-lab
+python kg_obsidian_cards.py --vault <Obsidian vault 路径>
+# 默认写入 <vault>/4-plan/KGFP任务图谱/
+```
+Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task。
+图数据：`results/task_kg.json`（43 节点 48 边）；脚本：`kg_obsidian_cards.py`、`task_knowledge_graph.py`。

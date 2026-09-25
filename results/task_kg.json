@@ -1,0 +1,552 @@
+{
+  "nodes": [
+    {
+      "id": "cn_v1",
+      "label": "Concept Note 第一版\n(100–1000 ps/nm)",
+      "layer": "apply",
+      "status": "done"
+    },
+    {
+      "id": "cn_v2",
+      "label": "Concept Note 第二版\n(带宽绑定规格+文献+风险)",
+      "layer": "apply",
+      "status": "done"
+    },
+    {
+      "id": "rec",
+      "label": "推荐信素材\n(项目简述+口径红线)",
+      "layer": "apply",
+      "status": "done"
+    },
+    {
+      "id": "sign",
+      "label": "推荐信签字转PDF",
+      "layer": "apply",
+      "status": "todo"
+    },
+    {
+      "id": "cv",
+      "label": "CV 学位状态更新",
+      "layer": "apply",
+      "status": "todo"
+    },
+    {
+      "id": "form",
+      "label": "网申表单",
+      "layer": "apply",
+      "status": "todo"
+    },
+    {
+      "id": "stage1",
+      "label": "Stage 1 提交\n(截止 2026-10-01)",
+      "layer": "apply",
+      "status": "todo"
+    },
+    {
+      "id": "stage3",
+      "label": "Stage 3 Full Proposal\n(2027-01-15)",
+      "layer": "apply",
+      "status": "todo"
+    },
+    {
+      "id": "m1",
+      "label": "M1 光子链路\n时标分离 1.00 vs 0.27",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "m3b",
+      "label": "M3b 延迟预算\nTFLN 424 ps/dB",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a1",
+      "label": "A1 条宽标定\ndλ_B/dw=46 nm/µm",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a2",
+      "label": "A2 κ(dn) 标定\nλ_B 对 dn 不敏感",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a2b",
+      "label": "A2b 啁啾 dn±10%\nD 不变 ripple+24%",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a3",
+      "label": "A3 相位误差\n白噪声可忽略",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a4",
+      "label": "A4 温漂\n0.03 ps/K 可忽略",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a5",
+      "label": "A5 摆幅-长度线性\n偏差~2%",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "a6",
+      "label": "A6 切趾\n0.09 ps ↔ 3×长度",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "tmm_fdtd",
+      "label": "TMM vs FDTD 交叉校验\n偏差 10%",
+      "layer": "dev",
+      "status": "done"
+    },
+    {
+      "id": "c1",
+      "label": "C1 真实信号链\n(替换高斯 spike)",
+      "layer": "dev",
+      "status": "todo"
+    },
+    {
+      "id": "c2",
+      "label": "C2 端到端联合仿真\n(HATF 全链路)",
+      "layer": "dev",
+      "status": "todo"
+    },
+    {
+      "id": "corr_err",
+      "label": "慢变相关误差模型\n(电子束剂量漂移)",
+      "layer": "dev",
+      "status": "todo"
+    },
+    {
+      "id": "lsm",
+      "label": "LSM 低SNR检测\n-15dB 反超 CFAR",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "m3a",
+      "label": "M3a delay learning\n连续编码 0.888",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "m7",
+      "label": "M7 信息匹配对比\necho 0.41 vs raw 0.66",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "synth",
+      "label": "合成道路目标\n0.892 / 0.919",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "kitti_s",
+      "label": "KITTI 小预算\n0.657→0.766",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "kitti_f",
+      "label": "KITTI 全量 21.5k\n0.872→0.923",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "gpu_port",
+      "label": "GPU 化移植\ncorr=0.999991",
+      "layer": "algo",
+      "status": "done"
+    },
+    {
+      "id": "kitti_d",
+      "label": "KITTI 下载+提取\n28,746 对象",
+      "layer": "data",
+      "status": "done"
+    },
+    {
+      "id": "rs",
+      "label": "RadarScenes\nzip截断+IP被封",
+      "layer": "data",
+      "status": "blocked"
+    },
+    {
+      "id": "mn40",
+      "label": "ModelNet40\n(M2/M7 基准)",
+      "layer": "data",
+      "status": "done"
+    },
+    {
+      "id": "git",
+      "label": "两仓库 push 迁移",
+      "layer": "infra",
+      "status": "done"
+    },
+    {
+      "id": "gpu3060",
+      "label": "3060 平台\n(11800H+3060)",
+      "layer": "infra",
+      "status": "done"
+    },
+    {
+      "id": "tasklog",
+      "label": "TASK_LOG 交接机制",
+      "layer": "infra",
+      "status": "done"
+    },
+    {
+      "id": "runbook",
+      "label": "RUNBOOK_3060\n+ 任务 md",
+      "layer": "infra",
+      "status": "done"
+    },
+    {
+      "id": "pdl",
+      "label": "并行分段下载\n6 MB/s 断点续传",
+      "layer": "infra",
+      "status": "done"
+    },
+    {
+      "id": "k_sub",
+      "label": "亚米窗口定位\n(1ns摆幅↔0.19m)",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_ts",
+      "label": "时标分离架构\n(快光处理+慢电读出)",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_enc",
+      "label": "编码格式是瓶颈\n(非蓄水池/二值化)",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_quant",
+      "label": "池权重 4–8bit\n量化免疫",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_gain",
+      "label": "扫描链增益随\n条件恶化放大",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_rules",
+      "label": "器件设计规则×4\n(摆幅/切趾/容差/温漂)",
+      "layer": "know",
+      "status": "done"
+    },
+    {
+      "id": "k_sleep",
+      "label": "教训: 12h=\n睡眠挂起假象",
+      "layer": "know",
+      "status": "done"
+    }
+  ],
+  "edges": [
+    {
+      "src": "m3b",
+      "dst": "cn_v1",
+      "relation": "证伪 100–1000 ps/nm",
+      "style": "dashed"
+    },
+    {
+      "src": "cn_v1",
+      "dst": "cn_v2",
+      "relation": "修正为带宽绑定",
+      "style": "dashed"
+    },
+    {
+      "src": "k_sub",
+      "dst": "cn_v2",
+      "relation": "定位依据",
+      "style": "solid"
+    },
+    {
+      "src": "k_rules",
+      "dst": "cn_v2",
+      "relation": "Objective 1 支撑",
+      "style": "solid"
+    },
+    {
+      "src": "k_ts",
+      "dst": "cn_v2",
+      "relation": "Objective 3 支撑",
+      "style": "solid"
+    },
+    {
+      "src": "k_quant",
+      "dst": "cn_v2",
+      "relation": "硬件可行性",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_f",
+      "dst": "cn_v2",
+      "relation": "预备数据 0.923",
+      "style": "solid"
+    },
+    {
+      "src": "k_gain",
+      "dst": "rec",
+      "relation": "口径: 增益谱系",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_f",
+      "dst": "rec",
+      "relation": "preliminary 0.923",
+      "style": "solid"
+    },
+    {
+      "src": "m1",
+      "dst": "rec",
+      "relation": "压缩比22 偏差<10%",
+      "style": "solid"
+    },
+    {
+      "src": "cn_v2",
+      "dst": "stage1",
+      "relation": "提交物",
+      "style": "dotted"
+    },
+    {
+      "src": "sign",
+      "dst": "stage1",
+      "relation": "必备",
+      "style": "dotted"
+    },
+    {
+      "src": "cv",
+      "dst": "stage1",
+      "relation": "必备",
+      "style": "dotted"
+    },
+    {
+      "src": "form",
+      "dst": "stage1",
+      "relation": "必备",
+      "style": "dotted"
+    },
+    {
+      "src": "rec",
+      "dst": "sign",
+      "relation": "待签字",
+      "style": "dotted"
+    },
+    {
+      "src": "m1",
+      "dst": "k_ts",
+      "relation": "产出",
+      "style": "solid"
+    },
+    {
+      "src": "m3b",
+      "dst": "k_sub",
+      "relation": "产出",
+      "style": "solid"
+    },
+    {
+      "src": "a5",
+      "dst": "k_rules",
+      "relation": "摆幅线性",
+      "style": "solid"
+    },
+    {
+      "src": "a6",
+      "dst": "k_rules",
+      "relation": "切趾权衡",
+      "style": "solid"
+    },
+    {
+      "src": "a1",
+      "dst": "k_rules",
+      "relation": "条宽窗口",
+      "style": "solid"
+    },
+    {
+      "src": "a2",
+      "dst": "k_rules",
+      "relation": "dn窗口",
+      "style": "solid"
+    },
+    {
+      "src": "a3",
+      "dst": "k_rules",
+      "relation": "相位不敏感",
+      "style": "solid"
+    },
+    {
+      "src": "a4",
+      "dst": "k_rules",
+      "relation": "温漂不敏感",
+      "style": "solid"
+    },
+    {
+      "src": "a2b",
+      "dst": "a2",
+      "relation": "啁啾验证",
+      "style": "solid"
+    },
+    {
+      "src": "tmm_fdtd",
+      "dst": "a5",
+      "relation": "方法互证",
+      "style": "solid"
+    },
+    {
+      "src": "corr_err",
+      "dst": "a3",
+      "relation": "补白噪声盲区",
+      "style": "dotted"
+    },
+    {
+      "src": "c1",
+      "dst": "m1",
+      "relation": "替换理想输入",
+      "style": "dashed"
+    },
+    {
+      "src": "c2",
+      "dst": "stage3",
+      "relation": "全链路证据",
+      "style": "dotted"
+    },
+    {
+      "src": "m7",
+      "dst": "k_enc",
+      "relation": "产出",
+      "style": "solid"
+    },
+    {
+      "src": "m7",
+      "dst": "k_quant",
+      "relation": "产出",
+      "style": "solid"
+    },
+    {
+      "src": "m3a",
+      "dst": "m7",
+      "relation": "对照: 连续vs二值",
+      "style": "dashed"
+    },
+    {
+      "src": "mn40",
+      "dst": "m7",
+      "relation": "输入",
+      "style": "dotted"
+    },
+    {
+      "src": "mn40",
+      "dst": "m3a",
+      "relation": "输入",
+      "style": "dotted"
+    },
+    {
+      "src": "lsm",
+      "dst": "k_gain",
+      "relation": "低SNR +0.3",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_s",
+      "dst": "k_gain",
+      "relation": "小预算 +0.11",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_f",
+      "dst": "k_gain",
+      "relation": "全量 +0.05",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_s",
+      "dst": "kitti_f",
+      "relation": "训练预算提升",
+      "style": "solid"
+    },
+    {
+      "src": "synth",
+      "dst": "kitti_f",
+      "relation": "合成预测 0.92≈真实0.923",
+      "style": "solid"
+    },
+    {
+      "src": "kitti_d",
+      "dst": "kitti_s",
+      "relation": "输入",
+      "style": "dotted"
+    },
+    {
+      "src": "kitti_d",
+      "dst": "kitti_f",
+      "relation": "输入",
+      "style": "dotted"
+    },
+    {
+      "src": "pdl",
+      "dst": "kitti_d",
+      "relation": "完成下载",
+      "style": "solid"
+    },
+    {
+      "src": "gpu_port",
+      "dst": "kitti_f",
+      "relation": "加速+校验",
+      "style": "solid"
+    },
+    {
+      "src": "gpu3060",
+      "dst": "kitti_f",
+      "relation": "运行平台",
+      "style": "solid"
+    },
+    {
+      "src": "runbook",
+      "dst": "gpu3060",
+      "relation": "开箱指南",
+      "style": "solid"
+    },
+    {
+      "src": "tasklog",
+      "dst": "runbook",
+      "relation": "状态来源",
+      "style": "solid"
+    },
+    {
+      "src": "git",
+      "dst": "gpu3060",
+      "relation": "代码+数据通道",
+      "style": "solid"
+    },
+    {
+      "src": "k_sleep",
+      "dst": "gpu_port",
+      "relation": "修正优先级认知",
+      "style": "dashed"
+    },
+    {
+      "src": "rs",
+      "dst": "stage3",
+      "relation": "杂波标定(可选)",
+      "style": "dotted"
+    }
+  ]
+}
