@@ -334,3 +334,15 @@
 - 起草 08b（更难噪声档+LIF 降维）任务书 DRAFT，排 09 之后；
 - 检查中转夹（小黑 HANDOFF_08、07 聚合器修复 commit、09 进度）；
 - 备选：06b 递减步长调度任务书（Li 2024 G22 幅度不均+动态参数控制=新立项依据）；批 39–40 回灌 rc_tutorial §六。
+
+## 2026-09-26 第四十三批：COL 2026 Ds-PRC 全文核查（威胁判定：低，不占格子）+ 小黑 HANDOFF_08 对账
+
+- [文献判定·威胁低] Huang, Q. et al.（UESTC 文峰组）, "Dynamic-scaling photonic reservoir computing via adaptive semiconductor-optical-amplifier nonlinearity", **Chinese Optics Letters 24(8), 081901 (2026-08)**，开放获取（researching.cn 官方 PDF 已存 `.tmp/col2026_dsprc.pdf`）| 全文精读 | **核心：SOA 增益饱和做激活函数 + sigmoid 门控自适应输入缩放（a_t≈0.5 收敛），MNIST 97.6%@100 mA、低功耗模式 85.9%@40 mA、Mackey-Glass RMSE 0.0176** | **判"不占格子"的依据**：① 记忆核是**数字 ESN**（W_in/W_reservoir/谱半径 0.8/2000 节点全在软件里演化，SOA 只是逐节点查表的激活——Thorlabs SOA1117S 分立件实测曲线）；② "dynamic-scaling"=输入功率定标校准工作点，**不是色散/延迟/结构可调**——与我们"可调色散 GD"完全两回事，但"adaptive PRC"这个词在输入定标层面已被占；③ 缩放控制数字实现，自承 O-E-O 转换；④ 任务=MNIST/MG 基准，无雷达、无事件读出、无片上集成 | **盟友价值**："输入摆幅必须匹配非线性甜区"获得独立实验证据（其 a_t 自校准 ≈ 我们批 39 sin 失效区的"增益定标"约束——SOA 路线也需要同样的定标纪律）；其 97.6% vs 光纤色散 FF-RC 93.4%（其 ref 18, Zhang/Wen/Zou Opt. Express 2023——注意：**光纤色散前馈 RC 已存在**，固定色散+DFB-LD，MNIST 93.4%，我们的差异化=片上+可调+啁啾 GD 轮廓，引用时需列为先占）
+- [连锁入档] 其 ref 19 Nie et al., Optica 11, 1690 (2024)"集成激光分级神经元无反馈环 RC"（92.3% 数字识别）——feedforward 无环 RC 第二例，rc_tutorial §5.3 先占表可补但非必须。
+- [对账·小黑 HANDOFF_08 与我方批 41 的两处口径差]（双方入档，不改数）：① **RQ4 判据表述**：小黑口径"LIF 能耗代理≈均匀采样 1/9（469 vs fs0.5_b4 的 4096）→预测成立"；我方口径"fs0.5_b4 精度仅 0.85 远低于 LIF 0.999，**等精度比较**应为 fs0.25_b8（0.971@4096）→8.7×，对最优低配 uniform 仅 2.2×→部分支持"。分歧在比较基准选择，非数据冲突；论文采用等精度口径（4–9×），小黑的 1/9 作为乐观上限并列引用。② **疑点 1 处置**：小黑认为 LIF 饱和本身即"无损编码的实证，不需加难"；我方维持任务书预案——饱和状态下**噪声-精度权衡曲线不可测**，RQ4 的鲁棒性主张缺 0.2+ 噪声档数据，08b（noise 0.2/0.35/0.5 + LIF 降维）继续起草但降为低优先级。两点都不是返工项。
+
+### 待办（下一批）
+
+- 起草 08b（更难噪声档+LIF 降维）任务书 DRAFT（低优先级，排 09 后）；
+- 检查中转夹（小黑 07 聚合器修复 commit、09 collision scheduler 进度）；
+- 备选：06b 递减步长调度任务书（Li 2024 G22 幅度不均+动态参数控制=新立项依据）；批 39–43 回灌 rc_tutorial / digest（COL Ds-PRC + HANDOFF_08 口径差）。
