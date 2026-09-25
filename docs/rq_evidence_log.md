@@ -396,3 +396,14 @@
 
 - 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）；
 - 若仍无回执：新文献检索一轮（arXiv 2026-09 新稿：dispersion/tunable delay RC、structured Ising photonic、event-based readout 关键词），保持文献面不落后。
+
+## 2026-09-26 第五十批：文献例行扫描（2026-07 后新稿）——零新威胁
+
+- [核查 1] Nature 站 s44335-026-00081-5（2026-07-21，"Delay-based photonic reservoir computing on TFLN with time–wavelength-coupled virtual nodes"，Deyang Kong et al.）——**经作者+标题比对确认 = 已销项的 Kong 2026 MP²-RC**（digest §三，批 11 精读，威胁中低，不占格子），非新论文。Nature 页有反爬未再抓全文（无必要）。
+- [核查 2] arXiv:2602.10066（Devata et al., 2026-02，v2 2026-07）"Programmable and nonvolatile computing with composition tuning in TFLN"——电化学锂化非易失调折射率做 MVM 权重（MZI/微环，前馈 matmul，纯仿真，1.6% 平均相对误差）。**零威胁**（无 RC/无色散/无时域动力学），但作为 **TFLN 非易失调谐路线**存档：与我们的 EO ns 级调谐互补（非易失=一次性校准/修整，EO=实时重构），若未来 CBG 需要出厂级色散修整可引此路线；威胁面不变。
+- [状态] 文献面维持"真风险清单清空"（digest §三结论未被本轮扫描动摇）。下载清单全销项。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）——09 回执是 sim10 定稿的最后依赖；
+- 若仍无回执：把 sim10 设计草案里"2D 格点→1D 波长轴折叠映射"的开放设计点做解析推导（纯纸面：行主序映射下近邻耦合在谱距域的杂散结构分析）。
