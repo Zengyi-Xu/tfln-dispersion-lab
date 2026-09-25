@@ -72,7 +72,13 @@
 - [RQ3.2] 光子 SNN 主流实现盘点：神经元多为**可激发激光器**（VCSEL、DFB-SA），权重多为 **MRR weight bank 或相变材料（PCM）突触**：VCSEL-neuron × MRR weight bank 接口（arXiv:2305.00788）、VCSEL-MRR 幅度加权+速率编码（Hejda et al., Neuromorph. Comput. Eng. 2024）、光子神经突触核卷积 SNN 芯片（researching.cn 2023）、光子突触/神经元/忆阻器综述（Han et al., Opto-Electron. Technol. 2025）| **关键观察：光子 SNN 的"可训练变量"清一色是权重（幅度），延迟/时序只是信号载体而非被设计对象；没有人用色散器件做 SNN 的突触或延迟基底** | 支撑 c)：我们的格子（色散定义时序结构）在光子 SNN 内部也是空的 | ✅ RQ3.2 判据达成
 - [RQ3 占据图更新]：纵轴后端加一行——"光子 SNN（权重编码）= VCSEL/MRR/PCM 线（占据，但不碰色散/延迟基底）"。我们的格子（可调色散 × 时序读出）仍然空。
 
+## 2026-09-26 第六批：RQ2.2 补强 + 片上非线性×新方向
+
+- [RQ2.2] Goodman 等，"Pitfalls and possibilities of radar compressive sensing"（[OU PDF](https://arrc.ou.edu/~goodman/pubs/AO_15_Pitfalls_possibilities_radar_CS.pdf)）| 实测对比：12-bit 2 GS/s ADC ≈ 3.5 W / $1500；模拟压缩感知前端 ≈ 1 W / $50 | 支撑 a) 量级判断；注意这是 2 GS/s 档，10+ GS/s 档功耗按比例恶化（对照 TI 4 W @ 10.4 GS/s）| ✅
+- [RQ2.2 反例，记录] 模拟域脉压相关器芯片存在（90 nm CMOS，42 mW，eScholarship）——但带宽在百 MHz 级，不是 GHz 级；**"电子模拟相关"在 GHz 带宽同样做不好**，所以对手不是"电子模拟"而是"光学传播免费完成" | 不威胁 a)，反而划清比较对象 | ✅
+- [新方向·片上非线性] TFLN 计算版图快查：北大王剑威组 TFLN 光计算电路（arXiv:2411.02734）、TFLN 光子张量核 120 GOPS（arXiv:2311.16896）——**都是 MZM 电光线性代数路线，非线性只做调制**；TFLN Kerr/EO 混合微梳（Song et al. 2025, PMC12339749）、电泵浦孤子微梳（arXiv:2510.00371）——**微梳在 TFLN 上已成立，但用途是光源/频梳，未用于计算** | 结论："TFLN 微梳 × 计算"或"EO+χ²/χ³ 协同计算"格子空着；与我们色散计算的交叉点：微梳多波长 + 色散器件天然给出大规模并行延迟抽头（comb teeth × GD slope = 抽头矩阵）| 入 digest §五机会清单候选
+
 ### 待办（下一批）
 
-- RQ2.2 补强：雷达数字脉压实测功耗（1–2 篇硬数字）；
-- 回到目标主线：片上非线性 × 新方向（TFLN Kerr comb 计算、光电 OEO RC 2026 新工作）。
+- 把"TFLN 微梳×色散=并行抽头矩阵"想法展开成 1 段可行性分析（FSR×D 的抽头数估计）；
+- 检查 Kong 2026 / PIC-OPO RC 是否已被用户下载到中转夹。
