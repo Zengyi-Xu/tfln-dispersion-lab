@@ -1,0 +1,80 @@
+{
+ "narma": {
+  "rc_tanh": {
+   "big_mean": 0.11659489283629057,
+   "small_mean": NaN
+  },
+  "rc_sin2": {
+   "big_mean": 0.14303830362830064,
+   "small_mean": 0.8043360548990128
+  },
+  "esn": {
+   "big_mean": 0.2741323627690134,
+   "small_mean": 1.272141653333773
+  },
+  "volterra": {
+   "big_mean": 0.6710046362703675,
+   "small_mean": NaN
+  },
+  "elm": {
+   "big_mean": 0.33060126320641114,
+   "small_mean": 1.1217348525685051
+  },
+  "linear": {
+   "big_mean": 0.3338783640932986,
+   "small_mean": NaN
+  }
+ },
+ "channel": {
+  "rc_tanh": {
+   "big_mean": 0.7533,
+   "small_mean": 0.6289785783836417
+  },
+  "rc_sin2": {
+   "big_mean": 0.7621,
+   "small_mean": 0.6093988964621876
+  },
+  "esn": {
+   "big_mean": 0.5317000000000001,
+   "small_mean": 0.4067426160337552
+  },
+  "volterra": {
+   "big_mean": 0.7736000000000001,
+   "small_mean": 0.47591983122362863
+  },
+  "elm": {
+   "big_mean": 0.6972,
+   "small_mean": 0.5475770853618955
+  },
+  "linear": {
+   "big_mean": 0.754,
+   "small_mean": 0.5396543330087634
+  }
+ },
+ "scene": {
+  "rc_tanh": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  },
+  "rc_sin2": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  },
+  "esn": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  },
+  "volterra": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  },
+  "elm": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  },
+  "linear": {
+   "big_mean": 1.0,
+   "small_mean": 1.0
+  }
+ }
+}
