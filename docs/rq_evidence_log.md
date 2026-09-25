@@ -90,7 +90,13 @@
 - [RQ2.3] Wang B. et al.（黄超然组）, "Beyond Terabit/s Integrated Neuromorphic Photonic Processor for DSP-Free Optical Interconnects", arXiv:2504.15044（Science 2026 版）| **摘要原文已核实**：100 Gbaud PAM4/通道、1.6 Tb/s、5 km C 波段（≈O 波段 80 km）；延迟降 4 个数量级、能耗降 3 个数量级；硅光工艺。"DSP 抽头 882→25、67.5 fJ/bit、55 ps"三个数出自站位指南转引，**摘要未见**，写论文前需对 Science 正式版全文核实（新闻稿只说 "sub-60 ps"，与 55 ps 一致）| 支撑 a) 论证结构（别人已用"检测前计算"叙事发 Science）| ⚠️ 部分数字待核
 - **[定位警示，重要] OSP 本身就是深度储备池计算（deep RC）**——"RC 硬件在光通信均衡碾压 DSP"这个论点已被黄超然组占住（Science 级）。我们的差异化必须绕开电信均衡：我们做的是 ① 可调色散作为计算变量（OSP 的 RC 节点是固定延迟线）、② 雷达/LiDAR 时间模式识别（OSP 是通信均衡）、③ TFLN 电光可调（OSP 是硅光）。叙事上 OSP 应作为"RC 硬件已被顶级验证"的**盟友证据**引用，同时一句话划界 | ✅ 入占据图：固定延迟 RC × 通信均衡 = 强占据（OSP）
 
+## 2026-09-26 第九批：RC vs 深度学习的系统对比（回应"蓄水池不好用"质疑的量化弹药）
+
+- [RC vs DL] Shahi S. et al., "Prediction of chaotic time series using recurrent neural networks and reservoir computing techniques: A comparative study", (2022)，PMC9230140（被引 183）| 系统对比 RNN/LSTM/RC：混沌时序长期预测上 RC 与 NVAR **精度更高且训练成本远低于** LSTM 类 | 正面弹药：在 RC 的合法领地（混沌/动力系统、中小数据、实时）它有系统级优势，不是"潜力不足" | ✅
+- [RC vs DL] Valle J. et al., Chaos Solitons Fractals (2025)（被引 24）：LSTM vs Transformer 混沌预测对比，仍把 RC 当基准对手 | RC 在 2025 年的 DL 论文里仍是必须打的基准——领域地位佐证 | ✅
+- [RC vs DL·反面] LLM/Transformer 长程混沌预测（arXiv:2608.29579）等线正在从"短观测长预测"角度侵蚀 RC 领地 | 诚实记录：RC 的精度护城河在被压缩，**硬件能耗/延迟优势才是不可替代的部分**——这正是我们零号稿的论证方向（不比精度比能效） | ✅
+
 ### 待办（下一批）
 
-- 检查 Kong 2026 / PIC-OPO RC 是否已被用户下载到中转夹；
-- 若中转夹持续无回执：回到 digest，补"RC vs Transformer/SSM 时序基准"的近年系统对比（回答用户同事质疑的量化弹药）。
+- 检查中转夹（小黑回执 / 用户下载的 Kong 2026、PIC-OPO RC）；
+- 若仍无回执：精读 Shahi 2022 提取具体对比数字表。
