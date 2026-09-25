@@ -130,3 +130,10 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - 脚本：`verify/l1_fdtd_rerun.py`、`verify/l1_analyze.py`、`verify/l2_chirp_mesh.py`、`verify/l2_analyze.py`、`verify/l3_real_chain.py`；证据 `results/verify/l1`–`l3/`（json+png+report.md，.fsp 入库）
 - 排障固化：fftshift 后的非单调时间轴喂 np.interp 会静默得全零（L3 脚本注释）
 - **至此核查任务全清：17/17 结论 + L1–L3 全部完成，无剩余 blocked**
+
+**【7945HX 主机端接管回执已合并 2026-09-26】**
+- 对方按 `HANDOFF_TO_7945HX.md` 完成：v5 并行基准最优 **8 进程×1 线程**（42.0 s；p12/p16 更慢）；env var `LUMERICAL_API_PATH`/`FDTD_PROCESSES=8`/`FDTD_THREADS=1` 已在其机器持久化
+- 对方重跑 `run_bragg_2d.py` + `run_scan_2d.py` 并推送再生成 npz（bragg2d/chirp2d/chirp_raw/grating_raw/scan_dn）。本端逐字段对拍（vs 2e3c7c6）：**全部已验证量一致**——chirp2d 平台 66.26nm / D=0.0512 / 摆幅 3.210ps / φ₂=-6.68e-26；bragg2d midgap λB=1567.903nm、κ=606.7/cm（w1500 基准 1567.901/606）；scan_dn 逐位一致。差异仅在浮点噪声级（1e-15）
+- 唯一实质差异：`grating_raw.npz` 的绝对 tau 有 ~0.6ps 常数偏移（旧文件近乎零值）——该文件无任何代码引用（孤儿产物），tau_g 相对延迟不变，不影响结论
+- `fdtd_scaling.json` 双机数据已拆分保存：`fdtd_scaling_338h.json`（本端历史值，从 71a70f6 恢复）+ `fdtd_scaling_7945hx.json`；`v5_fdtd_scaling.py` 的 machine 字段改为 `MACHINE_LABEL` 环境变量/主机名自动标识，输出按机器分文件 + 规范名最新副本
+- 对方回执文件 `HANDOFF_FROM_7945HX.md` 按对方意愿不入库，存于同步文件夹

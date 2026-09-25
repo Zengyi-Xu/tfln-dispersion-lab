@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-FDTD MPI scaling benchmark on this laptop (Ultra 5 338H, 12C/12T, 32GB).
+FDTD MPI scaling benchmark (machine-agnostic).
+
+Set MACHINE_LABEL to tag the run (e.g. "338H", "7945HX"); results go to
+results/verify/fdtd_scaling_<label>.json plus a latest-copy fdtd_scaling.json.
 
 v2 fixes from the first attempt:
 - fdtd.switchtolayout() before every run, otherwise run() is a no-op once
@@ -16,6 +19,8 @@ Output: results/verify/fdtd_scaling.json
 """
 import json
 import os
+import re
+import socket
 import sys
 import threading
 import time
@@ -181,16 +186,22 @@ def main():
             if r.get("ok") and r["wall_s"] > 0:
                 r["speedup_vs_p6"] = round(base["wall_s"] / r["wall_s"], 3)
 
-    out = os.path.join(OUT, "fdtd_scaling.json")
+    label = os.environ.get("MACHINE_LABEL") or socket.gethostname()
+    slug = re.sub(r"[^0-9a-z]+", "", label.lower()) or "unknown"
+    payload = {
+        "machine": label,
+        "domain_um": [X_SPAN * 1e6, Y_SPAN * 1e6],
+        "sim_time_fs": sim_time * 1e15,
+        "mesh_accuracy": MESH_ACCURACY,
+        "calibration": cal,
+        "configs": results,
+    }
+    out = os.path.join(OUT, "fdtd_scaling_%s.json" % slug)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({
-            "machine": "Ryzen 9 7945HX, 16C/32T Zen4",
-            "domain_um": [X_SPAN * 1e6, Y_SPAN * 1e6],
-            "sim_time_fs": sim_time * 1e15,
-            "mesh_accuracy": MESH_ACCURACY,
-            "calibration": cal,
-            "configs": results,
-        }, f, indent=2, ensure_ascii=False)
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+    # latest-run copy under the canonical name (referenced by docs)
+    with open(os.path.join(OUT, "fdtd_scaling.json"), "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
     print("saved", out, flush=True)
 
 

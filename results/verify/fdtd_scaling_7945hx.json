@@ -1,0 +1,41 @@
+{
+  "machine": "Ryzen 9 7945HX, 16C/32T Zen4",
+  "domain_um": [
+    30.0,
+    10.0
+  ],
+  "sim_time_fs": 180000.0,
+  "mesh_accuracy": 2,
+  "calibration": {
+    "ok": true,
+    "wall_s": 1.83,
+    "ram_peak_pct": 59.5,
+    "T_center": 1.000001
+  },
+  "configs": {
+    "p8_t1": {
+      "ok": true,
+      "wall_s": 42.01,
+      "ram_peak_pct": 59.5,
+      "T_center": 1.000001
+    },
+    "p12_t1": {
+      "ok": true,
+      "wall_s": 45.96,
+      "ram_peak_pct": 59.0,
+      "T_center": 1.000001
+    },
+    "p16_t1": {
+      "ok": true,
+      "wall_s": 46.09,
+      "ram_peak_pct": 56.7,
+      "T_center": 1.000001
+    },
+    "p8_t2": {
+      "ok": true,
+      "wall_s": 44.02,
+      "ram_peak_pct": 56.3,
+      "T_center": 1.000001
+    }
+  }
+}
