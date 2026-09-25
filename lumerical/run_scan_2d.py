@@ -21,7 +21,8 @@ import sys
 import shutil
 import numpy as np
 
-sys.path.append(r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python")
+sys.path.append(os.environ.get(
+    "LUMERICAL_API_PATH", r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python"))
 import lumapi
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -40,6 +41,10 @@ w = 1.5e-6
 n_freq = 121
 
 wl_lo, wl_hi = 1.515e-6, 1.625e-6
+
+# mesh override (propagation x / transverse y); verify L1/L2 set these finer
+DX = 10e-9
+DY = 20e-9
 
 N_G = None  # measured below from ref_raw.npz
 
@@ -119,7 +124,7 @@ def build(fname, dn, L, chirp_dLambda=0.0):
         "x": (x_lo + x_hi) / 2, "x span": x_hi - x_lo,
         "y": 0.0, "y span": 6.0e-6,
         "z": 0.0, "z span": 1e-6,
-        "dx": 10e-9, "dy": 20e-9, "dz": 20e-9,
+        "dx": DX, "dy": DY, "dz": 20e-9,
         "override x mesh": 1, "override y mesh": 1, "override z mesh": 0,
     })
 
@@ -146,12 +151,12 @@ def build(fname, dn, L, chirp_dLambda=0.0):
 
 def extract(fsp, tag):
     fdtd = lumapi.FDTD(hide=False)
-    fdtd.setresource("FDTD", 1, "processes", 6)
-    # benchmark (verify/v5_fdtd_scaling.py): 6x2 threads is 18% faster than
-    # 6x1 on this 12-core hybrid CPU; raising MPI ranks hurts (p12 is 4.5x
-    # slower — LP-E cores gate every step, which is what looked like the
-    # "lost engine" crashes at 12 ranks).
-    fdtd.setresource("FDTD", 1, "threads", 2)
+    # see run_bragg_2d.py: tuned for the 338H laptop; override per machine
+    # via FDTD_PROCESSES / FDTD_THREADS env vars.
+    fdtd.setresource("FDTD", 1, "processes",
+                     int(os.environ.get("FDTD_PROCESSES", 6)))
+    fdtd.setresource("FDTD", 1, "threads",
+                     int(os.environ.get("FDTD_THREADS", 2)))
     fdtd.load(fsp)
     fdtd.run()
 

@@ -23,7 +23,8 @@ import time
 import numpy as np
 import psutil
 
-sys.path.append(r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python")
+sys.path.append(os.environ.get(
+    "LUMERICAL_API_PATH", r"E:/Program Files/ANSYS Inc/v252/Lumerical/api/python"))
 import lumapi
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -42,13 +43,19 @@ SIM_TIME_CAL = 2000e-15      # calibration run length
 TARGET_SOLVE_S = 45.0        # desired per-config solve time after scaling
 ENGINE_OVERHEAD_S = 1.5      # rough startup portion of the calibration wall time
 
-CONFIGS = [
-    (6, 1),   # current stable setting in run_bragg_2d.py / run_scan_2d.py
-    (8, 1),   # 4P + 4E, avoids the weak LP-E cores
-    (12, 1),  # all cores; previously unstable, retest while watching RAM
-    (6, 2),   # same total parallelism as 12 via threads, less MPI traffic
-    (4, 3),   # P-cores only, threaded
-]
+NCPU = os.cpu_count() or 12
+if NCPU >= 16:
+    # e.g. 7945HX (16C/32T Zen4, all full-size cores): more ranks should scale
+    CONFIGS = [(8, 1), (12, 1), (16, 1), (8, 2)]
+else:
+    # 338H laptop (12C/12T hybrid 4P+4E+4LPE): measured optimum is p6_t2
+    CONFIGS = [
+        (6, 1),   # current stable setting in run_bragg_2d.py / run_scan_2d.py
+        (8, 1),   # 4P + 4E, avoids the weak LP-E cores
+        (12, 1),  # all cores; previously unstable, retest while watching RAM
+        (6, 2),   # same total parallelism as 12 via threads, less MPI traffic
+        (4, 3),   # P-cores only, threaded
+    ]
 
 
 def S(fdtd, d):
