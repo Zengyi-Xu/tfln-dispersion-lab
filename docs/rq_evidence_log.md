@@ -24,9 +24,15 @@
 - [RQ2.1] TI ADC12DJ5200RF（[产品页](https://www.ti.com/product/ADC12DJ5200RF)，商用 RF 直采标杆）| 10.4 GS/s 单通道、12-bit 标称、**ENOB 8.6–8.8、功耗 4 W** → 385 fJ/样本（≈1 fJ/conv-step，已是该速率下世界级水平）；输入带宽 8 GHz，可用输入 >10 GHz | 支撑 a)：一次匹配滤波需 TBP~10³ 样本 → 仅 ADC 就 ~10²–10³ pJ/决策，还没算 DSP；且这是桌面级功耗，机载/星载不可承受 | ✅ 提供锚点
 - [RQ2.1 结构性上限] 孔径抖动限制：SNR_jitter = −20log₁₀(2π f_in σ_j)。σ_j=50 fs 时 f_in=20 GHz → SNR≈44 dB → **ENOB≈7**；f_in=60 GHz → ENOB≈5.7。抖动随工艺改善缓慢（十年改善 <4×），这是 a) 段"ENOB-采样率互锁"的物理根源 | 支撑 a) | ✅ 可写公式进零号稿
 
+### 2026-09-26 第一批补：RQ2.2 / RQ2.3
+
+- [RQ2.3] Valley G.C., "Photonic analog-to-digital converters", Opt. Express 15, 1955 (2007) | 光子 ADC 奠基综述：电子 ADC 的核心瓶颈是采样时钟抖动与比较器模糊，随载频升高 ENOB 结构性下降 | **支撑** a) 的"互锁"声明——这个论证 2007 年就已被系统写过，可直接引用 | ✅
+- [RQ2.3] Khilo A. et al., "Photonic ADC: overcoming the bottleneck of electronic jitter", Opt. Express 20, 4454 (2012)（[MIT 全文](https://sclaser.mit.edu/documents/KhiloPhotonicADC.pdf)）| 用锁模激光超低定时抖动做光采样，绕开电子抖动 | 支撑 a)；**但注意差异化**：光子 ADC 路线仍是"先把整个时间轴数字化再算"——只是把采样前端换成光的，后端 ADC 量化和 DSP 功耗一分不少。我们（色散前端在检测前完成匹配滤波）与光子 ADC 是**不同层级**的方案：它优化采样器，我们消掉采样需求本身（黄超然 OSP 同款论证结构）| ✅ 差异化区间明确
+- [RQ2.2] 数字脉压功耗：检索到多为实现论文（Golubicic 2013 等），实测功耗数字稀少；CORE 博士论文（低功耗相控阵气象雷达）有 FPGA 脉压实现细节但未给 pJ/样本 | **暂缺硬数字**；可先用行业常识区间锚定：28–16 nm FPGA 信号处理实测能效 ~10–50 GFLOPS/W，10 GS/s × 复数 FIR（TBP~10³ tap）≈ 10¹³ MAC/s → **百瓦级**；与 TI ADC 的 4 W 合起来，"电子方案做 10 GHz 带宽脉压 ≈ 10–100 W 级"是安全口径 | 支撑 a) 量级判断，写论文前需找 1–2 篇给实测功耗的雷达处理 FPGA 文献坐实 | 部分触发
+
 ### 待办（下一批）
 
-- RQ2.2：数字脉压/匹配滤波 FPGA/ASIC 功耗实测数字；
-- RQ2.3：光子 ADC 动机综述（找别人写过的"电子做不起"论证，划差异化区间）；
 - RQ3.1：time-stretch/色散计算占据图（部分已在 ising_literature_digest §三）；
+- RQ3.2：光子 SNN 突触/延迟实现方式梳理；
+- RQ5：各平台 |D|、延迟摆幅、ripple 对标表（用我们的核查数字定位）；
 - 用 Murmann 数据集出"fs vs fJ/step"边界图（本地脚本，标注我们目标工作点）。
