@@ -1,6 +1,6 @@
 # 任务日志 / 会话交接
 
-> 供新会话快速对接。最近更新：2026-09-24 21:25
+> 供新会话快速对接。最近更新：2026-09-25（防幻觉核查全部完成，见第六节）
 > 主线任务：KGFP Call 2027 申请（Concept Note）+ 支撑仿真（A 组容差 + M7 分类）
 
 ## 一、申请状态（Concept Note 第二版已完成）
@@ -19,7 +19,7 @@
   - ~~摆幅随 L 严格线性（Δτ=2n_gL/c，1–20 mm 偏差 ~2%）~~ **【V1 核查修正】** 摆幅随 L 线性：L≥5 mm 偏差 ≤3%（全域 R>0.5 窗口 ≤1%）；1 mm 短器件偏差 −8%~−15%（窗口效应），需切趾补偿后使用
   - D 由啁啾率决定（C=12 nm/mm → D≈1.22 ps/nm）【V1 复现一致】
   - FDTD 交叉校验：TMM D=0.046 vs FDTD 0.051 ps/nm（10%）
-  - 余弦切趾：ripple 2.85→0.09 ps（进 M1 的 0.1 ps 容限），摆幅保留 1/3 → **设计规则：0.1 ps 容限 ↔ 3× 长度**
+  - 余弦切趾：ripple 2.85→0.09 ps（进 M1 的 0.1 ps 容限），摆幅保留 1/3 → **设计规则：0.1 ps 容限 ↔ 3× 长度**（**【V1 注】** 1 mm 短器件不适用线性外推，见 C2 修正）
   - 随机相位误差（σ_λB≤0.1nm）与温漂（0.03 ps/K，梯度 1K/mm）影响可忽略；ripple 主因是端面法珀效应
   - 未覆盖：慢变相关误差（电子束剂量漂移类），后续可补
 
@@ -41,6 +41,7 @@
 - 关键数字：E1 echo+ridge 0.313 / E2 echo+MLP 0.412 / E2b 模拟速率 0.419 / E3 coord+MLP 0.526 / E4 raw+MLP 0.663 / E5b raw+LR 0.610
 - **结论：瓶颈在 echo 编码格式本身（径向直方图丢角度），不在蓄水池或二值化**；池权重 4–8 bit 量化不降性能（硬件卖点成立）
 - 90% headline 不用 ModelNet40 数字，用道路目标扫描链结果（road car/person 0.892，road vehicles 0.919/0.963）
+  - **【V8 核查修正 2026-09-25】** 删去「合成与真实惊人一致 → 生成器被背书」类表述：同预算同口径下合成 0.979/1.000 vs KITTI 0.87/0.91，**差 8–21 pt，一致性是口径不对齐的巧合**；绝对精度只引 KITTI（3 种子），合成仅用于协议对比（增益方向一致 +2.1 vs +5.1 pt）
 
 ### 真实道路数据
 
@@ -48,12 +49,14 @@
 - **KITTI 已下载并跑通全流程**（`data/kitti/` + `data/road_objects.npz`，28,746 对象）：
   - 分类实验 `snn/road_kitti_experiment.py`（train=1200/test=27,546，4 类合并 car/truck/pedestrian/cyclist）：
   - road_crossing：单次 0.657 → 扫描链 **0.766**（+0.11）；uav_cap：0.419 → 0.631（+0.21）
-  - **扫描链增益在真实数据上成立**（架构故事的核心证据）；绝对值低于合成（0.766 vs 0.89-0.96）主要是训练预算仅 1200 + 真实遮挡 + 类不平衡（truck 仅 736）
+  - **扫描链增益在真实数据上成立**（架构故事的核心证据）；绝对值低于合成（0.766 vs 0.89-0.96）~~主要是训练预算仅 1200 + 真实遮挡 + 类不平衡~~ **【V8 核查修正】** 同预算（1200）对拍合成仍 0.979/1.000 → 差距主因是**真实数据本身更难**（遮挡、类不平衡、噪声），非预算；预算只解释 0.766→0.912 的上升段（V7）
   - uav_cap 与 KITTI 车端采集几何不匹配，不作为主要场景
 - **全量预算已完成（3060 机器，2026-09-25，LiDarSim `3cc5b6f`）**：train 21,558 / test 7,188
-  - road_crossing：单次 0.872 → 扫描链 **0.923**（+0.051）；uav_cap：0.758 → 0.857（+0.099）
-  - 验收：>0.85 达标（0.923）；增益收窄至 +0.05~0.10（小预算时 +0.11~0.21）
-  - 解读：训练预算是绝对性能的主因（0.766→0.923）；扫描链价值集中在数据/SNR 受限场景
+  - ~~road_crossing：单次 0.872 → 扫描链 0.923（+0.051）；uav_cap：0.758 → 0.857（+0.099）~~
+  - **【V6 核查升级：3 种子固定划分】** road_crossing：**0.870±0.003 → 0.912±0.009（+0.042）**；uav_cap：**0.755±0.006 → 0.856±0.003（+0.102）**（与申报值差 ≤0.011，均支持）
+  - **【V7 预算扫描新增】** 5 档预算 × 3 种子 × 2 场景：两臂精度随预算**严格单调上升**（1200→21558：road +0.21/+0.15，uav +0.30/+0.25）；增益收窄 road 严格单调（+0.103→+0.042），uav 趋势收窄（最低预算档单次臂接近随机、增益偏低为例外）
+  - 验收：>0.85 达标（0.923；复核 0.912 在任务书 0.92±0.02 线内偏低沿）；增益收窄至 +0.05~0.10（小预算时 +0.11~0.21）✓ V7 实证
+  - 解读：训练预算是绝对性能的主因（0.766→0.923；V7 全程单调实证）；扫描链价值集中在数据/SNR 受限场景（小预算下增益更大：uav 1200 档 +0.15~0.20 vs 全量 +0.10）
   - 对方已把 `isal_range_profile.py` 的 D:\ 硬编码改为仓库相对路径，本机 pull 后验证通过
   - 经验：上一轮 12h 运行是笔记本睡眠挂起的墙钟假象，真实计算量小得多（全量 GPU ~10–20 min）
 
@@ -90,15 +93,16 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 仓库内 npz 仍是旧提取值（21.9 nm/µm、444/cm）——GPU 主机优先执行 V2 重提取。
 分支：`verify/2026-09-25`，结果写 `results/verify/`。
 
-**【V1–V4/V9/V10 已执行完毕 2026-09-25，无 GPU 主机】**
-- 总结：`results/verify/SUMMARY.md`（17 条逐条结论 + 必改表述 + blocked 清单）
-- 修正：C2（1mm 偏差 −8%~−15%）、C7（→40.65 nm/µm）、C8（→607/cm）、lab-note κ 表、ripple 口径、C1 α 口径、Si 行 n_g
+**【核查任务全部完成 2026-09-25，本机 CPU；17/17 条结论已判定】**
+- 总结：`results/verify/SUMMARY.md`（17 条逐条结论 + 11 条必改表述）；跨机对照：`results/verify/CROSSCHECK.md`
+- 判定：14 条支持/部分支持；3 条不支持——C2（1mm 偏差 −8%~−15%）、C7 原值（→40.65 nm/µm）、C16（合成≠真实，差 8–21pt）
+- V1–V4/V9/V10：修正 C2、C7、C8、lab-note κ 表、ripple 口径、C1 α 口径、Si 行 n_g；Concept Note 唯一需改 = Yu 文献标题（→ "Integrated femtosecond pulse generator on thin-film lithium niobate," Nature 612, 252–258 (2022)）
+- V5–V8 原判 blocked（无 GPU），实际全部 CPU 跑通：V5 5.5 min、V8 3.5 min、V6 ~2.5 min/种子、V7 54 min
 - 新风险点：chirp npz 物理斜坡在 `tau_r` 字段（tau/tau_g 是平台平坦分量，拿错即得 D≈0）
 - 复现脚本：`verify/v2_reextract_a1a2.py`（必须入库，已提交）、`verify/v1_recheck.py`、`verify/v3_chirp_robust.py`
 - blocked：V5–V8（无 GPU + LiDarSim 克隆网络中断仅 41M/300M+，需 U 盘拷贝或换网络 + road_objects.npz 82MB）；V10-Concept Note 段（第二版 docx 在原机 D 盘）；L1–L3（无 Lumerical）
 
-**【V6–V8 已执行完毕 2026-09-25 下午，本机 RTX 3060】**
-- 环境：torch 2.11.0+cu126（anaconda3），`KMP_DUPLICATE_LIB_OK=TRUE` 绕 OpenMP 冲突；LiDarSim 仓库经 ghfast 代理克隆（`workspace/lidar-pointnet`，HEAD 3cc5b6f，data/road_objects.npz 28,746 对象完好）
+**【V6–V8 已执行完毕 2026-09-25 下午，本机 RTX 3060】**- 环境：torch 2.11.0+cu126（anaconda3），`KMP_DUPLICATE_LIB_OK=TRUE` 绕 OpenMP 冲突；LiDarSim 仓库经 ghfast 代理克隆（`workspace/lidar-pointnet`，HEAD 3cc5b6f，data/road_objects.npz 28,746 对象完好）
 - V6（C14 支持）：KITTI 全量 3 种子 road **0.871±0.004 / 0.924±0.001**、uav 0.754±0.003 / 0.860±0.003；seed0 与申报值逐位一致（原跑=seed 0）。键名乱码实因 GBK 环境误读 UTF-8 文件，`fix_kitti_keys.py` 已产出英文键版
 - V7（C15 支持）：预算扫描 1200→21558 五档，road 增益 +0.124→+0.053 严格单调收窄，中间点补齐；旧小预算 0.657/0.766 是单种子，3 种子均值 0.630/0.754
 - V8（C16 不支持）：4 类同口径对齐后合成 scan 1.000 / 0.9994 vs KITTI 0.924 / 0.860，差 7.6/13.9 pp——合成近饱和，生成器不复现真实难度；旧「7 类合成 vs 4 类 KITTI」对比系口径错位。措辞替换见 SUMMARY §必须修改的表述 9
@@ -115,3 +119,5 @@ Obsidian 图谱视图过滤 `path:"4-plan/KGFP任务图谱"` 或 tag #kgfp-task�
 - 双机同档对照（1200/2802/4706/7706/21558 × 3 种子 × 2 场景）：两臂精度逐档差 ≤0.03（最低档为种子方差）；road 增益严格单调收窄双机确认（本机 +0.124→+0.053，原机 +0.103→+0.042）；uav 最低档非单调例外双机确认（单次臂近随机所致）
 - 申报锚点 1200→0.657/0.766、21558→0.872/0.923 双机均复现（差 ≤0.004）
 - **17 条结论全部销号**：14 支持/部分支持，3 不支持（C2、C7 原值、C16）；唯一剩余 blocked = L1–L3（Lumerical）
+- 复现脚本：`verify/v1_recheck.py`、`verify/v2_reextract_a1a2.py`、`verify/v3_chirp_robust.py`（本机）；V5–V8 脚本在 `lidar-pointnet/snn/`（`road_kitti_verify_v67.py` 支持 `--v6-only/--v7-only/--scenario=` 断点续跑；另有本机 `road_kitti_verify.py`、`road_vehicles_verify.py`、`fix_kitti_keys.py` 未推送远端，待用户决定）
+- 仍 blocked：L1–L3（本机无 Lumerical，需原机 E 盘 v252）
