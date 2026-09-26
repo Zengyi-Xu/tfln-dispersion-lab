@@ -708,3 +708,15 @@
 - 检查中转夹（sim11 回执/用户指令）；
 - sim11 到后：验收（5 条+标定对照）→ 批 74 + RECEIPT_sim11；通过后回灌 rc_tutorial §5.4 盟友价值③（"盟友切口"→"仿真验证"）+ 任务书口径（1 THz 间隔梳 D 需求降 10×）写进机会清单；
 - 若仍无回执：Cuevas 后续 arXiv:2602.18110（空间孤子扩展）或 Jiang 2024 三类退火机基准（被引 22）精读。
+
+## 2026-09-26 第七十四批：Jiang 2024 三类退火机第三方基准精读（"不碰经典基准"弹药补强）
+
+- [获取] [Jiang/Shu/Lin, "Benchmarks and Recommendations for Quantum, Digital, and GPU Annealers in Combinatorial Optimization", IEEE Access 12, 125014 (2024)](https://ieeexplore.ieee.org/document/10665740)（inspirehep PDF 镜像，6 页正文+表，`.tmp/jiang2024.pdf/.txt`）。台湾中央大学 CS 组=无光子利益方的第三方。
+- [关键数字] QA(D-Wave Advantage)/DA(Fujitsu DAU-3)/GPUA(Compal Quantix) × 8 类 COP × 经典 SOTA：**执行时间榜首计数 CA 42 / DA 13 / QA 2 / GPUA 1**；QA 长耗时主因=分解+嵌入映射税；其结论与 Mohseni 2022 总判决互洽（机会在 CA 未深耕的新问题）。
+- [回灌] digest §诚实性警示新增条目+引用句式（"连最佳商用退火机执行时间榜首率仅 13/58"）；方法论（双轴排名+X/IS/N/A 协议）与我们 06-10 的 success/tts 口径兼容确认。
+
+### 待办（下一批）
+
+- 检查中转夹（sim11 回执/用户指令）；
+- sim11 到后：验收（5 条+标定对照）→ 批 75 + RECEIPT_sim11 + rc_tutorial §5.4 回灌；
+- 若仍无回执：arXiv:2602.18110 空间孤子稿或 Tatsumura SBM 多片扩展（批 73 表内 10⁵ 级条目）精读。
