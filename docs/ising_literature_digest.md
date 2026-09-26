@@ -221,7 +221,7 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
 | Kawahara 组 CMOS 退火芯片族 | 3×16k=49k 自旋（Takemoto 2021）→ 36×22nm LSI=147k 自旋（2024，4096 自旋/LSI+1 控制 FPGA） | **对 CPU：速度快 233×、计算能耗低 972×**（3×16k 系统实测，SG3 算法） | 已演示；能耗锚点是 ASIC 对 CPU 口径，非对光子 |
 | Hitachi 式 CMOS annealing 芯片 | 2×10⁴ 自旋单片 | SRAM 工艺原生 | 已演示（ref：20k-spin Ising chip） |
 | Toshiba SBM 多片扩展 | 10⁵ 自旋级全连接 | FPGA 集群 | 已演示（Tatsumura, Nat. Electron. 4, 208 (2021)；Kashimata, IEEE Access 12, 36606 (2024)） |
-| **百万 p-bit 概率计算机** | **10⁶ p-bits**（arXiv:2606.25313，2026-06） | 可编程概率计算 | 预印本，rq 77 新增——数字/物理混合对手已到百万级 |
+| **百万 p-bit 概率计算机** | **10⁶ p-bits**（[Aadit/Camsari 组 UCSB，arXiv:2606.25313 (2026-06)](https://arxiv.org/abs/2606.25313)，FPGA 组网破单片极限） | **Gibbs 采样 >10¹² 次翻转/秒**；权重全存片上本地存储，片间只换 1-bit 边界态；3D EA 自旋玻璃+Max-Cut+SAT 演示 | 预印本（rq 78 摘要级精读）；**分区保真由单时序比 η=f_comm/f_pbit 阈值决定=分布式随机动力学的通用吞吐-精度权衡**——与我方"GD 调度控制相互作用时序"概念同族可引用 |
 | **对照轴·耦合激光空间 PIM（光子侧估计）** | 1000 自旋×10⁶ 耦合 @1 GHz 腔 | **~2 PFLOPS 有效算力 ≈ H100 FP8（1.98 PFLOPS），功耗 ~13 W vs H100 ~700 W** | **估计值**（SLM 存储+注入光功率），非实测 |
 | 光子存储能耗估计 | — | 40 fJ/MAC @8 bit（50 dB SNR），4 bit 再降 250×；TFLN DOPA 增益 55 dB/cm/√W，1 cm 波导 1 W 峰值/200 mW 平均补偿扇出 | 估计值 |
 

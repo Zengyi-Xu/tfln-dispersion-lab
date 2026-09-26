@@ -756,3 +756,14 @@
 - 检查中转夹（sim11 回执/用户指令）；
 - sim11 到后：验收（5 条+标定对照）→ 批 78 + RECEIPT_sim11 + rc_tutorial/digest §五 #9 升级；
 - 若仍无回执：arXiv:2606.25313 百万 p-bit 稿精读（一手数字替换预印本条目）。
+
+## 2026-09-26 第七十八批：百万 p-bit 稿（arXiv:2606.25313）摘要级精读——一手数字替换预印本条目
+
+- [精读] [Aadit/Zhang/Chowdhury/.../Srimani/Camsari（UCSB），"Programmable Probabilistic Computer with 1,000,000 p-bits", arXiv:2606.25313 (2026-06)](https://arxiv.org/abs/2606.25313)：FPGA 组网破单片极限；**Gibbs 采样 >10¹² 翻转/秒**、权重全在片上本地存储、片间仅 1-bit 边界态交换；演示 3D EA 自旋玻璃/Max-Cut/SAT。**核心科学点：分区采样保真由单时序比 η=f_comm/f_pbit 阈值决定，低于阈值残能仍幂律衰减但指数变小=吞吐-精度通用权衡（cluster 平均场模型复现）**——与 09 碰撞调度器"GD 控制相互作用时序"概念同族，相关工作段可引为"分布式物理计算的时序比纪律"对照。
+- [回灌] digest 基准表 p-bit 行升级为一手数字+η 纪律注。
+
+### 待办（下一批）
+
+- 检查中转夹（sim11 回执/用户指令）；
+- sim11 到后：验收（5 条+标定对照）→ 批 79 + RECEIPT_sim11 + 文档升级；
+- 若仍无回执：rc_tutorial §六/§七 与批 52–78 对齐检查（同批 76 对 digest §五的做法）。
