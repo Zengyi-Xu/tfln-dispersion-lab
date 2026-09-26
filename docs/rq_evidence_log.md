@@ -781,3 +781,26 @@
 - 检查中转夹（sim11 回执/用户指令）；
 - sim11 到后：验收 → 批 80 + RECEIPT_sim11 + §七.2/§五 #9 标定值→验收值；
 - 若仍无回执：docs 全面一轮只读校对（口径一致性：sync 三文档数字互引是否自洽），或新 arXiv 扫描（reservoir computing thin-film lithium niobate 2026）。
+
+## 2026-09-26 第八十批：Yorke 双稿警报——CBG 作无源蓄水池概念层被独立提出（13 天前新稿）
+
+- [警报·精读摘要级] [Isaac Yorke（独作），"Chirped Bragg Gratings as Passive Photonic Reservoirs: An Experimental Proof-of-Concept for Temporal Information Processing", arXiv:2609.14405 (2026-09-13)](https://arxiv.org/abs/2609.14405)：硅光 CBG 实测 GD+反射系数 → 分布式延迟模型 → 标准记忆容量（MC）表征+线性读出；作者自称 "early proof-of-concept, not a complete reservoir computer"。**威胁=中高**：占了"CBG 作无源蓄水池基底的概念验证+MC 表征"格子。
+- [划界六条] ① 纯线性无源+线性读出=只能线性记忆、无非线性节点（做不了 NARMA/信道类任务）vs 我们 MZM sin²/PD 平方律链；② Si 固定 CBG vs TFLN EO 可调；③ 仅 MC 表征无任务基准 vs 任务级演示；④ 无波长域碰撞调度/GDR 工程（09）；⑤ 无事件读出；⑥ 无雷达负载。
+- [措辞红线·入零号稿纪律] **禁用"首次提出 CBG 作光子蓄水池基底"**；新颖性表述落在"非线性读出+EO 可调+任务级+系统级（啁啾轮廓设计/碰撞调度/事件读出）"。引用句式：「被动 CBG 作蓄水池的概念已被独立提出（Yorke 2026）；我们的工作解决其遗留的三缺口：非线性、可调性、任务级验证」。
+- [存档] Yorke, "Photonic Memory as a Dynamical Phase... Unified Framework with Experimental Realization", arXiv:2607.17817 (2026-07-20)：色散/非线性/驱动-耗散三记忆统一框架+硅光 CBG 实验三记忆共存（自称首次单平台）。威胁低，"色散记忆"实验背书可作正面引用。
+- [同轮扫描排除] Kong et al. npj Unconv. Comput. 2026（早已批 42 前后精读销项，rc_tutorial 行 386–416）；Science Advances aeb3077=已知 PIC-OPO；arXiv:2604.12564 米级 CBG=器件论文非计算。
+- [回灌] rc_tutorial §5.4 表加 Yorke 行（威胁中高+划界六条+措辞红线）+blockquote 存档 2607.17817。
+
+## 2026-09-26 第八十一批：sim11 全量验收通过（556 行 @ 7945HX，5/5 条）+ 诚实性注解
+
+- [验收] TASK_REQUEST_20260926_sim11 结果（c2544ae 入库，HANDOFF_SIMLOG 到）：我方独立复核 5 条全过——① 556 行 0 失败、臂/种子分布合设计；② santafe@50M A=0.986∈[0.8,1.1]、B best=0.148≤0.5A；③ **核心主张：santafe 四档 C best 全≤B best（50M 0.019 vs 0.148；200M 0.013 vs 0.209；1G 0.128 vs 0.327；4G 0.622 vs 0.655）**；④ C/D 420/420 行物理标注齐全；⑤ narma 负面对照成立（C 不优于 B）。Cuevas 方向复现（A 0.986→B best 0.148，定性同其实验 0.8→0.21）。
+- [⚠️ 诚实性注解·论文措辞红线] 最优 C 点所需 GD 斜率 36–365 ps/nm 全部 gd_feasible_eng=False（超 100 GHz 间隔 10 ps/nm 保守锚点）；工程可达子集内 C 未超 B。**GD 硬件化收益=条件式成立**：路径=更强色散器件（带边/级联）或 1 THz 模式间隔（D 需求降 10×）。该缺口=器件级强 GD 光栅 FDTD 后续仿真需求（sim12 候选，先待命）。
+- [回执] RECEIPT_20260926_sim11.md 已入中转夹回小黑。
+- [回灌] rc_tutorial §5.4 盟友价值④（验收值+诚实注解）、§七.2 sim11 状态✅；digest §五 #9 标定值→验收值。
+- [销项] 用户提供 ph4c00855.pdf=ACS Photonics 对 ph4c00003（Li 2024 TFLN OE-Ising）的 Correction：仅更正 Figure 3（CSR 格式/AMU 内构/SpMV MACC 图），不改任何结论数字——批 42 精读判定不受影响，存档即可。
+- [勘误] 本批注意到 DOWNLOAD_REQUESTS 第 1 项（ph4c00003）批 42 已精读销项，此前压缩摘要中"批82 待读 Li 2024"为陈旧待办，撤销。
+
+### 待办（下一批）
+
+- 检查中转夹（新任务/用户指令）；小黑队列已清空，可设计 sim12（强 GD 光栅 FDTD，器件级可行性验证）或其它"RC vs 其它技术"对比仿真；
+- 备选：docs 三文档互引口径只读校对；arXiv 新扫描（reservoir computing thin-film lithium niobate 2026 / photonic Ising 2026 查漏）。
