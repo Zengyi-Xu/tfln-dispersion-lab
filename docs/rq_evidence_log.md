@@ -655,3 +655,17 @@
 - 检查中转夹（sim10 回执/HANDOFF）；
 - sim10 到后：验收（任务书 5 条+标定值表+批 65 预告趋势）→ 写批 70 + RECEIPT_sim10；
 - 若仍无回执：继续 RC vs 其它技术对比方向的文献切片（候选：模拟/光子 Ising 的数字退火对照基准现状——为"不比精度比能效"叙事补弹药；或 Cuevas/Kuse 2025 微梳 RC 正文补读）。
+
+## 2026-09-26 第七十批：Cuevas/Kuse 2025 微梳频率复用 ORC 全文精读（批 59 遗留销项）
+
+- [获取] De Gruyter 主站反爬（202 空响应）；经 PMID 40970238 → PMC idconv → [PMC12442360](https://pmc.ncbi.nlm.nih.gov/articles/PMC12442360/) 拿到全文。正式引用：Cuevas/Hu/Shi/Liu/Minoshima/Kuse, "Frequency-multiplexed optical reservoir computing using a microcomb", Nanophotonics 14(18), 3063–3073 (2025)，被引 4。单位：德岛大学+IQA 深圳（刘俊秋）+UEC。
+- [精读要点] 孤子微梳（Si₃N₄，Q_loaded=7×10⁶，线宽 28 MHz，FSR 100 GHz，泵浦 200 mW）梳齿=节点；输入经 DP-MZM 载波抑制单边带调到泵浦失谐；记忆=腔光子存储（瞬态振荡周期 ~6 ns，持续 >100 ns）；仿真 60 齿 Santa Fe NMSE 0.015@50 MSa/s（最优归一化调制率≈2）、NLEQ SER 降 >10×@100 MSa/s；实验 37 齿 Santa Fe 0.081±0.006（最优 0.061）、NLEQ SER 0.0635±0.004@SNR40；读出实验为电子域串行扫齿，微环权重阵列（add-drop+BPD 正负权重）仅提案；ASE 噪声限 SNR 20–25 dB。
+- [关键判定·盟友切口] **模式间随机延迟是其实验最强单一杠杆（NMSE 0.8→0.21→0.081），但他们没有片上模式相关延迟器件，只能后处理 trial-and-error——我们的啁啾光栅 GD 正是确定性可设计的波长相关延迟元件，可把该技巧硬件化**。引用句式与划界五条（腔寿命记忆 vs 几何 GD 记忆/孤子稳频环 vs 无源免稳定/Si₃N₄ 外置 EOM vs TFLN 原生 EO/ASE 噪声/基准任务）已回灌 rc_tutorial §5.4 表+盟友价值③。
+- [附带证据] 失谐工作点敏感性（蓝边 0.064 vs 红边 0.17）=跨平台工作点定标共识又添一条实验证据（与 Ds-PRC/06 sin 失效区同族）。
+- [存档] arXiv:2602.18110（"Cavity Solitons as a Nonlinear Substrate for Photonic Neuromorphic Computing"，alphaxiv 二级来源）自承是 Cuevas 2025 的空间孤子扩展——频率复用 RC 血统链再延一代，暂不精读。
+
+### 待办（下一批）
+
+- 检查中转夹（sim10 回执/HANDOFF）；
+- sim10 到后：验收（任务书 5 条+标定值表+批 65 预告趋势）→ 写批 71 + RECEIPT_sim10；
+- 若仍无回执：数字退火对照基准现状调研（"不比精度比能效"叙事弹药）或 digest §五机会清单与新证据的对齐检查。
