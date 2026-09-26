@@ -128,6 +128,11 @@ Queen's/McGill/Shastri/Plant + Milkshake Technology，[全文](https://arxiv.org
   128 GBaud=240）；⑤ 功耗：QD SOA 1.19 W 占大头，单通道 48 GOPS/W，
   并行投影 2.34 TOPS/W；⑥ 更新方程 σ(t+1)=(I−βJ)σ−αh+ξ 有 Pramanik 收敛
   理论背书（递减步长调度可证收敛，实验未实现——我们 06b 可补）。
+  **⚠️ 实验锚点更新（rq 第六十一批）**：Chen/Zhang 2026 IPIM（重庆大学+中大
+  刘洁组，SOI 热光 MZM，Research Square 预印本 2026-09-09）的 **OPCS=分相
+  调度（先高 α 低 β → 后低 α 高 β）在 10.24 万自旋实测把迭代数砍 >50%**，
+  机理=缓解 domain freezing——递减/分相调度自此有大规模实验先例，06b 的
+  调度族从"仿真主张"升级为"实验趋势一致"。
 
 ### 我不懂 → 自己复现检验的点（simulations/06 的第一手结果）
 
