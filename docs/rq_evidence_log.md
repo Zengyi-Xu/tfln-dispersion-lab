@@ -669,3 +669,17 @@
 - 检查中转夹（sim10 回执/HANDOFF）；
 - sim10 到后：验收（任务书 5 条+标定值表+批 65 预告趋势）→ 写批 71 + RECEIPT_sim10；
 - 若仍无回执：数字退火对照基准现状调研（"不比精度比能效"叙事弹药）或 digest §五机会清单与新证据的对齐检查。
+
+## 2026-09-26 第七十一批：小黑 sim10 collision_ising 验收（✅ 56/56，任务书 5 条全过）
+
+- [验收通过] `results/collision_ising/results.jsonl` @ 6453c1a：① 56 行 ok=false=0，臂分布 A/M/B/D=12、C=8 ✅；② 臂 D sw3/10/30 self=0.934/0.916/0.881，30× 失箝仅 −5.6%、无灾难失效 ✅；③ 臂 B GDR 代价 1.5%/1.3%/0.7%（vs M gauss 0.934）<10% ✅；④ C exp3 self 0.956 ≥0.95 ✅，C pow15 target_ratio 0.804（0.758–0.827）首次测量入档 ✅；⑤ A/M/D(exp3) bk_real 4 inst 浮点精确逐位相等 ✅。三个"非 bug"预告（失箝不失效/M>A/C pow15 self>1.0）全部确认。
+- [勘误·我方] 对账时我一度把 C pow15 target_ratio 算成 0.639（误用 bk_real/bk_tgt），脚本定义 target_ratio=E(J_tgt,best_s0)/bk_tgt → 0.804，与小黑 HANDOFF 一致。**我方计算口径错误，双方数据无分歧**；bk_real/bk_tgt 与 target_ratio 是两个不同量，入档防再犯。
+- [schema 注记] A/M/B/C 臂无 `swing` 键（仅 D 臂有），双方如实入档，不补 null 不改脚本。
+- [科学结论升级] sim10 四条设计层结论 → 验收级：**① 单调 XGM 混频器是正贡献不是代价（M 臂 exp3 +7.1%、gauss +3.9% vs A 臂，压缩场整形 4inst×3 核成立）；② 增益定标纪律对象=非单调性而非摆幅；③ GDR（A=3ps）对结构化伊辛核几乎无损；④ 09 拟合核可用且 pow15 实现核比目标核更好解（self 0.969、succ 0.55、tts 233 全场最优）**。
+- [回灌] sim10_design_draft.md 新增 §11 验收结果表；wan_compatibility.md 风险 2 标记解除、切口 D 论据升级为可引用级（仿真级证据口径）；RECEIPT_sim10_20260926 已入中转夹；HANDOFF_sim10/SIMLOG 对账一致销项。小黑队列全部清空。
+
+### 待办（下一批）
+
+- 检查中转夹（用户新指令/新 HANDOFF；注意 HANDOFF_XIAOBAI_background_slides/transceiver_fig1 属 PPT 会话，不碰）；
+- 小黑队列已空：可设计下一任务书（候选：sim11=微梳 RC 的模式间延迟硬件化验证——把批 70 Cuevas 杠杆做成我们的 GD 引擎演示；或 L1-L3 之外的重型仿真需求）；
+- 文献切片：数字退火对照基准现状（"不比精度比能效"弹药）。
