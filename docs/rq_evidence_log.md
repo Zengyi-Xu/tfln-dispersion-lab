@@ -642,3 +642,16 @@
 - 检查中转夹（sim10 回执/HANDOFF）；
 - sim10 到后：验收（任务书 5 条+标定值表+批 65 预告的三个"非 bug"趋势）→ 写批 69 + RECEIPT_sim10；
 - 若仍无回执：arXiv 新一轮扫描（photonic local field readout / optical MVP Ising 同族普查，spQUBO 互补定位点防漏档）。
+
+## 2026-09-26 第六十九批：arXiv 同族普查（optical MVP/局域场读出方向）——hex mesh 入档，SPIM 校准存档
+
+- [扫描] 围绕 spQUBO 互补定位点（卷积耦合光学 MVP 空白）与"photonic local field readout"两关键词扫描，命中 2 篇新稿。
+- [入档·低威胁但重要信号] [Rausell-Campo/Al-Kayed/Pérez-López/Aadhi/Shastri/Capmany, "Ising accelerator with a reconfigurable interferometric photonic processor", arXiv:2511.13284v2 (2025-11)](https://arxiv.org/abs/2511.13284)：UPV hex mesh 通用可编程光子平台做伊辛耦合层，电子退火环+可重构 MVM，实验 3 节点铁磁+4 节点 Max-Cut、仿真 N=50 >80%。**作者含 Al-Kayed（CMIM）与 Aadhi（百万自旋综述）=Shastri 生态圈已同时押注干涉网格耦合路线**。划界：逐元热调相移器功耗随 N² 涨 vs 我们色散几何零逐元调制；实验规模极小。"耦合层竞赛升温"由推测升级为事实，已回灌 wan_compatibility.md §6 风险 1。
+- [存档] [Karanikolopoulos et al., "Precision Hamiltonian Encoding in Full-Aperture SPIM", arXiv:2602.13714 (2026-02)](https://arxiv.org/abs/2602.13714)（Savvidis/Conti/Berloff/Tsintzos）：SPIM 全孔径标定（波前检索 <λ/40+相互作用归一化），方法学论文，与片上路线距离远，非威胁。
+- digest §二版图表新增两行（hex mesh、全孔径 SPIM 校准）+hex mesh 划界注。
+
+### 待办（下一批）
+
+- 检查中转夹（sim10 回执/HANDOFF）；
+- sim10 到后：验收（任务书 5 条+标定值表+批 65 预告趋势）→ 写批 70 + RECEIPT_sim10；
+- 若仍无回执：继续 RC vs 其它技术对比方向的文献切片（候选：模拟/光子 Ising 的数字退火对照基准现状——为"不比精度比能效"叙事补弹药；或 Cuevas/Kuse 2025 微梳 RC 正文补读）。

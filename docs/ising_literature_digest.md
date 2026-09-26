@@ -54,11 +54,21 @@ arXiv:2607.13446 (2026)](https://arxiv.org/abs/2607.13446)（McMahon/Shastri/Yam
 | **TFLN 片上光电 IM** | [Li et al., ACS Photonics 11, 1703 (2024)](https://pubs.acs.org/doi/abs/10.1021/acsphotonics.4c00003)（中大刘洁/余思远组） | 片上可扩展 | TFLN 调制器混合集成 | 片上 |
 | **TFLN χ² 纳米光子 OPO** | [Gray/Sekine/Ledezma/Marandi, arXiv:2405.17355 (2024)](https://arxiv.org/html/2405.17355v1) 大规模时分管 OPO | 大规模阵列演示 | **TFLN χ²** | 纳米光子片上 |
 | QD 激光器 LI | Wan 组草稿 | 22,500 | QD 激光器 LI | 单片 III-V |
+| **可编程干涉网格（hex mesh）** | [Rausell-Campo/Al-Kayed/Pérez-López/Aadhi/Shastri/Capmany, arXiv:2511.13284 (2025)](https://arxiv.org/abs/2511.13284) | 实验 3–4 节点，仿真 N=50（>80%） | 电子退火环+网格 MVM | 片上通用可编程光子平台 |
+| 全孔径 SPIM 校准 | [Karanikolopoulos et al., arXiv:2602.13714 (2026)](https://arxiv.org/abs/2602.13714)（Savvidis/Conti/Berloff/Tsintzos） | SPIM 标定方法学（<λ/40 波前+耦合归一化） | SLM 相位 | 自由空间 |
 
 **交叉检验结论**：TFLN 在伊辛机里已有三条独立路线（EO 调制器时分环、片上光电 IM、
 χ² OPO-CIM），我们的 MZM sin² 非线性做激活的路线并不孤独——Al-Kayed 2025 已经用
 级联 TFLN MZM 做到了 OEO 类伊辛机的最大自旋数。这既是利好（路线被验证）也是警示
 （先发优势在别人手里，我们需要差异化：色散元件/慢读出/和 RC 的统一）。
+
+**hex mesh 条目划界（rq 第六十九批）**：2511.13284 来自 Shastri 生态圈
+（Al-Kayed/Aadhi 均在作者列）+ UPV 可编程光子平台——说明"干涉网格做伊辛耦合层"
+已被同一生态占位。但其耦合靠逐元热调相移器（功耗随 N² 涨、实验只演示 3–4 节点），
+我们"耦合存进色散几何、零逐元调制"的划界反而更干净；同时它把"耦合层竞赛在升温"
+从推测升级为事实（wan_compatibility.md §6 风险 1 的新数据点）。
+2602.13714 是 SPIM 标定方法学（波前检索 <λ/40 + 相互作用归一化），与片上路线
+距离远，存档即可，不作为威胁。
 
 ### Marandi 组 TFLN 时分管 OPO 芯片精读（arXiv:2405.17355 全文）
 
