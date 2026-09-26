@@ -272,6 +272,17 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
      RTO 数字读出）；⑤ 雷达时间模式负载（vs 基准任务）。盟友面：其"任意
      满秩混合矩阵+训练读出吸收"的容差论据可直接引用为我们 GD 混合的实验
      支撑；其光学读出（MRR 权重库）仅提案未实测，与我们读出开放问题同病。
+   - **光子 NGRC 家族谱（rq 第五十八批普查，6 家，NRL 独占 3 家）**：
+     时间域 Cox 2024（光纤 Rayleigh 散射，Chaos 34, 073111）/ **频率域
+     FM-NGRC（Cox/Redding，APL Photonics 10, 036122 (2025)，实验）——
+     EO 梳 9 齿+100 km DCF=波长复用延迟抽头，Waveshaper 逐齿训练权重=
+     模拟读出层，5 GS/s 实时信道均衡 SER 2e-3，是离我们最近的一家**（"梳+
+     色散+训练式模拟读出"整套已被占；划界=台式固定 DCF vs 片上可调啁啾
+     CBG、离散齿 vs 连续 GD 核、电信均衡 vs 雷达）/ 空间域 EPFL 2024
+     （散斑）、Wang 2024（片上星型耦合）、NLPO 2026（arXiv:2606.14052，
+     波导阵列，仿真，电信均衡）/ 双 MZM Ding/Pei 2026。**战略信号：物理
+     NGRC 赛道快速拥挤化，相关工作段必须用"家族内差异化"框架，我们的
+     三一体=可调连续色散+片上 TFLN 原生+雷达时间模式负载（+事件读出）。**
 10. **对冲证据：NGRC 的"数据越多越不稳定"失败模式**（全文已读）：
     [Zhang & Lai, "How more data can hurt: Instability and regularization in
     next-generation reservoir computing", Chaos 35, 073142 (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12221348/)
