@@ -439,3 +439,13 @@
 - 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）；
 - 把 spQUBO 互补定位回灌 digest §五 #8（与 rc_tutorial §七.6 同步）；
 - 若仍无回执：起草"光学 MVP vs 光学能量读出"对比段的写法建议（供零号稿相关工作段用）。
+
+## 2026-09-26 第五十四批：百万自旋综述引用对账 + "光学 MVP vs 能量读出"写法建议
+
+- [对账] 百万自旋展望（Aadhi/McMahon/Shastri/Yamamoto，arXiv:2607.13446）全文检索：**未引 spQUBO**（"SPIM 算不了光学 MVP"这个空白尚不为综述层面所知——我们互补定位的新鲜度确认）；其 Box 1 分类学（空间=衍射/MZI 网格；波长=微环权重库/交叉阵列；时间=延迟线+级联 EO 调制）**不含色散 GD 调度耦合**——权威综述层面我们的格子是空的，这是比逐篇先占核查更强的空白证据；另记：该综述认可 TFLN SLM/EO 调制器为"高可重构 IM 的硬件进展"（可引）。
+- [文档] 新建 `docs/optical_mvp_positioning.md`：相关工作段写法建议（一句话版+展开版 4 段+诚实边界 3 条+引用清单），供零号稿用；不改零号稿本身（11 条更新清单仍待用户拍板）。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）；
+- 若仍无回执：rc_tutorial §九证据索引补 spQUBO/optical_mvp_positioning 条目（小修），或 arXiv 第三轮扫描（event-based photonic readout / level-crossing ADC photonics——为 RQ4 接口叙事补文献面）。
