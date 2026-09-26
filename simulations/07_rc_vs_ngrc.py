@@ -451,10 +451,10 @@ def aggregate():
                                             if rr["task"] == task},
                                            default=-1)]
             summ[task][arm] = {"big_mean": float(np.mean(big)) if big else None}
-    nd = [r for r in rows if r["task"] == "lorenz" and r.get("diverged")]
+    lo_all = [r for r in rows if r["task"] == "lorenz"]
     summ["lorenz_diverged_frac"] = {
-        arm: float(np.mean([r["diverged"] for r in nd if r["arm"] == arm]))
-        if any(r["arm"] == arm for r in nd) else None for arm, _ in arms_lo}
+        arm: float(np.mean([bool(r["diverged"]) for r in lo_all if r["arm"] == arm]))
+        if any(r["arm"] == arm for r in lo_all) else None for arm, _ in arms_lo}
     with open(os.path.join(OUT, "summary.json"), "w", encoding="utf-8") as f:
         json.dump(summ, f, indent=1, ensure_ascii=False)
     print(json.dumps(summ, indent=1, ensure_ascii=False))
