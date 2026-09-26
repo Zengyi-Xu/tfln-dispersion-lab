@@ -567,3 +567,15 @@
 - 检查中转夹（06b 回执、07 聚合器修复 commit）；
 - 06b 到后：验收 → 定稿 sim10 任务书（OPCS 分相臂对照已备）；
 - 若仍无回执：文献主线切片（片上非线性×新方向：χ²/χ³ 光子学最新综述扫描）。
+
+## 2026-09-26 第六十三批：神经形态光子学 Roadmap 2025 格子核查（130+ 作者权威文档，三格子全空确认）+ Yildirim 2023 补档
+
+- [权威文档入档] Brunner, Shastri et al.（130+ 作者），"Roadmap on Neuromorphic Photonics"，arXiv:2501.07917（JPhys Photonics 2025），全文转文本 `.tmp/roadmap2025.txt` 已存档 | **格子核查三结果**：① **色散在分类学里只出现为"卷积加速器"**（Fig 1(c) chromatic dispersion convolutional processor [Xu21]=微梳横向滤波线）与 MMF/液芯光纤的慢速可调（温控/应力/光折变，1520 行）——**色散 GD 作为 RC 记忆/调度本体不在路线图的任何分类里，格子在路线图层面空置**（与百万自旋综述对 IM 的核查互证）；② **事件读出**：spiking 节全是神经元级实现+事件视觉传感器（流式细胞术），**无接口级事件读出讨论**——RQ4 在路线图层面同样空置；③ RC 应用节自承"电信信号处理主导、用例太少是领域挑战"（1830/1837 行）——雷达时间模式负载恰是路线图点名的空白方向。
+- [文献判定·先占，中低] Yildirim, Oguz, Kaufmann, Reig Escalé, Grange, Psaltis, Moser, "Nonlinear optical feature generator for machine learning", APL Photonics 8, 106104 (2023)，被引 23（EPFL+ETH Grange；Roadmap 引作 [Yildirim22]）| **14 mm LNOI 波导，飞秒脉冲光谱编码数据 → χ²/χ³ 非线性变换输出光谱 → 数字线性分类器，多个数据库精度 +10%、参数量省 20×** | 占用："LNOI 波导材料非线性=光学特征生成器"概念（静态 ELM 式，**无记忆/无延迟结构、不可调、基准分类任务**）| 对我们：digest §五 #7"χ²/χ³ 材料非线性提供高阶特征"获得 LNOI 实验先例——**引用作盟友**（材料非线性特征生成可行性的实证）；划界=我们有 GD 延迟记忆+EO 可调+时序负载，他们是无记忆静态变换。
+- [盟友素材] Roadmap PPLN 节（Marandi 线）：PPLN 纳米波导 ReLU 激活 16 aJ/75 fs、全光开关、单片 TFLN 全光 NN 愿景（PPLN+EOM+腔+耦合器）——零号稿"TFLN 平台超越调制器"叙事的最权威背书；另有"传统 OSP 元件（DCF/HNLF/PPLN/SOA）体积大、不可重构"的自述（3080 行）=我们可调性论据的路线图级引用。
+
+### 待办（下一批）
+
+- 检查中转夹（06b 回执、07 聚合器修复 commit）；
+- Roadmap 回灌：rc_tutorial §5.4 注一行（路线图层面三格子空置确认）、digest §五 #7 补 Yildirim 2023 盟友引用；
+- 06b 到后：验收 → 定稿 sim10 任务书。
