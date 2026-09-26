@@ -417,3 +417,13 @@
 
 - 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）；
 - 若仍无回执：arXiv 定向检索第二轮（structured Ising / Rydberg-inspired photonic coupling / power-law coupling analog simulator——为 sim10 问题集补文献定位句）。
+
+## 2026-09-26 第五十二批：spQUBO 先占判定（结构化耦合叙事有正式先占，划界三条）+ 例行扫描第二轮
+
+- [文献判定·先占，中] Yamashita, H. et al., "Spatial QUBO: Convolutional Formulation of Large-Scale Binary Optimization with Dense Interactions", arXiv:2506.24008（v1 2025-06, v2 2026-01，NTT 系，摘要级）| **核心：为 SPIM（自由空间 SLM 伊辛机）提出空间卷积结构 QUBO——平移不变耦合作为光子 IM 天然问题类；证明任意 spQUBO 可归约到 2D 卷积并免复用 SPIM 实现；应用=布局/聚类等距离问题；自承卷积结构可用 FFT 数字高效计算** | **对 sim10 的影响**：我们"Toeplitz/距离依赖耦合=结构化伊辛天然硬件"的叙事不再是空白——划界三条（自由空间 SLM Hz–kHz vs 片上波长域 GHz；2D 空间卷积+布局聚类 vs 1D 链/幂律物理模型；FFT 可算→结构化耦合不构成问题类排他，主张必须落在速率/能效与免 SLM/复用上）。已写入 `docs/sim10_design_draft.md` §1 | 威胁面：不占"波长域 GD 调度耦合"的格子（SPIM 靠空间光调制，无波长维度），引用作正式先占+划界。
+- [连锁] 百万自旋综述 arXiv:2607.13446（已读）大概率已引 spQUBO——综述引用表对账时可顺带确认；本扫描其余命中（Rydberg 原子 ladder、超导量子比特耦合）与光子平台无关，不展开。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 09/08b/06b 回执、07 聚合器修复 commit）；
+- 若仍无回执：spQUBO 全文精读（HTML 版可及，确认其 SPIM 耦合实现的细节与我们划界是否稳固——摘要级判定升级为全文级）。
