@@ -477,3 +477,17 @@
 - 检查中转夹（小黑 08b/06b 回执、07 聚合器修复 commit）；
 - 06b 到后：定稿 sim10 任务书发小黑；
 - 备选：OET 综述 RC 节精读（确认 60 GHz FF-RC 的出处是否与已入档的 Zhang/Wen/Zou 同一篇，避免重复计数先占）。
+
+## 2026-09-26 第五十七批：Wang 2024 片上光子 NG-RC 先占判定（"片上 NGRC 化"叙事的最强实验先占，威胁=高，划界五条）
+
+- [文献判定·先占，高] Wang, K. et al.（CUHK，Chaoran Huang 组）, "Ultrafast silicon photonic reservoir computing engine delivering over 200 TOPS", **Nat. Commun. 15, 10841 (2024)**，DOI 10.1038/s41467-024-55172-3，被引 129，PMC11686264 全文已读 | **架构：SOI 芯片，8 条离散延迟线（16.7 ps 步进=60 GBaud 符号周期，1.18 mm Si 波导）→ 星型耦合器（9 进 45 出，0.04 mm²，含延迟线共 2 mm²）→ 非线性=探测器平方律（Eq.4：每个 PD 输出=常数+线性+二次多项式特征的混合，即光学实现的 Volterra 特征展开）→ 数字读出（实验用 256 GSa/s RTO；光学读出方案=MRR 权重库+BPD 热调，未实测）** | 数字：Santa Fe NMSE **0.029**（仅 45 特征，Fig 3d 自称最小维度+最快速度的 SOTA）、NCE、NARMA10、COVID-19 X 光分类；**211 TOPS、5.1 W、41 TOPS/W**（比 H100 的 0.15 TOPS/W 高两个数量级）；可扩 >5000 输出节点、可 WDM；输入调制器是分立 TFLN（LIOBATE 40 GHz，Vπ≈3 V）；容差论据：星型耦合器任意满秩传输矩阵都行、读出训练吸收；高阶多项式：级联输入调制器可实现 3–4 阶（Supplementary Note 9）。
+- **对我们的影响（需立即修订 rc_tutorial §七.4）**：rc_tutorial "片上 NGRC 化"叙事此前记录的最强先占是 Ding/Pei 2026（分立光纤组件，Nat. Mach. Intell.）和 EPFL arXiv:2404.07857（自由空间 SLM）——**Wang 2024 是片上+实验+60 GHz+Nat. Commun. 四重占据，比两者都强，实质上压缩了"片上 NGRC"大格子的空白度**。剩余划界五条（全部可辩护）：① **延迟轴：他们 8 条固定离散延迟线（硬连线 60 GBaud 符号率锁定），我们色散 GD 连续且可调（CBG 调 D 即调延迟分布）**；② 混合域：他们空间域星型耦合器（满秩矩阵，无结构），我们波长域 GD 调度（结构化、可设计核——09 结果恰好证明结构化核的价值）；③ 平台：SOI 芯片+分立 TFLN 输入调制器 vs TFLN 原生（电光系数非线性/MZM 啁啾在片）；④ 读出：256 GSa/s RTO 数字读出 vs 事件读出（08/08b 线）；⑤ 负载：基准任务（Santa Fe/NARMA）vs 雷达时间模式（ISAL/M4 线）。
+- [盟友面] 其容差论据（任意满秩混合矩阵+训练读出吸收）对 GD 混合同样成立——可直接引用为我们的宽容差论据的实验支撑；其"光学读出提案（MRR 权重库）未实测"与我们"读出接口开放问题"同病，相关工作段可同列。
+- [口径纪律] Wang 2024 的 Santa Fe 0.029 是**实验实测**（60 GBaud、45 特征）；我们 rc_tanh 仿真的 0.117–0.143 与 Ding/Pei 实验 0.155 的既有对照口径不变——任何横向对比必须标"实验 vs 仿真、维度数、符号率"三要素，禁止裸比 NMSE。
+- [对 OET 综述的对账] 批 56 记录的 OET 综述 RC 节"60 GHz/211 TOPS/41 TOPS/W"数字确认出自 Wang 2024（非光纤 FF-RC 的 Zhang/Wen/Zou）——两处引用同源，不重复计数先占。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 08b/06b 回执、07 聚合器修复 commit）；
+- 把 Wang 2024 回灌 rc_tutorial §5.4（第四家非 TFLN 先占/最强片上 NG-RC）、§七.4（差异化五条）、digest §三第 9 条（光学 NGRC 段交叉引用）；
+- 若仍无回执：arXiv 第四轮扫描（TFLN star-coupler / analog Volterra / photonic feature map——Wang 2024 同族普查，防再漏档）。

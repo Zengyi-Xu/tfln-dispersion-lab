@@ -260,6 +260,18 @@ f_n[k]   = α·x_n[k] + β·Σ_m J_mn·x_m[k]            (Eq.3, 自反馈+耦合
      缺口：目前 CBG 链路的非线性只有探测平方律（二阶），χ²/χ³ 材料非线性可提供
      更高阶、更低功耗的特征；真循环（反馈）对需要长记忆的任务仍是我们的差异化项。
      （该文已正式发表于 Light: Sci. Appl., 2025-07-21。）
+   - **⚠️ 片上版先占（rq 第五十七批，威胁=高）**：Wang/Huang 2024（CUHK，
+     Nat. Commun. 15, 10841，被引 129，全文已读）已把"延迟抽头+平方律探测=
+     片上 NGRC 特征生成器"**实验做在 SOI 芯片上**：8 条离散延迟线（16.7 ps
+     步进=60 GBaud）→ 9×45 星型耦合器 → PD 平方律 → 数字读出；Santa Fe
+     NMSE 0.029（45 特征）、211 TOPS、41 TOPS/W。比 EPFL（自由空间 Hz–kHz）
+     和 Ding/Pei（分立光纤）都强。**"机会"段的划界必须更新为五条**：① 我们
+     延迟轴=色散 GD 连续可调（vs 他们硬连线离散延迟线、锁定符号率）；
+     ② 混合域=波长域 GD 调度、核可设计（vs 空间域满秩星型耦合）；③ TFLN
+     原生（vs SOI 芯片+分立 TFLN 输入调制器）；④ 事件读出（vs 256 GSa/s
+     RTO 数字读出）；⑤ 雷达时间模式负载（vs 基准任务）。盟友面：其"任意
+     满秩混合矩阵+训练读出吸收"的容差论据可直接引用为我们 GD 混合的实验
+     支撑；其光学读出（MRR 权重库）仅提案未实测，与我们读出开放问题同病。
 10. **对冲证据：NGRC 的"数据越多越不稳定"失败模式**（全文已读）：
     [Zhang & Lai, "How more data can hurt: Instability and regularization in
     next-generation reservoir computing", Chaos 35, 073142 (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12221348/)
