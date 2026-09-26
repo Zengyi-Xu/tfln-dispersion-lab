@@ -464,3 +464,16 @@
 - 检查中转夹（小黑 08b/06b 回执、07 聚合器修复 commit、HANDOFF_09）；
 - 06b 到后：定稿 sim10 任务书发小黑；
 - 备选：把"GDR 周期混叠"写进 rc_tutorial §七（器件测量纪律）或 L 系任务备注。
+
+## 2026-09-26 第五十六批：HANDOFF_09 对账 + GDR 测量纪律回灌 + 第三轮扫描（OET 综述入档）
+
+- [对账] HANDOFF_FROM_7945HX_09 与我方批 55 独立验收**数值全部一致**（369 行、sanity 三项、GDR 3ps≈5–7%、S3 误差）。小黑透明披露两处实现 bug（S1 插值→解析反演；S3 参数化钉死→sigmoid 参数化），均为出数前修复、非数据问题，✅ 无返工。**一处 prose 口径差异入档**：回执"d* 从 ~1 到 ~870"与 summary.json（D=1.3 档 max 435.14）差 2×——回执散文可能混入 FWHM/半峰口径，数据文件无误；引用时一律以 summary.json 的 2.7–435 为准。
+- [文档] rc_tutorial 新增 **§7.3 器件测量纪律**（GDR 混叠洞察：测周期比测幅度重要；有害区 2.5–5×Δλ；到手先傅里叶分析 τ(λ) 残差周期谱）。
+- [文献入档·综述] Han, S., Shen, W., Gu, M., Zhang, Q.（USST）, "Integrated photonic synapses, neurons, memristors, and neural networks for photonic neuromorphic computing", **Opto-Electronic Technology 1(3), 250011 (2025-12)**，OA 综述 | 价值：① 2025 年底 IPNN 全景综述（突触/神经元/忆阻器×相干/并行/衍射/RC 四架构），相关工作段可引；② 其 RC 节转述前馈 RC 60 GHz/211 TOPS/41 TOPS/W（能效对标语境）；③ **其 spiking 节全部是神经元级实现（可激发激光器/PCM 微环/自脉动），没有接口级事件读出讨论**——我们"读出接口本体论"（uniform/LC/LIF，08 仿真）的框架在综述层面仍属空白，RQ4 叙事的文献面稳固 | 威胁：无（综述不占格子）。
+- [扫描] 其余命中（事件视觉边缘综述、神经形态光子学能效对比）与接口级读出无关，不展开。
+
+### 待办（下一批）
+
+- 检查中转夹（小黑 08b/06b 回执、07 聚合器修复 commit）；
+- 06b 到后：定稿 sim10 任务书发小黑；
+- 备选：OET 综述 RC 节精读（确认 60 GHz FF-RC 的出处是否与已入档的 Zhang/Wen/Zou 同一篇，避免重复计数先占）。
