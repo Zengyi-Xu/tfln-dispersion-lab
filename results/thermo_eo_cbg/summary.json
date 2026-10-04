@@ -1,0 +1,11 @@
+{
+  "n_rows": 75,
+  "D_lab_mean_ps_per_nm": -1.2283243961022143,
+  "law_max_dev_pct": 3.893631156160214,
+  "thermal_dtau_max_lab_ps": 3.4533804437511577,
+  "eo_dtau_max_lab_ps": 0.4347904547539199,
+  "thermal_dtau_max_concept_ns": 2.6564464951931983,
+  "eo_dtau_max_concept_ns": 0.3344541959645538,
+  "chirp_tunable_range_pct_ramp4e-3_N16": 9.024566145391583,
+  "ripple_baseline_ps": 2.5867812087283655
+}
